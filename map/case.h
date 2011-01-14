@@ -1,3 +1,5 @@
+#ifndef CASE
+#define CASE
 	#include <stdio.h>
 
 	#define CSIZE 5;
@@ -10,3 +12,4 @@ typedef struct {
 	int hasEnemy;
 } Case;
 
+#endif

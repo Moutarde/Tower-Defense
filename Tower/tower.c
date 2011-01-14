@@ -1,7 +1,7 @@
 	#include "tower.h"
 
-Tower* createTower(int x, int y, TypeTo type){
-	Tower *tower = (Tower*)malloc( sizeof(Tower) );
+Tower* createTower(int x, int y, TypeTo type) {
+	Tower* tower = (Tower*)malloc( sizeof(Tower) );
 
 	tower->x = x;
 	tower->y = y;
@@ -16,10 +16,10 @@ Tower* createTower(int x, int y, TypeTo type){
 	return tower;
 }
 
-int get_price(int iniPrice){
+int get_price(int iniPrice) {
 	return (70*iniPrice)/100;
 }
 
-void upgrade(Tower *t){
+void upgrade(Tower* t) {
 	t->level++;
 }

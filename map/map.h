@@ -1,3 +1,5 @@
+#ifndef MAP
+#define MAP
 	#include <stdio.h>
 	#include <SDL.h>
 	#include "case.h"
@@ -12,3 +14,5 @@ typedef struct {
 } Map;
 
 Map* createMap(double w, double h, SDL_Surface* bg);
+
+#endif

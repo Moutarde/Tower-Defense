@@ -1,3 +1,5 @@
+#ifndef BULLET
+#define BULLET
 	#include <stdio.h>
 	#include "typeBul.h"
 
@@ -7,4 +9,6 @@ typedef struct {
 	TypeBul type;
 } Bullet;
 
-Bullet *createBullet(int x, int y, TypeBul type);
+Bullet* createBullet(int x, int y, TypeBul type);
+
+#endif

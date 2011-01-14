@@ -1,6 +1,6 @@
 	#include "map.h"
 
-Map *createMap(int w, int h, SDL_Surface* bg){
+Map* createMap(int w, int h, SDL_Surface* bg){
 	Map* map = (Map*)malloc( sizeof(Map) );
 	map->w = w;
 	map->h = h;
@@ -10,7 +10,7 @@ Map *createMap(int w, int h, SDL_Surface* bg){
 	map->matrice = (Case**)malloc( sizeof(Case*)*Ch );
 	Case* tabint = (Case*)malloc( sizeof(Case)*Cw*Ch );
 
-	for(int i=0 ; i<Cw ; i++){
+	for(int i=0 ; i<Cw ; i++) {
 		map->matrice[i] = &tabint[i*Cw];
 	}
 
