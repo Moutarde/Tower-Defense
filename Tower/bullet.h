@@ -1,7 +1,9 @@
 #ifndef BULLET
 #define BULLET
-	#include <stdio.h>
-	#include "typeBul.h"
+
+#include <stdio.h>
+
+#include "typeBul.h"
 
 typedef struct {
 	int x;

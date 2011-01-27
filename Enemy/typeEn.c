@@ -1,7 +1,7 @@
-	#include "typeEn.h"
+#include "typeEn.h"
 
 //problème de taille de ligne ici aussi.
-TypeEn* createTypeEn(int maxLife, SDL_Surface* image, int normalSpeed, int canFly, int canBeSlowed, int canBePoisoned, int invisible, int armor){
+TypeEn* createTypeEn(int maxLife, SDL_Surface* image, int normalSpeed, int canFly, int canBeSlowed, int canBePoisoned, int invisible, int armor) {
 
 	TypeEn* typeEn = (TypeEn*)malloc( sizeof(TypeEn) );
 

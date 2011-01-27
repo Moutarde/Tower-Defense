@@ -1,4 +1,4 @@
-	#include "typeBul.h"
+#include "typeBul.h"
 
 TypeBul* createTypeBul(SDL_Surface* image, int speed) {
 

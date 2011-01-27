@@ -1,8 +1,11 @@
 #ifndef TYPETO
 #define TYPETO
-	#include <stdio.h>
-	#include <SDL.h>
-	#include "typeBul.h"
+
+#include <stdio.h>
+
+#include <SDL/SDL.h>
+
+#include "typeBul.h"
 
 typedef struct {
 	int iniDamages;

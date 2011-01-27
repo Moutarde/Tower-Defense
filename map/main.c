@@ -1,7 +1,16 @@
 #include "main.h"
 
-int main(){
-	Map* map = createMap(100, 100, SDL_LoadBMP( "fond.bmp" ));
+int main() {
+	SDL_Surface* screen = NULL;
 
-	return 0;
+	SDL_Init(SDL_INIT_VIDEO);
+
+	screen = SDL_SetVideoMode(640, 480, 32, SDL_HWSURFACE);
+	SDL_WM_SetCaption("Tower Defense", NULL);
+
+
+
+	SDL_Quit();
+
+	return EXIT_SUCCESS;
 }

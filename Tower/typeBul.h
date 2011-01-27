@@ -1,7 +1,7 @@
 #ifndef TYPEBUL
 #define TYPEBUL
 	#include <stdio.h>
-	#include <SDL.h>
+	#include <SDL/SDL.h>
 
 typedef struct {
 	SDL_Surface* image;

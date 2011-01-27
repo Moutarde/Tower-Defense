@@ -1,4 +1,4 @@
-	#include "typeTo.h"
+#include "typeTo.h"
 
 //Il y a un problème pour notre norme ici. ligne trop grande.
 TypeTo* createTypeTo(SDL_Surface* image, int iniDamages, int iniRange, int iniAttSpeed, int price, int isSplash, int isSlower, int canAttackFlying, int canPoison, TypeBul typeBul) {

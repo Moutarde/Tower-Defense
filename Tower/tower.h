@@ -1,12 +1,13 @@
 #ifndef TOWER
 #define TOWER
-	#include <stdio.h>
-	#include "typeTo.h"
+
+#include <stdio.h>
+#include "typeTo.h"
 
 typedef struct {
 	int x;
 	int y;
-	TypeTo type;
+	TypeTo* type;
 	int kills;
 	int level;
 	int damages;
@@ -15,7 +16,7 @@ typedef struct {
 	int sellPrice;
 } Tower;
 
-Tower* createTower(int x, int y, TypeTo type);
+Tower* createTower(int x, int y, TypeTo* type);
 int get_price(int iniPrice);
 
 #endif

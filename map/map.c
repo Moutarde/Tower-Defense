@@ -1,17 +1,17 @@
-	#include "map.h"
+#include "map.h"
 
-Map* createMap(int w, int h, SDL_Surface* bg){
+Map* createMap(int w, int h, SDL_Surface* bg) {
 	Map* map = (Map*)malloc( sizeof(Map) );
 	map->w = w;
 	map->h = h;
 	map->nbCaseW = w/CSIZE;
 	map->nbCaseH = h/CSIZE;
 
-	map->matrice = (Case**)malloc( sizeof(Case*)*Ch );
-	Case* tabint = (Case*)malloc( sizeof(Case)*Cw*Ch );
+	map->matrice = (Case**)malloc( sizeof(Case*) * (map->nbCaseH) );
+	Case* tabint = (Case*)malloc( sizeof(Case) * (map->nbCaseW) * (map->nbCaseH) );
 
-	for(int i=0 ; i<Cw ; i++) {
-		map->matrice[i] = &tabint[i*Cw];
+	for(int i = 0; i < (map->nbCaseW); i++) {
+		map->matrice[i] = &tabint[i*(map->nbCaseW)];
 	}
 
 	map->bg = bg;

@@ -1,7 +1,9 @@
-#ifndef TYPEEN
-#define TYPEEN
-	#include <stdio.h>
-	#include <SDL.h>
+#ifndef TYPEEN_H
+#define TYPEEN_H
+
+#include <stdio.h>
+
+#include <SDL/SDL.h>
 
 typedef struct {
 	int maxLife;

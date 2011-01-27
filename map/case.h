@@ -1,8 +1,9 @@
-#ifndef CASE
-#define CASE
-	#include <stdio.h>
+#ifndef CASE_H
+#define CASE_H
 
-	#define CSIZE 5;
+#include <stdio.h>
+
+#define CSIZE 5;
 
 typedef struct {
 	int x;
