@@ -8,7 +8,7 @@
 typedef struct {
 	int x;
 	int y;
-	double size;
+	int size;
 	int hasTower;
 	int hasEnemy;
 } Case;
