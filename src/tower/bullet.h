@@ -8,9 +8,9 @@
 typedef struct {
 	int x;
 	int y;
-	TypeBul type;
+	TypeBul* type;
 } Bullet;
 
-Bullet* createBullet(int x, int y, TypeBul type);
+Bullet* createBullet(int x, int y, TypeBul* type);
 
 #endif

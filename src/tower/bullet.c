@@ -1,6 +1,6 @@
 #include "bullet.h"
 
-Bullet* createBullet(int x, int y, TypeBul type){
+Bullet* createBullet(int x, int y, TypeBul* type){
 	Bullet* bullet = (Bullet*)malloc( sizeof(Bullet) );
 
 	bullet->x = x;
