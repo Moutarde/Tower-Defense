@@ -1,3 +1,14 @@
+/*
+ dev: Mickeymouse, Moutarde and Nepta
+ manager: Word
+ Copyright © 2011
+
+ You should have received a copy of the
+ GNU General Public License along with this program.
+ If not, see  <http://www.gnu.org/licenses/>.
+*/
+
+
 #include "typeTo.h"
 
 //Il y a un problème pour notre norme ici. ligne trop grande.
