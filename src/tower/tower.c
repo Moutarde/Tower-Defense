@@ -11,12 +11,12 @@ Tower* createTower(int x, int y, TypeTo* type) {
 	tower->damages = type->iniDamages;
 	tower->range = type->iniRange;
 	tower->attSpeed = type->iniAttSpeed;
-	tower->sellPrice = get_price(type->price);
+	tower->sellPrice = getPrice(type->price);
 
 	return tower;
 }
 
-int get_price(int iniPrice) {
+int getPrice(int iniPrice) {
 	return (70*iniPrice)/100;
 }
 

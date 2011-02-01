@@ -17,6 +17,6 @@ typedef struct {
 } Tower;
 
 Tower* createTower(int x, int y, TypeTo* type);
-int get_price(int iniPrice);
+int getPrice(int iniPrice);
 
 #endif
