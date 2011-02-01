@@ -1,4 +1,4 @@
-#include "map.h"
+#include "map/map.h"
 
 int main() {
 	SDL_Surface* screen = NULL;
