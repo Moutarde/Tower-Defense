@@ -1,3 +1,7 @@
+TESTS = tests
+
+noinst_PROGRAMS = $(TESTS)
+
 bin_PROGRAMS = tests
 
 tests_SOURCES = tests.c \
