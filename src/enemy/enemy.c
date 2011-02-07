@@ -11,6 +11,15 @@
 
 #include "enemy.h"
 
+/**
+ * \fn Enemy* createEnemy(int x, int y, TypeEn* type)
+ * \brief Function which creates an enemy.
+ *
+ * \param x Define the horizontal position of the enemy.
+ * \param y Define the vertical position of the enemy.
+ * \param type The type of the enemy.
+ * \return The pointer on the enemy, in order to use it.
+ */
 Enemy* createEnemy(int x, int y, TypeEn* type) {
 	Enemy* enemy = (Enemy*)malloc( sizeof(Enemy) );
 
