@@ -1,4 +1,4 @@
-/*
+﻿/*
  dev: Mickeymouse, Moutarde and Nepta
  manager: Word
  Copyright © 2011
@@ -8,8 +8,6 @@
  If not, see  <http://www.gnu.org/licenses/>.
 */
 
-
-#include <stdbool.h>
 
 #include "enemy.h"
 

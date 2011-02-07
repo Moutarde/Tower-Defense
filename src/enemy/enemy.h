@@ -13,6 +13,7 @@
 #define ENNEMY_H
 
 #include <stdio.h>
+#include <stdbool.h>
 
 #include "typeEn.h"
 
@@ -21,7 +22,7 @@ typedef struct {
 	int y;
 	int life;
 	int speed;
-	int isPoisoned;
+	bool isPoisoned;
 	TypeEn* type;
 } Enemy;
 

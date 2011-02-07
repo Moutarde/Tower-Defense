@@ -13,6 +13,7 @@
 #define TYPEEN_H
 
 #include <stdio.h>
+#include <stdbool.h>
 
 #include <SDL/SDL.h>
 
@@ -20,14 +21,14 @@ typedef struct {
 	int maxLife;
 	SDL_Surface* image;
 	int normalSpeed;
-	int canFly;
-	int canBeSlowed;
-	int canBePoisoned;
-	int invisible;
+	bool canFly;
+	bool canBeSlowed;
+	bool canBePoisoned;
+	bool invisible;
 	int armor;
 } TypeEn;
 
-TypeEn* createTypeEn(int maxLife, SDL_Surface* image, int normalSpeed, int canFly, int canBeSlowed, int canBePoisoned, int invisible, int armor);
+TypeEn* createTypeEn(int maxLife, SDL_Surface* image, int normalSpeed, bool canFly, bool canBeSlowed, bool canBePoisoned, bool invisible, int armor);
 
 #endif
 

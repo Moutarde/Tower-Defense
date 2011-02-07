@@ -1,4 +1,4 @@
-/*
+﻿/*
  dev: Mickeymouse, Moutarde and Nepta
  manager: Word
  Copyright © 2011

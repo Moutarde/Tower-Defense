@@ -13,6 +13,7 @@
 #define CASE_H
 
 #include <stdio.h>
+#include <stdbool.h>
 
 #define CSIZE 5;
 
@@ -20,8 +21,8 @@ typedef struct {
 	int x;
 	int y;
 	int size;
-	int hasTower;
-	int hasEnemy;
+	bool hasTower;
+	bool hasEnemy;
 } Case;
 
 #endif

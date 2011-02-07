@@ -16,6 +16,7 @@
 
 #include <SDL/SDL.h>
 
+#include <stdbool.h>
 #include "typeBul.h"
 
 typedef struct {
@@ -23,14 +24,14 @@ typedef struct {
 	int iniRange;
 	int iniAttSpeed;
 	int price;
-	int isSplash;
-	int isSlower;
-	int canAttackFlying;
-	int canPoison;
+	bool isSplash;
+	bool isSlower;
+	bool canAttackFlying;
+	bool canPoison;
 	TypeBul typeBul;
 	SDL_Surface* image;
 } TypeTo;
 
-TypeTo* createTypeTo(SDL_Surface* image, int iniDamages, int iniRange, int iniAttSpeed, int price, int isSplash, int isSlower, int canAttackFlying, int canPoison, TypeBul typeBul);
+TypeTo* createTypeTo(SDL_Surface* image, int iniDamages, int iniRange, int iniAttSpeed, int price, bool isSplash, bool isSlower, bool canAttackFlying, bool canPoison, TypeBul typeBul);
 
 #endif

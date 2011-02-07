@@ -1,4 +1,4 @@
-/*
+﻿/*
  dev: Mickeymouse, Moutarde and Nepta
  manager: Word
  Copyright © 2011
@@ -12,7 +12,7 @@
 #include "typeEn.h"
 
 //problème de taille de ligne ici aussi.
-TypeEn* createTypeEn(int maxLife, SDL_Surface* image, int normalSpeed, int canFly, int canBeSlowed, int canBePoisoned, int invisible, int armor) {
+TypeEn* createTypeEn(int maxLife, SDL_Surface* image, int normalSpeed, bool canFly, bool canBeSlowed, bool canBePoisoned, bool invisible, int armor) {
 
 	TypeEn* typeEn = (TypeEn*)malloc( sizeof(TypeEn) );
 
