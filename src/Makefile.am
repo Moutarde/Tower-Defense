@@ -9,6 +9,6 @@ tower/tower.c \
 tower/typeBul.c \
 tower/typeTo.c
 
-AM_CFLAGS=-Wall -ansi -pedantic -std=c99
+AM_CFLAGS=-Wall -std=c99
 
 towerdefense_LDADD = -lSDL
