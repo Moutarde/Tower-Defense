@@ -28,7 +28,14 @@ typedef struct {
 	int armor;
 } TypeEn;
 
-TypeEn* createTypeEn(int maxLife, SDL_Surface* image, int normalSpeed, bool canFly, bool canBeSlowed, bool canBePoisoned, bool invisible, int armor);
+TypeEn* createTypeEn(int maxLife,
+		     SDL_Surface* image,
+		     int normalSpeed,
+		     bool canFly,
+	             bool canBeSlowed,
+	             bool canBePoisoned,
+		     bool invisible,
+	             int armor);
 
 #endif
 
