@@ -10,17 +10,25 @@
 
 
 #include "map/map.h"
+#include <stdbool.h>
 
 int main() {
 	SDL_Surface* screen = NULL;
-
+	SDL_Event event;
+	bool isInPlay = true;
 	SDL_Init(SDL_INIT_VIDEO);
 
 	screen = SDL_SetVideoMode(640, 480, 32, SDL_HWSURFACE);
 	SDL_WM_SetCaption("Tower Defense", NULL);
 
-
-
+	while(isInPlay) {
+		SDL_WaitEvent(&event);
+			switch(event.type) {
+			 case SDL_QUIT:
+			 isInPlay = false;
+			 break;
+			}
+	}
 	SDL_Quit();
 
 	return EXIT_SUCCESS;
