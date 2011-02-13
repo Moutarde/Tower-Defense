@@ -27,7 +27,15 @@ int main() {
 			 case SDL_QUIT:
 			 isInPlay = false;
 			 break;
-			}
+			 
+			 case SDL_KEYDOWN:
+				switch(event.key.keysym.sym) {
+				 case SDLK_ESCAPE:
+				 isInPlay = false;
+				 break;
+				}
+			   break;
+			  }
 	}
 	SDL_Quit();
 
