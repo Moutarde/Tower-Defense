@@ -11,4 +11,4 @@ enemy/test_enemy.c \
 
 AM_CFLAGS=-Wall -std=c99
 
-tests_LDADD = -lSDL -lcunit
+tests_LDADD = -lSDL -lSDL_image -lcunit

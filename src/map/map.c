@@ -1,4 +1,4 @@
-﻿/*
+/*
  dev: Mickeymouse, Moutarde and Nepta
  manager: Word
  Copyright © 2011
@@ -11,7 +11,7 @@
 
 #include "map.h"
 
-Map* createMap(int w, int h, SDL_Surface* bg) {
+Map* createMap(int w, int h, char* mapName) {
 	Map* map = (Map*)malloc( sizeof(Map) );
 	map->w = w;
 	map->h = h;
@@ -25,7 +25,19 @@ Map* createMap(int w, int h, SDL_Surface* bg) {
 		map->matrice[i] = &tabint[i*(map->nbCaseW)];
 	}
 
-	map->bg = bg;
+	map->bg = loadMap(mapName);
 
 	return map;
+}
+
+SDL_Surface *loadMap(char* mapName){
+	SDL_Surface* background;
+	background=IMG_Load(mapName);
+	if(background == NULL){
+		printf("failed to load the background map\n");
+		printf("IMG_Load: %s\n", IMG_GetError());
+		exit(-1);
+	}
+	
+	return background;
 }
