@@ -21,21 +21,28 @@ int main() {
 	screen = SDL_SetVideoMode(640, 480, 32, SDL_HWSURFACE);
 	SDL_WM_SetCaption("Tower Defense", NULL);
 
+	Map* map = createMap(800,800,"resources/Forest.png");
 	while(isInPlay) {
-		SDL_WaitEvent(&event);
-			switch(event.type) {
-			 case SDL_QUIT:
-			 isInPlay = false;
-			 break;
-			 
-			 case SDL_KEYDOWN:
-				switch(event.key.keysym.sym) {
-				 case SDLK_ESCAPE:
-				 isInPlay = false;
-				 break;
-				}
-			   break;
-			  }
+	SDL_WaitEvent(&event);
+		switch(event.type) {
+		case SDL_QUIT:
+			isInPlay = false;
+			break;
+	    
+		case SDL_KEYDOWN:
+			switch(event.key.keysym.sym) {
+			case SDLK_ESCAPE:
+				isInPlay = false;
+				break;
+			
+			default:
+				break;
+			}
+			break;
+	    
+		default:
+			break;
+		}
 	}
 	SDL_Quit();
 
