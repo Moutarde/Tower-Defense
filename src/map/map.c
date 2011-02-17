@@ -11,12 +11,21 @@
 
 #include "map.h"
 
-Map* createMap(int w, int h, char* mapName) {
+/**
+ * \fn Map* createMap(char* mapName)
+ * \brief create a map.
+ *
+ * \param mapName The Path of map's background.
+ * \return The array on the map, in order to use it.
+ */
+
+Map* createMap(char* mapName) {
 	Map* map = (Map*)malloc( sizeof(Map) );
-	map->w = w;
-	map->h = h;
-	map->nbCaseW = w/CSIZE;
-	map->nbCaseH = h/CSIZE;
+	map->bg = loadMap(mapName);
+	map->w = map->bg->w;
+	map->h = map->bg->h;
+	map->nbCaseW = map->w/CSIZE;
+	map->nbCaseH = map->h/CSIZE;
 
 	map->matrice = (Case**)malloc( sizeof(Case*) * (map->nbCaseH) );
 	Case* tabint = (Case*)malloc( sizeof(Case) * (map->nbCaseW) * (map->nbCaseH) );
@@ -25,10 +34,17 @@ Map* createMap(int w, int h, char* mapName) {
 		map->matrice[i] = &tabint[i*(map->nbCaseW)];
 	}
 
-	map->bg = loadMap(mapName);
 
 	return map;
 }
+
+/**
+ * \fn SDL_Surface *loadMap(char* mapName)
+ * \brief load the background of the map
+ *
+ * \param mapName Name of the image
+ * \return The array of the image
+ */
 
 SDL_Surface *loadMap(char* mapName){
 	SDL_Surface* background;
