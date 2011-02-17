@@ -21,4 +21,13 @@ a club*nix project of tower defense (http://clubnix.fr)
 
 =============
 
-Depends on the SDL library.
+Depends on the SDL library, and it add-on SDL_image library.
+
+------------
+
+How to install:
+
+$autoreconf
+$./configure
+$make
+
