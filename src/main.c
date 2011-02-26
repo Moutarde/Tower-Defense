@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
 	screen = SDL_SetVideoMode(640, 480, 32, SDL_HWSURFACE);
 	SDL_WM_SetCaption("Tower Defense", NULL);
 	
-	Map* map = createMap(800, 800, "resources/Forest.png");
+	Map* map = createMap("resources/Forest.png");
 	while(isInPlay) {
 		SDL_WaitEvent(&event);
 		switch(event.type) {

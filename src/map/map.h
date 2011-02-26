@@ -29,6 +29,6 @@ typedef struct {
 	SDL_Surface* bg;
 } Map;
 
-Map* createMap(int w, int h, char* mapName);
+Map* createMap(char* mapName);
 SDL_Surface* loadMap(char* mapName);
 #endif
