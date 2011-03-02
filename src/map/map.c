@@ -57,3 +57,15 @@ SDL_Surface *loadMap(char* mapName){
 	
 	return background;
 }
+
+/**
+ * \fn void* loadMapdrawMap(Map* map, SDL_Rect* viewport, SDL_Surface* screen)
+ * \brief Draws a map on the screen
+ *
+ * \param map Map to draw
+ * \param viewport Viewport
+ * \param screen Where to draw
+ */
+void drawMap(Map* map, SDL_Rect* viewport, SDL_Surface* screen) {
+	SDL_BlitSurface(map->bg, viewport, screen, NULL);
+}

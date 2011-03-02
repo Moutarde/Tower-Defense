@@ -31,4 +31,6 @@ typedef struct {
 
 Map* createMap(char* mapName);
 SDL_Surface* loadMap(char* mapName);
+void drawMap(Map* map, SDL_Rect* viewport, SDL_Surface* screen);
+
 #endif
