@@ -16,6 +16,8 @@ int main(int argc, char *argv[]) {
 	SDL_Surface* screen = NULL;
 	SDL_Event event;
 	bool isInPlay = true;
+	SDL_Rect viewport = {0, 0, 640, 480};
+
 	SDL_Init(SDL_INIT_VIDEO);
 	
 	screen = SDL_SetVideoMode(640, 480, 32, SDL_HWSURFACE);
@@ -43,7 +45,10 @@ int main(int argc, char *argv[]) {
 			default:
 				break;
 		}
+		drawMap(map, &viewport, screen);
+		SDL_Flip(screen);
 	}
+
 	SDL_Quit();
 	
 	return EXIT_SUCCESS;
