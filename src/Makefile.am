@@ -11,4 +11,4 @@ tower/typeTo.c
 
 AM_CFLAGS=-Wall -std=c99
 
-towerdefense_LDADD = -lSDL -lSDL_image
+towerdefense_LDADD = -lSDLmain -lSDL -lSDL_image

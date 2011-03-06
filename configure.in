@@ -1,5 +1,7 @@
 AC_INIT([tower-defense], [0.1])
 
+AC_CANONICAL_TARGET
+
 AM_INIT_AUTOMAKE([foreign subdir-objects])
 AM_CONFIG_HEADER([config.h:config.in])
 
@@ -12,6 +14,22 @@ AC_FUNC_MALLOC
 
 AC_CHECK_LIB([SDL], [SDL_Init])
 AC_CHECK_LIB([SDL_image], [SDL_Load])
+
+dnl
+dnl Configure for target platform
+dnl
+
+case "$target_os" in
+  darwin* | rhapsody*)
+  	LDFLAGS="-framework Cocoa"
+    AC_SUBST(PLATFORM,"mac")
+    ;;
+  linux* | solaris*)
+    AC_SUBST(PLATFORM,"linux")
+    ;;
+  *)
+    ;;
+esac
 
 CUNIT_LDFLAGS=""
 AC_CHECK_HEADER([CUnit/CUnit.h], [ 
