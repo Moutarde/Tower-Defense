@@ -11,6 +11,7 @@
 
 #include "map/map.h"
 #include <stdbool.h>
+#include <unistd.h>
 
 int main(int argc, char *argv[]) {
 	SDL_Surface* screen = NULL;
@@ -25,7 +26,8 @@ int main(int argc, char *argv[]) {
 	
 	Map* map = createMap("resources/Forest.png");
 	while(isInPlay) {
-		SDL_WaitEvent(&event);
+		//SDL_WaitEvent(&event);
+		SDL_PollEvent( &event );
 		switch(event.type) {
 			case SDL_QUIT:
 				isInPlay = false;
@@ -36,7 +38,30 @@ int main(int argc, char *argv[]) {
 					case SDLK_ESCAPE:
 						isInPlay = false;
 						break;
-						
+					case SDLK_UP:
+						viewport.y -= 5;
+						if (viewport.y < 0) {
+							viewport.y = 0;
+						}
+						break;
+					case SDLK_DOWN:
+						viewport.y += 5;
+						if (viewport.y > map->h - viewport.h) {
+							viewport.y = map->h - viewport.h;
+						}
+						break;
+					case SDLK_LEFT:
+						viewport.x -= 5;
+						if (viewport.x < 0) {
+							viewport.x = 0;
+						}
+						break;
+					case SDLK_RIGHT:
+						viewport.x += 5;
+						if (viewport.x > map->w - viewport.w) {
+							viewport.x = map->w - viewport.w;
+						}
+						break;
 					default:
 						break;
 				}
