@@ -18,6 +18,8 @@ int main(int argc, char *argv[]) {
 	SDL_Event event;
 	bool isInPlay = true;
 	SDL_Rect viewport = {0, 0, 640, 480};
+	
+	int previousTime = 0, currentTime = 0;
 
 	SDL_Init(SDL_INIT_VIDEO);
 	
@@ -28,7 +30,6 @@ int main(int argc, char *argv[]) {
 	
 	// Main loop
 	while(isInPlay) {
-		//SDL_WaitEvent(&event);
 		SDL_PollEvent( &event );
 		switch(event.type) {
 			// Quit game
@@ -81,6 +82,14 @@ int main(int argc, char *argv[]) {
 			default:
 				break;
 		}
+		
+		// Managing frames
+		currentTime = SDL_GetTicks();
+		if (currentTime - previousTime <= 20)
+		{
+			SDL_Delay(20 - (currentTime - previousTime));
+		}
+		previousTime = SDL_GetTicks();
 		
 		// Show map
 		drawMap(map, &viewport, screen);
