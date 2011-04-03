@@ -16,6 +16,7 @@
 #include <stdbool.h>
 
 #include "typeEn.h"
+#include "../map/map.h"
 
 typedef struct {
 	int x;
@@ -27,5 +28,6 @@ typedef struct {
 } Enemy;
 
 Enemy* createEnemy(int x, int y, TypeEn* type);
+void drawEnemy(Enemy* enemy, Map* map);
 
 #endif

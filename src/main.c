@@ -10,6 +10,7 @@
 
 
 #include "map/map.h"
+#include "enemy/enemy.h"
 #include <stdbool.h>
 
 int main(int argc, char *argv[]) {
@@ -27,6 +28,11 @@ int main(int argc, char *argv[]) {
 	SDL_WM_SetCaption("Tower Defense", NULL);
 	
 	Map* map = createMap("resources/Forest.png");
+	
+	// Creation of the enemies
+	TypeEn* mario = createTypeEn(100, IMG_Load("resources/enemy.gif"), 5, false, true, true, false, 1);
+	Enemy* mario1 = createEnemy(10, 15, mario);
+	Enemy* mario2 = createEnemy(1, 5, mario);
 	
 	// Main loop
 	while(isInPlay) {
@@ -93,6 +99,11 @@ int main(int argc, char *argv[]) {
 		
 		// Show map
 		drawMap(map, &viewport, screen);
+		
+		// Show enemies
+		drawEnemy(mario1, map);
+		drawEnemy(mario2, map);
+		
 		SDL_Flip(screen);
 	}
 

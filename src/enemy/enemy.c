@@ -23,3 +23,18 @@ Enemy* createEnemy(int x, int y, TypeEn* type) {
 
 	return enemy;
 }
+
+/**
+ * \fn void* drawEnemy(Enemy* enemy, Map* map)
+ * \brief Draws an enemy on the map
+ *
+ * \param enemy Enemy to draw.
+ * \param map The map where the enemy has to be drawn.
+ */
+void drawEnemy(Enemy* enemy, Map* map) {
+	SDL_Rect position;
+	position.x = map->matrice[enemy->x][enemy->y].x;
+	position.y = map->matrice[enemy->x][enemy->y].y;
+	
+	SDL_BlitSurface(enemy->type->image, NULL, map->bg, &position);
+}

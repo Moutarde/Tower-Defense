@@ -26,15 +26,21 @@ Map* createMap(char* mapName) {
 	map->h = map->bg->h;
 	map->nbCaseW = map->w/CSIZE;
 	map->nbCaseH = map->h/CSIZE;
-
+	
 	map->matrice = (Case**)malloc( sizeof(Case*) * (map->nbCaseH) );
 	Case* tabint = (Case*)malloc( sizeof(Case) * (map->nbCaseW) * (map->nbCaseH) );
-
+	
 	for(int i = 0; i < (map->nbCaseW); i++) {
 		map->matrice[i] = &tabint[i*(map->nbCaseW)];
 	}
-
-
+	
+	for(int i = 0; i < (map->nbCaseW); i++) {
+		for(int j = 0; j < (map->nbCaseH); j++) {
+			map->matrice[i][j].x = i*CSIZE;
+			map->matrice[i][j].y = j*CSIZE;
+		}
+	}
+	
 	return map;
 }
 

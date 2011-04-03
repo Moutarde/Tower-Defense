@@ -15,7 +15,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-#define CSIZE 5;
+#define CSIZE 32;
 
 typedef struct {
 	int x;
