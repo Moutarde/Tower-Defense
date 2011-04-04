@@ -23,8 +23,9 @@ If not, see <http://www.gnu.org/licenses/>.
 typedef struct {
 	SDL_Rect surface;
 	Map* map;
-}Viewport;
+} Viewport;
 
+Viewport* createViewport(SDL_Rect surface, Map* map);
 void moveViewport(Viewport* viewport, short direction);
 
 #endif

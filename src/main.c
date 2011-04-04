@@ -11,6 +11,7 @@
 
 #include "map/map.h"
 #include "enemy/enemy.h"
+#include "utils/viewport.h"
 #include <stdbool.h>
 
 int main(int argc, char *argv[]) {
@@ -18,7 +19,7 @@ int main(int argc, char *argv[]) {
 	SDL_Surface* screen = NULL;
 	SDL_Event event;
 	bool isInPlay = true;
-	SDL_Rect viewport = {0, 0, 640, 480};
+	SDL_Rect surface = {0, 0, 640, 480};
 	
 	int previousTime = 0, currentTime = 0;
 
@@ -28,6 +29,7 @@ int main(int argc, char *argv[]) {
 	SDL_WM_SetCaption("Tower Defense", NULL);
 	
 	Map* map = createMap("resources/Forest.png");
+	Viewport* viewport = createViewport(surface, map);
 	
 	// Creation of the enemies
 	TypeEn* mario = createTypeEn(100, IMG_Load("resources/enemy.gif"), 5, false, true, true, false, 1);
@@ -53,31 +55,19 @@ int main(int argc, char *argv[]) {
 					
 					// Move view
 					case SDLK_UP:
-						viewport.y -= 5;
-						if (viewport.y < 0) {
-							viewport.y = 0;
-						}
+						moveViewport(viewport, UP);
 						break;
 						
 					case SDLK_DOWN:
-						viewport.y += 5;
-						if (viewport.y > map->h - viewport.h) {
-							viewport.y = map->h - viewport.h;
-						}
+						moveViewport(viewport, DOWN);
 						break;
 						
 					case SDLK_LEFT:
-						viewport.x -= 5;
-						if (viewport.x < 0) {
-							viewport.x = 0;
-						}
+						moveViewport(viewport, LEFT);
 						break;
 						
 					case SDLK_RIGHT:
-						viewport.x += 5;
-						if (viewport.x > map->w - viewport.w) {
-							viewport.x = map->w - viewport.w;
-						}
+						moveViewport(viewport, RIGHT);
 						break;
 						
 					default:
@@ -98,7 +88,7 @@ int main(int argc, char *argv[]) {
 		previousTime = SDL_GetTicks();
 		
 		// Show map
-		drawMap(map, &viewport, screen);
+		drawMap(map, &(viewport->surface), screen);
 		
 		// Show enemies
 		drawEnemy(mario1, map);

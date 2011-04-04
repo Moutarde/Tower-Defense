@@ -7,7 +7,8 @@ map/map.c \
 tower/bullet.c \
 tower/tower.c \
 tower/typeBul.c \
-tower/typeTo.c
+tower/typeTo.c \
+utils/viewport.c
 
 AM_CFLAGS=-Wall -std=c99
 
