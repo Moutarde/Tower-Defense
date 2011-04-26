@@ -27,10 +27,12 @@ typedef struct {
 	int nbCaseH;
 	Case** matrice;
 	SDL_Surface* bg;
+	SDL_Surface* bg_img;
 } Map;
 
 Map* createMap(char* mapName);
 SDL_Surface* loadMap(char* mapName);
 void drawMap(Map* map, SDL_Rect* viewport, SDL_Surface* screen);
+void cleanMap(Map* map);
 
 #endif

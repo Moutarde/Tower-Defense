@@ -22,6 +22,7 @@
 Map* createMap(char* mapName) {
 	Map* map = (Map*)malloc( sizeof(Map) );
 	map->bg = loadMap(mapName);
+	map->bg_img = loadMap(mapName);
 	map->w = map->bg->w;
 	map->h = map->bg->h;
 	map->nbCaseW = map->w/CSIZE;
@@ -45,16 +46,16 @@ Map* createMap(char* mapName) {
 }
 
 /**
- * \fn SDL_Surface *loadMap(char* mapName)
+ * \fn SDL_Surface* loadMap(char* mapName)
  * \brief load the background of the map
  *
  * \param mapName Name of the image
  * \return The array of the image
  */
 
-SDL_Surface *loadMap(char* mapName){
+SDL_Surface* loadMap(char* mapName){
 	SDL_Surface* background;
-	background=IMG_Load(mapName);
+	background = IMG_Load(mapName);
 	if(background == NULL){
 		printf("failed to load the background map\n");
 		printf("IMG_Load: %s\n", IMG_GetError());
@@ -65,7 +66,7 @@ SDL_Surface *loadMap(char* mapName){
 }
 
 /**
- * \fn void* loadMapdrawMap(Map* map, SDL_Rect* viewport, SDL_Surface* screen)
+ * \fn void* drawMap(Map* map, SDL_Rect* viewport, SDL_Surface* screen)
  * \brief Draws a map on the screen
  *
  * \param map Map to draw
@@ -74,4 +75,14 @@ SDL_Surface *loadMap(char* mapName){
  */
 void drawMap(Map* map, SDL_Rect* viewport, SDL_Surface* screen) {
 	SDL_BlitSurface(map->bg, viewport, screen, NULL);
+}
+
+/**
+ * \fn void* cleanMap(Map* map)
+ * \brief Cleans the map.
+ *
+ * \param map Map to clean
+ */
+void cleanMap(Map* map) {
+	SDL_BlitSurface(map->bg_img, NULL, map->bg, NULL);
 }

@@ -8,7 +8,8 @@ tower/bullet.c \
 tower/tower.c \
 tower/typeBul.c \
 tower/typeTo.c \
-utils/viewport.c
+utils/viewport.c \
+event/event.c
 
 AM_CFLAGS=-Wall -std=c99
 

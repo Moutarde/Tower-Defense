@@ -39,52 +39,18 @@ int main(int argc, char *argv[]) {
 	
 	// Main loop
 	while(isInPlay) {
+		// Managing the events
 		SDL_PollEvent( &event );
-		switch(event.type) {
-			// Quit game
-			case SDL_QUIT:
-				isInPlay = false;
-				break;
-			
-			// Key pressed
-			case SDL_KEYDOWN:
-				switch(event.key.keysym.sym) {
-					// Quit game
-					case SDLK_ESCAPE:
-						isInPlay = false;
-						break;
-					
-					// Move view
-					case SDLK_UP:
-						moveViewport(viewport, UP);
-						break;
-						
-					case SDLK_DOWN:
-						moveViewport(viewport, DOWN);
-						break;
-						
-					case SDLK_LEFT:
-						moveViewport(viewport, LEFT);
-						break;
-						
-					case SDLK_RIGHT:
-						moveViewport(viewport, RIGHT);
-						break;
-						
-					default:
-						break;
-				}
-				break;
-				
-			default:
-				break;
-		}
+		isInPlay = manageEvents(event, viewport);
 		
-		// Show enemies
+		// Clean the objects on the map
+		cleanMap(map);
+		
+		// Blit enemies
 		drawEnemy(mario1, map);
 		drawEnemy(mario2, map);
 		
-		// Show map
+		// Blit map
 		drawMap(map, &(viewport->surface), screen);
 		
 		SDL_Flip(screen);
