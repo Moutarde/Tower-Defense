@@ -19,7 +19,6 @@ int main(int argc, char *argv[]) {
 	SDL_Surface* screen = NULL;
 	SDL_Event event;
 	bool isInPlay = true;
-	SDL_Rect surface = {0, 0, 640, 480};
 	
 	int previousTime = 0, currentTime = 0;
 
@@ -29,6 +28,8 @@ int main(int argc, char *argv[]) {
 	SDL_WM_SetCaption("Tower Defense", NULL);
 	
 	Map* map = createMap("resources/Forest.png");
+	
+	SDL_Rect surface = {0, 0, 640, 480};
 	Viewport* viewport = createViewport(surface, map);
 	
 	// Creation of the enemies
@@ -79,6 +80,15 @@ int main(int argc, char *argv[]) {
 				break;
 		}
 		
+		// Show enemies
+		drawEnemy(mario1, map);
+		drawEnemy(mario2, map);
+		
+		// Show map
+		drawMap(map, &(viewport->surface), screen);
+		
+		SDL_Flip(screen);
+		
 		// Managing frames
 		currentTime = SDL_GetTicks();
 		if (currentTime - previousTime <= 20)
@@ -86,15 +96,6 @@ int main(int argc, char *argv[]) {
 			SDL_Delay(20 - (currentTime - previousTime));
 		}
 		previousTime = SDL_GetTicks();
-		
-		// Show map
-		drawMap(map, &(viewport->surface), screen);
-		
-		// Show enemies
-		drawEnemy(mario1, map);
-		drawEnemy(mario2, map);
-		
-		SDL_Flip(screen);
 	}
 
 	SDL_Quit();
