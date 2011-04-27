@@ -1,6 +1,7 @@
 make clean
 find . -name '.deps' -print0 | xargs -0 rm -R
 find . -name '.dirstamp' -print0 | xargs -0 rm
+find . -name '*~' -print0 | xargs -0 rm
 rm Makefile
 rm Makefile.in
 rm -R */Makefile
