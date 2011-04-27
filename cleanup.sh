@@ -8,7 +8,10 @@ rm -R */Makefile.in
 rm Doxyfile
 rm "stamp-h1"
 rm configure
-rm config.*
+rm config.h
+rm config.in
+rm config.log
+rm config.status
 rm aclocal.m4
 rm -R autom4te.cache
 rm -R html
