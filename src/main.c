@@ -12,6 +12,7 @@
 #include "map/map.h"
 #include "enemy/enemy.h"
 #include "utils/viewport.h"
+#include "event/event.h"
 #include <stdbool.h>
 
 int main(int argc, char *argv[]) {

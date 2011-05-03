@@ -8,8 +8,13 @@
  If not, see  <http://www.gnu.org/licenses/>.
  */
 
+#ifndef EVENT
+#define EVENT
+
 #include <SDL/SDL.h>
 #include <stdbool.h>
 #include "../utils/viewport.h"
 
 bool manageEvents(SDL_Event event, Viewport* viewport);
+
+#endif
