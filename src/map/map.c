@@ -35,10 +35,13 @@ Map* createMap(char* mapName) {
 		map->matrice[i] = &tabint[i*(map->nbCaseW)];
 	}
 	
+   // initialization of Case
 	for(int i = 0; i < (map->nbCaseW); i++) {
 		for(int j = 0; j < (map->nbCaseH); j++) {
 			map->matrice[i][j].x = i*CSIZE;
 			map->matrice[i][j].y = j*CSIZE;
+			map->matrice[i][j].hasEnemy = false;
+			map->matrice[i][j].hasTower = false;
 		}
 	}
 	
@@ -85,4 +88,15 @@ void drawMap(Map* map, SDL_Rect* viewport, SDL_Surface* screen) {
  */
 void cleanMap(Map* map) {
 	SDL_BlitSurface(map->bg_img, NULL, map->bg, NULL);
+}
+
+/**
+ * \fn Case* getCase(int x, int y, Map *map)
+ * \brief geta Case from a map
+ * \param x the x position of a cell
+ * \param y the y position of a cell
+ * \return a cell's pointer 
+ */
+Case getCase(int x, int y){
+   return _map->matrice[x][y];
 }

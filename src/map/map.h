@@ -30,9 +30,10 @@ typedef struct {
 	SDL_Surface* bg_img;
 } Map;
 
+extern Map *_map;
 Map* createMap(char* mapName);
 SDL_Surface* loadMap(char* mapName);
 void drawMap(Map* map, SDL_Rect* viewport, SDL_Surface* screen);
 void cleanMap(Map* map);
-
+Case getCase(int x, int y);
 #endif

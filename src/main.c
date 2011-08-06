@@ -15,6 +15,7 @@
 #include "event/event.h"
 #include <stdbool.h>
 
+Map *_map;
 int main(int argc, char *argv[]) {
 	// Init
 	SDL_Surface* screen = NULL;
@@ -50,7 +51,11 @@ int main(int argc, char *argv[]) {
 		// Blit enemies
 		drawEnemy(mario1, map);
 		drawEnemy(mario2, map);
-		
+
+      // Move enemies
+      _map = map;
+      moveEnemy(mario1);
+      moveEnemy(mario2);
 		// Blit map
 		drawMap(map, &(viewport->surface), screen);
 		

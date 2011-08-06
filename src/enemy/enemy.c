@@ -34,7 +34,7 @@ Enemy* createEnemy(int x, int y, TypeEn* type) {
 }
 
 /**
- * \fn void* drawEnemy(Enemy* enemy, Map* map)
+ * \fn void drawEnemy(Enemy* enemy, Map* map)
  * \brief Draws an enemy on the map
  *
  * \param enemy Enemy to draw.
@@ -46,4 +46,56 @@ void drawEnemy(Enemy* enemy, Map* map) {
 	position.y = map->matrice[enemy->x][enemy->y].y;
 	
 	SDL_BlitSurface(enemy->type->image, NULL, map->bg, &position);
+}
+
+/**
+ * \fn void moveEnemy(Enemy* enemy, Movement move);
+ * \brief move an enemy
+ * the function move an enemy according to the nextMovement function
+ * \see nextMovement
+ * \param enemy an Enemy to move
+ */
+ 
+void moveEnemy(Enemy* enemy){
+   Movement nextMove = nextMovement(enemy);
+   switch(nextMove){
+      case RIGHT:
+         enemy->x++;
+        break;
+      case LEFT:
+         enemy->x--;
+        break;
+      case UP:
+         enemy->y++;
+        break;
+      case DOWN:
+         enemy->y--;
+      default:
+        break;
+   }
+}
+
+ 
+/**
+ * \fn Movement nextMovement(Enemy* enemy);
+ * \brief Compute where the monster must go
+ * the function juste check the free cells against the enemy
+ * and choose randomly one of them
+ * \param enemy an Enemy whithout path
+ */
+
+Movement nextMovement(Enemy* enemy){
+   int x = enemy->x;
+   int y = enemy->y;
+   if(x+1 < _map->nbCaseW && !getCase(x+1,y).hasTower){
+     return RIGHT;
+   }else if(++y < _map->nbCaseH && !getCase(x,y--).hasTower){
+     return UP;
+   }else if(--y < _map->nbCaseH && !getCase(x,y++).hasTower){
+     return DOWN;
+   }else if(++x < _map->nbCaseW && !getCase(x--,y).hasTower){
+     return LEFT;
+   }else{
+     return STAY;
+   }
 }
