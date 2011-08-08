@@ -44,7 +44,10 @@ Map* createMap(char* mapName) {
 			map->matrice[i][j].hasTower = false;
 		}
 	}
-	
+	map->matrice[2][0].hasTower = true;
+	map->matrice[3][1].hasTower = true;
+	map->matrice[2][2].hasTower = true;
+	map->matrice[3][4].hasTower = true;
 	return map;
 }
 

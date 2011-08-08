@@ -25,15 +25,15 @@
 typedef struct {
 	int x;   //!< x coordinate of the future position
 	int y;   //!< y coordinate of the future position
+   SDL_Rect animPosition; //!< coordinates of the actual animation position
+	Animation animation;
 	int life;//!< monster's life
 	int speed;//!< monster's speed 
 	bool isPoisoned;//!< true if the monster is poisoned /*!< when an enemy is poisoned, is life decrease whith time and is sloed down*/
 	TypeEn* type;//!< monster's type
 } Enemy;
 
-typedef enum {RIGHT, LEFT, UP, DOWN, STAY}Movement;
-
-Enemy* createEnemy(int x, int y, TypeEn* type);
+Enemy* createEnemy(int x, int y, TypeEn* type, Animation animation);
 void drawEnemy(Enemy* enemy, Map* map);
 void moveEnemy(Enemy* enemy);
 Movement nextMovement(Enemy* enemy);

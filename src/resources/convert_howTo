@@ -1,0 +1,9 @@
+/* thes command need the package "imagemagick" */
+
+//cut a sprite sheet
+convert cat.png -crop 72x128 cat_%d.png
+/*image size can be obtain by "identify" */
+
+//add transparency
+convert white_cat.png -transparent '#209C00' white_transparent_cat.png
+/* Color number can be obtain by "display" */

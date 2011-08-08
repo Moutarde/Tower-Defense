@@ -20,11 +20,15 @@
  * \param type The type of the enemy.
  * \return The pointer on the enemy, in order to use it.
  */
-Enemy* createEnemy(int x, int y, TypeEn* type) {
+Enemy* createEnemy(int x, int y, TypeEn* type,Animation animation) {
 	Enemy* enemy = (Enemy*)malloc( sizeof(Enemy) );
 
 	enemy->x = x;
 	enemy->y = y;
+	enemy->animation = animation;
+	Case anim_start = getCase(x,y);
+   enemy->animPosition.x = anim_start.x;
+   enemy->animPosition.y = anim_start.y;
 	enemy->life = type->maxLife;
 	enemy->speed = type->normalSpeed;
 	enemy->type = type;
@@ -41,11 +45,31 @@ Enemy* createEnemy(int x, int y, TypeEn* type) {
  * \param map The map where the enemy has to be drawn.
  */
 void drawEnemy(Enemy* enemy, Map* map) {
-	SDL_Rect position;
-	position.x = map->matrice[enemy->x][enemy->y].x;
-	position.y = map->matrice[enemy->x][enemy->y].y;
-	
-	SDL_BlitSurface(enemy->type->image, NULL, map->bg, &position);
+   switch(enemy->animation.direction){
+      case RIGHT:
+         enemy->animPosition.x++;
+        break;
+      case LEFT:
+         enemy->animPosition.x--;
+        break;
+      case UP:
+         enemy->animPosition.y--;
+        break;
+      case DOWN:
+         enemy->animPosition.y++;
+        break;
+      default:
+        break;
+   }
+
+	SDL_BlitSurface(enemy->animation.currentFrame, getRect(&enemy->animation), map->bg, &enemy->animPosition);
+}
+
+SDL_Rect* getRect(Animation *anim){
+   SDL_Rect *frame = &anim->animation_state[anim->direction];
+   frame->x += anim->currentFrame->w/3;
+   frame->x %= anim->currentFrame->w;
+  return frame;
 }
 
 /**
@@ -57,25 +81,30 @@ void drawEnemy(Enemy* enemy, Map* map) {
  */
  
 void moveEnemy(Enemy* enemy){
-   Movement nextMove = nextMovement(enemy);
-   switch(nextMove){
-      case RIGHT:
-         enemy->x++;
-        break;
-      case LEFT:
-         enemy->x--;
-        break;
-      case UP:
-         enemy->y++;
-        break;
-      case DOWN:
-         enemy->y--;
-      default:
-        break;
+   SDL_Rect anim = enemy->animPosition;
+   Case nextCase = getCase(enemy->x,enemy->y);
+   if(anim.x == nextCase.x && anim.y == nextCase.y){
+      enemy->animation.direction = nextMovement(enemy);
+
+      switch(enemy->animation.direction){
+         case RIGHT:
+            enemy->x++;
+           break;
+         case LEFT:
+            enemy->x--;
+           break;
+         case DOWN:
+            enemy->y++;
+           break;
+         case UP:
+            enemy->y--;
+         default:
+           break;
+      }
    }
 }
 
- 
+
 /**
  * \fn Movement nextMovement(Enemy* enemy);
  * \brief Compute where the monster must go
@@ -89,11 +118,11 @@ Movement nextMovement(Enemy* enemy){
    int y = enemy->y;
    if(x+1 < _map->nbCaseW && !getCase(x+1,y).hasTower){
      return RIGHT;
-   }else if(++y < _map->nbCaseH && !getCase(x,y--).hasTower){
-     return UP;
-   }else if(--y < _map->nbCaseH && !getCase(x,y++).hasTower){
+   }else if(y+1 < _map->nbCaseH && !getCase(x,y+1).hasTower){
      return DOWN;
-   }else if(++x < _map->nbCaseW && !getCase(x--,y).hasTower){
+   }else if(y-1 < _map->nbCaseH && !getCase(x,y-1).hasTower){
+     return UP;
+   }else if(x-1 < _map->nbCaseW && !getCase(x-1,y).hasTower){
      return LEFT;
    }else{
      return STAY;
