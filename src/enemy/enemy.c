@@ -85,7 +85,7 @@ void moveEnemy(Enemy* enemy){
    Case nextCase = getCase(enemy->x,enemy->y);
    if(anim.x == nextCase.x && anim.y == nextCase.y){
       enemy->animation.direction = nextMovement(enemy);
-
+      nextCase.hasEnemy--;
       switch(enemy->animation.direction){
          case RIGHT:
             enemy->x++;
@@ -116,13 +116,18 @@ void moveEnemy(Enemy* enemy){
 Movement nextMovement(Enemy* enemy){
    int x = enemy->x;
    int y = enemy->y;
-   if(x+1 < _map->nbCaseW && !getCase(x+1,y).hasTower){
+   Case nearCase;
+   if(x+1 < _map->nbCaseW && (nearCase = getCase(x+1,y), !nearCase.hasTower)){
+      nearCase.hasEnemy++;
      return RIGHT;
-   }else if(y+1 < _map->nbCaseH && !getCase(x,y+1).hasTower){
+   }else if(y+1 < _map->nbCaseH && (nearCase = getCase(x,y+1), !nearCase.hasTower)){
+      nearCase.hasEnemy++;
      return DOWN;
-   }else if(y-1 < _map->nbCaseH && !getCase(x,y-1).hasTower){
+   }else if(y-1 < _map->nbCaseH && (nearCase = getCase(x,y-1), !nearCase.hasTower)){
+      nearCase.hasEnemy++;
      return UP;
-   }else if(x-1 < _map->nbCaseW && !getCase(x-1,y).hasTower){
+   }else if(x-1 < _map->nbCaseW && (nearCase = getCase(x-1,y), !nearCase.hasTower)){
+      nearCase.hasEnemy++;
      return LEFT;
    }else{
      return STAY;

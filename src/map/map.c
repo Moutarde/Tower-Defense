@@ -103,3 +103,4 @@ void cleanMap(Map* map) {
 Case getCase(int x, int y){
    return _map->matrice[x][y];
 }
+
