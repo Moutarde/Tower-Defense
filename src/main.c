@@ -16,8 +16,22 @@
 #include <stdbool.h>
 
 Map *_map;
+char* _pather;
+
+void initPath(char* argv0){
+   int trimLength = strrchr(argv0,'/')+1-argv0;
+   _pather = calloc(trimLength,1);
+   strncat(_pather,argv0,trimLength);
+}
+
+char* getPath(char* resource){
+   char* fullPath = calloc(strlen(_pather)+strlen(resource),1);
+   return strcat(strcat(fullPath,_pather),resource);
+}
+
 int main(int argc, char *argv[]) {
 	// Init
+	initPath(argv[0]);
 	SDL_Surface* screen = NULL;
 	SDL_Event event;
 	bool isInPlay = true;
@@ -29,7 +43,7 @@ int main(int argc, char *argv[]) {
 	screen = SDL_SetVideoMode(640, 480, 32, SDL_HWSURFACE);
 	SDL_WM_SetCaption("Tower Defense", NULL);
 	
-	Map* map = createMap("resources/Forest.png");
+	Map* map = createMap(getPath("resources/Forest.png"));
    _map = map;
 	
 	SDL_Rect surface = {0, 0, 640, 480};
@@ -37,8 +51,8 @@ int main(int argc, char *argv[]) {
 	
 	// Creation of the enemies
 	TypeEn* cat = createTypeEn(100, 5, false, true, true, false, 1);
-	Enemy* cat1 = createEnemy(0,0,cat,createAnimation("resources/white_transparent_cat.png"));
-	Enemy* cat2 = createEnemy(1,4,cat,createAnimation("resources/black_transparent_cat.png"));	
+	Enemy* cat1 = createEnemy(0,0,cat,createAnimation(getPath("resources/white_transparent_cat.png")));
+	Enemy* cat2 = createEnemy(1,4,cat,createAnimation(getPath("resources/black_transparent_cat.png")));
 
 	// Main loop
 	while(isInPlay) {
@@ -70,7 +84,6 @@ int main(int argc, char *argv[]) {
 		}
 		previousTime = SDL_GetTicks();
 	}
-
 	SDL_Quit();
 	
 	return EXIT_SUCCESS;
