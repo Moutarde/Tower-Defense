@@ -14,19 +14,20 @@
 #include "utils/viewport.h"
 #include "event/event.h"
 #include <stdbool.h>
+#include "list/list.h"
 
 Map *_map;
-char* _pather;
+char* _path;
 
 void initPath(char* argv0){
    int trimLength = strrchr(argv0,'/')+1-argv0;
-   _pather = calloc(trimLength,1);
-   strncat(_pather,argv0,trimLength);
+   _path = calloc(trimLength,1);
+   strncat(_path,argv0,trimLength);
 }
 
 char* getPath(char* resource){
-   char* fullPath = calloc(strlen(_pather)+strlen(resource),1);
-   return strcat(strcat(fullPath,_pather),resource);
+   char* fullPath = calloc(strlen(_path)+strlen(resource),1);
+   return strcat(strcat(fullPath,_path),resource);
 }
 
 int main(int argc, char *argv[]) {
@@ -54,6 +55,10 @@ int main(int argc, char *argv[]) {
 	Enemy* cat1 = createEnemy(0,0,cat,createAnimation(getPath("resources/white_transparent_cat.png")));
 	Enemy* cat2 = createEnemy(1,4,cat,createAnimation(getPath("resources/black_transparent_cat.png")));
 
+   //Add enemy in the List
+   EnemyList *list = newEnemyList(cat1);
+   popEnemy(list,cat2);
+
 	// Main loop
 	while(isInPlay) {
 		// Managing the events
@@ -68,8 +73,11 @@ int main(int argc, char *argv[]) {
 		drawEnemy(cat2,map);
 
       // Move enemies
-      moveEnemy(cat1);
-      moveEnemy(cat2);
+//      moveEnemy(cat1);
+//      moveEnemy(cat2);
+      
+      //Move the List of enemy
+      moveEnemyList(list);
 
 		// Blit map
 		drawMap(map, &(viewport->surface), screen);

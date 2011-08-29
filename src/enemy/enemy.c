@@ -73,7 +73,7 @@ SDL_Rect* getRect(Animation *anim){
 }
 
 /**
- * \fn void moveEnemy(Enemy* enemy, Movement move);
+ * \fn void moveEnemy(Enemy* enemy)
  * \brief move an enemy
  * the function move an enemy according to the nextMovement function
  * \see nextMovement

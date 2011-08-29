@@ -33,8 +33,12 @@ typedef struct {
 	TypeEn* type;//!< monster's type
 } Enemy;
 
+
+
 Enemy* createEnemy(int x, int y, TypeEn* type, Animation animation);
 void drawEnemy(Enemy* enemy, Map* map);
 void moveEnemy(Enemy* enemy);
 Movement nextMovement(Enemy* enemy);
+
 #endif
+
