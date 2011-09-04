@@ -52,7 +52,7 @@ int main(int argc, char *argv[]) {
 	
 	// Creation of the enemies
 	TypeEn* cat = createTypeEn(100, 5, false, true, true, false, 1);
-	Enemy* cat1 = createEnemy(0,0,cat,createAnimation(getPath("resources/white_transparent_cat.png")));
+	Enemy* cat1 = createEnemy(1,1,cat,createAnimation(getPath("resources/white_transparent_cat.png")));
 	Enemy* cat2 = createEnemy(1,4,cat,createAnimation(getPath("resources/black_transparent_cat.png")));
 
    //Add enemy in the List
