@@ -44,6 +44,18 @@ Map* createMap(char* mapName) {
 			map->matrice[i][j].hasTower = false;
 		}
 	}
+	
+	// creation of external wall
+	for(int i=0;i<map->nbCaseH;i++){
+	   map->matrice[i][0].hasTower = true;
+	   map->matrice[i][map->nbCaseW-1].hasTower = true;
+	}
+   for(int j=1;j<map->nbCaseW-1;j++){
+	   map->matrice[0][j].hasTower = true;
+	   map->matrice[map->nbCaseH-2][j].hasTower = true;
+   }	
+   
+   //some test wall
 	map->matrice[2][0].hasTower = true;
 	map->matrice[3][1].hasTower = true;
 	map->matrice[2][2].hasTower = true;
