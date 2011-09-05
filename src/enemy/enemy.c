@@ -10,6 +10,7 @@
 
 
 #include "enemy.h"
+#include "../utils/pathFinding.h"
 
 /**
  * \fn Enemy* createEnemy(int x, int y, TypeEn* type)
@@ -116,6 +117,8 @@ void moveEnemy(Enemy* enemy){
 Movement nextMovement(Enemy* enemy){
    int x = enemy->x;
    int y = enemy->y;
+
+/*
    Case nearCase;
    if(x+1 < _map->nbCaseW && (nearCase = getCase(x+1,y), !nearCase.hasTower)){
       nearCase.hasEnemy++;
@@ -132,4 +135,9 @@ Movement nextMovement(Enemy* enemy){
    }else{
      return STAY;
    }
+*/
+
+   Case currentCase = getCase(x,y);
+   Case finalCase = getCase(_map->nbCaseH/2,_map->nbCaseW);
+   return searchPath(currentCase,finalCase);
 }
