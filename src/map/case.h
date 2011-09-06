@@ -17,12 +17,17 @@
 
 #define CSIZE 32;
 
+/**
+ * \struct Case case.h
+ * \brief a case structure
+ */
+
 typedef struct {
-	int x;
-	int y;
-	int size;
-	bool hasTower;
-	bool hasEnemy;
+	int x; int y;     //*!< pixel position of up-left corner
+	int xx; int yy;   //*!< position of the case in the grid
+	int size;         //*!< size of... something?... maybe...
+	bool hasTower;    //*!< if there are a Tower on the Case
+	bool hasEnemy;    //*!< if there are an Enemy on the Case
 } Case;
 
 #endif
