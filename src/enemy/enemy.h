@@ -29,7 +29,7 @@ typedef struct {
 	Animation animation;
 	int life;//!< monster's life
 	int speed;//!< monster's speed 
-	bool isPoisoned;//!< true if the monster is poisoned /*!< when an enemy is poisoned, is life decrease whith time and is sloed down*/
+	bool isPoisoned;//!< true if the monster is poisoned /*!< when an enemy is poisoned, is life decrease whith time and is slowed down*/
 	TypeEn* type;//!< monster's type
 } Enemy;
 
