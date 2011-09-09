@@ -20,7 +20,7 @@
  */
 
 EnemyList* newEnemyList(Enemy* firstEnemy){
-   EnemyList* newList = malloc(sizeof *newEnemyList);
+   EnemyList* newList = malloc(sizeof *newList);
    newList->enemy = firstEnemy;
    newList->nextEnemy = NULL;
   return newList; 
@@ -54,15 +54,17 @@ void popEnemy(EnemyList *list, Enemy *enemy){
 
 void removeEnemy(EnemyList *list, Enemy *enemy){
    EnemyList* previousList = list;
-   while(list->enemy != enemy){
-      if(list == NULL){
-         free(enemy);
+   while(list->enemy != enemy){     //search of item which contain the enemy 
+      if(list == NULL){ 
+         free(enemy);         //if the enemy is not in the list, we delete it
          return;
       }
       previousList = list;
       list = list->nextEnemy;
    }
    previousList->nextEnemy = list->nextEnemy;
+   *list=*list;
+   free(list->enemy);
    free(list);
 }
 

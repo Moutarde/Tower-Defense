@@ -40,6 +40,8 @@ Map* createMap(char* mapName) {
 		for(int j = 0; j < (map->nbCaseH); j++) {
 			map->matrice[i][j].x = i*CSIZE;
 			map->matrice[i][j].y = j*CSIZE;
+			map->matrice[i][j].xx = i;
+			map->matrice[i][j].yy = j;
 			map->matrice[i][j].hasEnemy = false;
 			map->matrice[i][j].hasTower = false;
 		}
@@ -56,10 +58,10 @@ Map* createMap(char* mapName) {
    }	
    
    //some test wall
-	map->matrice[2][0].hasTower = true;
-	map->matrice[3][1].hasTower = true;
-	map->matrice[2][2].hasTower = true;
-	map->matrice[3][4].hasTower = true;
+/*	map->matrice[2][0].hasTower = true;*/
+/*	map->matrice[3][1].hasTower = true;*/
+/*	map->matrice[2][2].hasTower = true;*/
+/*	map->matrice[3][4].hasTower = true;*/
 	return map;
 }
 

@@ -136,8 +136,13 @@ Movement nextMovement(Enemy* enemy){
      return STAY;
    }
 */
-
    Case currentCase = getCase(x,y);
-   Case finalCase = getCase(_map->nbCaseH/2,_map->nbCaseW);
+/*   Case finalCase = getCase(5,4);*/
+   extern Case cell;       //
+   Case finalCase = cell; //debug (candy_cane)
+   if(currentCase.xx == finalCase.xx && currentCase.yy == finalCase.yy){
+      return STAY;
+   }
+
    return searchPath(currentCase,finalCase);
 }

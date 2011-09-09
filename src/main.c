@@ -18,6 +18,8 @@
 
 Map *_map;
 char* _path;
+Case cell; // for debug (candy_cane)
+
 
 void initPath(char* argv0){
    int trimLength = strrchr(argv0,'/')+1-argv0;
@@ -52,12 +54,17 @@ int main(int argc, char *argv[]) {
 	
 	// Creation of the enemies
 	TypeEn* cat = createTypeEn(100, 5, false, true, true, false, 1);
-	Enemy* cat1 = createEnemy(1,1,cat,createAnimation(getPath("resources/white_transparent_cat.png")));
-	Enemy* cat2 = createEnemy(1,4,cat,createAnimation(getPath("resources/black_transparent_cat.png")));
-
+//	Enemy* cat1 = createEnemy(1,1,cat,createAnimation(getPath("resources/white_transparent_cat.png")));
+//	Enemy* cat2 = createEnemy(1,4,cat,createAnimation(getPath("resources/black_transparent_cat.png")));
+//	Enemy* cat3 = createEnemy(5,5,cat,createAnimation(getPath("resources/black_transparent_cat.png")));
+	Enemy* cat4 = createEnemy(11,10,cat,createAnimation(getPath("resources/white_transparent_cat.png")));
+	
    //Add enemy in the List
-   EnemyList *list = newEnemyList(cat1);
-   popEnemy(list,cat2);
+   EnemyList *list = newEnemyList(cat4);
+//   popEnemy(list,cat2);
+//   popEnemy(list,cat3);
+//   popEnemy(list,cat1);
+   
 
 	// Main loop
 	while(isInPlay) {
@@ -69,8 +76,10 @@ int main(int argc, char *argv[]) {
 		cleanMap(map);
 		
 		// Blit enemies
-		drawEnemy(cat1,map);
-		drawEnemy(cat2,map);
+//		drawEnemy(cat1,map);
+//		drawEnemy(cat2,map);
+//		drawEnemy(cat3,map);
+		drawEnemy(cat4,map);
 
       // Move enemies
 //      moveEnemy(cat1);
@@ -78,10 +87,31 @@ int main(int argc, char *argv[]) {
       
       //Move the List of enemy
       moveEnemyList(list);
+///////////////////////////// DEBUG WALL /////////////////////////////
+   SDL_Rect position;
 
+	for(int i=0;i < _map->nbCaseW;i++){
+		for(int j=0;j < _map->nbCaseH;j++){
+		   Case cell = getCase(i,j);
+		   position.x = cell.x;
+		   position.y = cell.y;
+			if(map->matrice[i][j].hasTower == true){
+            SDL_Surface *wall = IMG_Load(getPath("resources/enemy.gif"));
+			   SDL_BlitSurface(wall,NULL,map->bg,&position);
+			}
+		}
+	}
+	cell = getCase(11,8);
+	position.x = cell.x;
+	position.y = cell.y;
+   SDL_BlitSurface(IMG_Load(getPath("resources/candy_cane.png")),NULL,map->bg,&position);
+/////////////////////////////////////////////////////////////////////
 		// Blit map
 		drawMap(map, &(viewport->surface), screen);
 //      SDL_Delay(100);
+
+
+
 		SDL_Flip(screen);
 		
 		// Managing frames

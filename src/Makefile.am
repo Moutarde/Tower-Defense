@@ -10,7 +10,9 @@ tower/typeBul.c \
 tower/typeTo.c \
 utils/viewport.c \
 event/event.c \
-list/list.c
+list/list.c \
+utils/pathFinding.c
+
 
 AM_CFLAGS=-Wall -std=c99
 
