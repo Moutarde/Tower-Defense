@@ -54,16 +54,16 @@ int main(int argc, char *argv[]) {
 	
 	// Creation of the enemies
 	TypeEn* cat = createTypeEn(100, 5, false, true, true, false, 1);
-//	Enemy* cat1 = createEnemy(1,1,cat,createAnimation(getPath("resources/white_transparent_cat.png")));
-//	Enemy* cat2 = createEnemy(1,4,cat,createAnimation(getPath("resources/black_transparent_cat.png")));
-//	Enemy* cat3 = createEnemy(5,5,cat,createAnimation(getPath("resources/black_transparent_cat.png")));
-	Enemy* cat4 = createEnemy(11,10,cat,createAnimation(getPath("resources/white_transparent_cat.png")));
+	Enemy* cat1 = createEnemy(1,1,cat,createAnimation(getPath("resources/white_transparent_cat.png")));
+	Enemy* cat2 = createEnemy(21,4,cat,createAnimation(getPath("resources/black_transparent_cat.png")));
+	Enemy* cat3 = createEnemy(5,5,cat,createAnimation(getPath("resources/black_transparent_cat.png")));
+	Enemy* cat4 = createEnemy(1,10,cat,createAnimation(getPath("resources/white_transparent_cat.png")));
 	
    //Add enemy in the List
    EnemyList *list = newEnemyList(cat4);
-//   popEnemy(list,cat2);
-//   popEnemy(list,cat3);
-//   popEnemy(list,cat1);
+   popEnemy(list,cat2);
+   popEnemy(list,cat3);
+   popEnemy(list,cat1);
    
 
 	// Main loop
@@ -76,11 +76,12 @@ int main(int argc, char *argv[]) {
 		cleanMap(map);
 		
 		// Blit enemies
-//		drawEnemy(cat1,map);
-//		drawEnemy(cat2,map);
-//		drawEnemy(cat3,map);
-		drawEnemy(cat4,map);
-
+//		drawEnemy(cat1);
+//		drawEnemy(cat2);
+//		drawEnemy(cat3);
+//		drawEnemy(cat4);
+      drawEnemyList(list);
+      
       // Move enemies
 //      moveEnemy(cat1);
 //      moveEnemy(cat2);
@@ -101,7 +102,7 @@ int main(int argc, char *argv[]) {
 			}
 		}
 	}
-	cell = getCase(11,8);
+	cell = getCase(7,11);
 	position.x = cell.x;
 	position.y = cell.y;
    SDL_BlitSurface(IMG_Load(getPath("resources/candy_cane.png")),NULL,map->bg,&position);

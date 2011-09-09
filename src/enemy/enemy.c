@@ -45,7 +45,7 @@ Enemy* createEnemy(int x, int y, TypeEn* type,Animation animation) {
  * \param enemy Enemy to draw.
  * \param map The map where the enemy has to be drawn.
  */
-void drawEnemy(Enemy* enemy, Map* map) {
+void drawEnemy(Enemy* enemy) {
    switch(enemy->animation.direction){
       case RIGHT:
          enemy->animPosition.x++;
@@ -63,7 +63,7 @@ void drawEnemy(Enemy* enemy, Map* map) {
         break;
    }
 
-	SDL_BlitSurface(enemy->animation.currentFrame, getRect(&enemy->animation), map->bg, &enemy->animPosition);
+	SDL_BlitSurface(enemy->animation.currentFrame, getRect(&enemy->animation), _map->bg, &enemy->animPosition);
 }
 
 SDL_Rect* getRect(Animation *anim){

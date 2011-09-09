@@ -79,10 +79,26 @@ void removeEnemy(EnemyList *list, Enemy *enemy){
 
 void moveEnemyList(EnemyList *list){
    moveEnemy(list->enemy);
-   while(list->nextEnemy !=NULL){
+   while(list->nextEnemy){
       list = list->nextEnemy;
       moveEnemy(list->enemy);
    }
 }
 
+
+/**
+ * \fn void drawEnemyList(EnemyList *list)
+ * \brief draw an List of enemy
+ * the function draw each enemy of a list
+ * \see drawEnemy
+ * \param list a list of Enemy to move
+ */
+
+void drawEnemyList(EnemyList *list){
+   drawEnemy(list->enemy);
+   while(list->nextEnemy){
+      list = list->nextEnemy;
+      drawEnemy(list->enemy);
+   }
+}
 

@@ -25,5 +25,6 @@ void removeEnemy(EnemyList *list, Enemy *enemy);
 
 EnemyList* newEnemyList(Enemy* firstEnemy);
 void moveEnemyList(EnemyList *list);
+void drawEnemyList(EnemyList *list);
 
 #endif
