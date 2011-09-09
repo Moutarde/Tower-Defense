@@ -11,6 +11,7 @@
 
 #include "enemy.h"
 #include "../utils/pathFinding.h"
+#include <stdlib.h>
 
 /**
  * \fn Enemy* createEnemy(int x, int y, TypeEn* type)
@@ -30,6 +31,8 @@ Enemy* createEnemy(int x, int y, TypeEn* type,Animation animation) {
 	Case anim_start = getCase(x,y);
    enemy->animPosition.x = anim_start.x;
    enemy->animPosition.y = anim_start.y;
+   enemy->animPosition.h = rand()%_map->nbCaseH;   
+   enemy->animPosition.w = rand()%_map->nbCaseW;
 	enemy->life = type->maxLife;
 	enemy->speed = type->normalSpeed;
 	enemy->type = type;
@@ -62,8 +65,11 @@ void drawEnemy(Enemy* enemy) {
       default:
         break;
    }
+   SDL_Rect animOffset = enemy->animPosition;
+   animOffset.x += animOffset.w;
+   animOffset.y += animOffset.h;
 
-	SDL_BlitSurface(enemy->animation.currentFrame, getRect(&enemy->animation), _map->bg, &enemy->animPosition);
+	SDL_BlitSurface(enemy->animation.currentFrame, getRect(&enemy->animation), _map->bg, &animOffset);
 }
 
 SDL_Rect* getRect(Animation *anim){

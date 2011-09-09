@@ -38,7 +38,8 @@ int main(int argc, char *argv[]) {
 	SDL_Surface* screen = NULL;
 	SDL_Event event;
 	bool isInPlay = true;
-	
+   int seed;
+   srand(seed);
 	int previousTime = 0, currentTime = 0;
 
 	SDL_Init(SDL_INIT_VIDEO);
