@@ -24,7 +24,7 @@ Movement searchPath(Case start, Case destination){
    Node *endNode = getNode(destination);
    Node *firstNode = getNode(start);
    firstNode->cumulateNodeCost=0;
-   
+   Movement nextMove;   
 /*
    There are two list, the openList contain a set of to process node;
  the closedList contain a set of already processed node
@@ -43,11 +43,14 @@ Movement searchPath(Case start, Case destination){
    while(openList->nextList){               
       Node *lowestHeuristic = popHead(&openList); //we test the most closer node (with the lowest heuristic cost)
       if(theseTwoNodeAreEquals(lowestHeuristic,endNode)){
-         return pathReConstruction(lowestHeuristic);        //if we have reached the final node, a path have been found
+         nextMove = pathReConstruction(lowestHeuristic);        //if we have reached the final node, a path have been found
+         freeList(openList);
+         freeList(closedList);
+        return nextMove;
       }
 
-      closedList = head(lowestHeuristic,closedList);            //this node have been computed
-   
+      closedList = push(lowestHeuristic,closedList);            //this node have been computed
+      
 /*
    For each node near the one which is computed,
    we check if he have already computed or cannot be tested (if it's a wall or a tower)
@@ -81,7 +84,8 @@ Movement searchPath(Case start, Case destination){
          
       }
    }         
-//   printf("miaou!\n");    
+   freeList(openList);
+   freeList(closedList);
   return STAY;
 }
 
@@ -221,7 +225,7 @@ NodeList* push(Node *node, NodeList *list){
    NodeList *firstItem = list;
    int cost = node->cumulateNodeCost;
    NodeList *theOneBefore = list;
-   if(!list->node || cost < list->node->cumulateNodeCost){
+   if(!list || !list->node || cost < list->node->cumulateNodeCost){
       return head(node,list);
    }
 // we search the right position to push (before the one wich have a more heuristic cost)
@@ -289,3 +293,24 @@ Movement pathReConstruction(Node *finalNode){
    }
   return STAY;
 }
+
+/**
+ * \fn void freeList(NodeList *list)
+ * \brief clear a list
+ * \param list a list to free
+ */
+ 
+void freeList(NodeList *list){
+   if(list->node){
+      if(list->nextList){
+         if(list->node != list->nextList->node){
+            free(list->node);
+         }
+         
+         freeList(list->nextList);
+      }
+   }
+   free(list);
+   return;
+}
+

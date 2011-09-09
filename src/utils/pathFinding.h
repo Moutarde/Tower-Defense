@@ -38,5 +38,6 @@ int heuristicCost(Node *node, Node *destination);
 NodeList* push(Node *node, NodeList *list);
 void tail(Node *node, NodeList *list);
 Movement pathReConstruction(Node *finalNode);
+void freeList(NodeList *list);
 
 #endif
