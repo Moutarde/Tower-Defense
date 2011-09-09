@@ -57,7 +57,7 @@ Movement searchPath(Case start, Case destination){
 */
       int i,j; float k;                                                          
       for(i=-1,j=0,k=0.5;k<=2;j=-(((((int)(-2*k)-1))%3)+1),i=(int)(k+=0.5)-1){   // i={-1,0,0,1} j={0,1,-1,0}
-         Case nearCase = getCase(i+lowestHeuristic->x,j+lowestHeuristic->y);           //get the four Case near the one already computed 
+         Case nearCase = *getCase(i+lowestHeuristic->x,j+lowestHeuristic->y);           //get the four Case near the one already computed 
          Node *nearNode = getNode(nearCase);
      
          if(nearCase.hasTower || amIInDaList(nearNode,closedList)){            //we are not open to node already computed or 
@@ -273,19 +273,19 @@ Movement pathReConstruction(Node *finalNode){
       nextNode = finalNode;
       finalNode = finalNode->previousNode;
    }
-   Case currentCase = getCase(finalNode->x,finalNode->y);
-   Case nearCase = getCase(nextNode->x,nextNode->y);
+   Case *currentCase = getCase(finalNode->x,finalNode->y);
+   Case *nearCase = getCase(nextNode->x,nextNode->y);
 
-   nearCase.hasEnemy++;      //////////////////////////------------ pointeur? --------------/////////////////////////////////////   
-   currentCase.hasEnemy--;   //////////////////////////------------ pointeur? --------------/////////////////////////////////////
+   nearCase->hasEnemy++; 
+   currentCase->hasEnemy--; 
    
-   switch(currentCase.xx - nearCase.xx){
+   switch(currentCase->xx - nearCase->xx){
       case 1:
          return LEFT;
       case -1:
          return RIGHT;
    }
-   switch(currentCase.yy - nearCase.yy){
+   switch(currentCase->yy - nearCase->yy){
       case 1:
          return UP;
       case -1:

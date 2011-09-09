@@ -125,13 +125,13 @@ void cleanMap(Map* map) {
 }
 
 /**
- * \fn Case* getCase(int x, int y, Map *map)
+ * \fn Case* getCase(int x, int y)
  * \brief geta Case from a map
  * \param x the x position of a cell
  * \param y the y position of a cell
  * \return a cell's pointer 
  */
-Case getCase(int x, int y){
-   return _map->matrice[x][y];
+Case* getCase(int x, int y){
+   return &(_map->matrice[x][y]);
 }
 

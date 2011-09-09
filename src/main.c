@@ -94,7 +94,7 @@ int main(int argc, char *argv[]) {
 
 	for(int i=0;i < _map->nbCaseW;i++){
 		for(int j=0;j < _map->nbCaseH;j++){
-		   Case cell = getCase(i,j);
+		   Case cell = *getCase(i,j);
 		   position.x = cell.x;
 		   position.y = cell.y;
 			if(map->matrice[i][j].hasTower == true){
@@ -103,7 +103,7 @@ int main(int argc, char *argv[]) {
 			}
 		}
 	}
-	cell = getCase(7,11);
+	cell = *getCase(7,11);
 	position.x = cell.x;
 	position.y = cell.y;
    SDL_BlitSurface(IMG_Load(getPath("resources/candy_cane.png")),NULL,map->bg,&position);
