@@ -54,17 +54,29 @@ int main(int argc, char *argv[]) {
 	Viewport* viewport = createViewport(surface, map);
 	
 	// Creation of the enemies
-	TypeEn* cat = createTypeEn(100, 5, false, true, true, false, 1);
-	Enemy* cat1 = createEnemy(1,1,cat,createAnimation(getPath("resources/white_transparent_cat.png")));
-	Enemy* cat2 = createEnemy(21,4,cat,createAnimation(getPath("resources/black_transparent_cat.png")));
-	Enemy* cat3 = createEnemy(5,5,cat,createAnimation(getPath("resources/black_transparent_cat.png")));
-	Enemy* cat4 = createEnemy(1,10,cat,createAnimation(getPath("resources/white_transparent_cat.png")));
+	TypeEn* whiteCat = createTypeEn(100, 5, false, true, true, false, 1,getPath("resources/white_transparent_cat.png"));
+	TypeEn* blackCat = createTypeEn(100, 5, false, true, true, false, 1,getPath("resources/black_transparent_cat.png"));
+	Enemy* cat1 = createEnemy(1,1,whiteCat);
+	Enemy* cat2 = createEnemy(1,10,whiteCat);
+	Enemy* cat3 = createEnemy(5,5,blackCat);
+	Enemy* cat4 = createEnemy(21,4,blackCat);
 	
+   TypeEn *zombie = createTypeEn(100,5,false,true,true,false,1,getPath("resources/zombie.png"));
+   Enemy *zombie1 = createEnemy(4,4,zombie);
+   Enemy *zombie2 = createEnemy(9,4,zombie);
+   Enemy *zombie3 = createEnemy(9,9,zombie);
+   Enemy *zombie4 = createEnemy(7,14,zombie);
+
    //Add enemy in the List
-   EnemyList *list = newEnemyList(cat4);
-   popEnemy(list,cat2);
-   popEnemy(list,cat3);
-   popEnemy(list,cat1);
+   EnemyList *catList = newEnemyList(cat4);
+   popEnemy(catList,cat2);
+   popEnemy(catList,cat3);
+   popEnemy(catList,cat1);
+   
+   EnemyList *zombieList = newEnemyList(zombie1);
+   popEnemy(zombieList,zombie2);
+   popEnemy(zombieList,zombie3);
+   popEnemy(zombieList,zombie4);
    
 
 	// Main loop
@@ -75,20 +87,6 @@ int main(int argc, char *argv[]) {
 
 		// Clean the objects on the map
 		cleanMap(map);
-		
-		// Blit enemies
-//		drawEnemy(cat1);
-//		drawEnemy(cat2);
-//		drawEnemy(cat3);
-//		drawEnemy(cat4);
-      drawEnemyList(list);
-      
-      // Move enemies
-//      moveEnemy(cat1);
-//      moveEnemy(cat2);
-      
-      //Move the List of enemy
-      moveEnemyList(list);
 ///////////////////////////// DEBUG WALL /////////////////////////////
    SDL_Rect position;
 
@@ -108,6 +106,15 @@ int main(int argc, char *argv[]) {
 	position.y = cell.y;
    SDL_BlitSurface(IMG_Load(getPath("resources/candy_cane.png")),NULL,map->bg,&position);
 /////////////////////////////////////////////////////////////////////
+		
+		// Blit enemies
+      drawEnemyList(zombieList);
+      drawEnemyList(catList);
+      
+      // Move enemies
+      moveEnemyList(zombieList);
+      moveEnemyList(catList);
+      
 		// Blit map
 		drawMap(map, &(viewport->surface), screen);
 //      SDL_Delay(100);

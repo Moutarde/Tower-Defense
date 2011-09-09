@@ -55,7 +55,7 @@ void popEnemy(EnemyList *list, Enemy *enemy){
 void removeEnemy(EnemyList *list, Enemy *enemy){
    EnemyList* previousList = list;
    while(list->enemy != enemy){     //search of item which contain the enemy 
-      if(list == NULL){ 
+      if(list){ 
          free(enemy);         //if the enemy is not in the list, we delete it
          return;
       }
@@ -63,9 +63,9 @@ void removeEnemy(EnemyList *list, Enemy *enemy){
       list = list->nextEnemy;
    }
    previousList->nextEnemy = list->nextEnemy;
-   *list=*list;
    free(list->enemy);
    free(list);
+  return; 
 }
 
 

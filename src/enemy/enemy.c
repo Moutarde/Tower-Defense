@@ -22,12 +22,13 @@
  * \param type The type of the enemy.
  * \return The pointer on the enemy, in order to use it.
  */
-Enemy* createEnemy(int x, int y, TypeEn* type,Animation animation) {
+Enemy* createEnemy(int x, int y, TypeEn* type) {
 	Enemy* enemy = (Enemy*)malloc( sizeof(Enemy) );
 
 	enemy->x = x;
 	enemy->y = y;
-	enemy->animation = animation;
+	enemy->type = type;
+	enemy->animation = createAnimation(type->picture);
 	Case anim_start = *getCase(x,y);
    enemy->animPosition.x = anim_start.x;
    enemy->animPosition.y = anim_start.y;
@@ -35,7 +36,6 @@ Enemy* createEnemy(int x, int y, TypeEn* type,Animation animation) {
    enemy->animPosition.w = rand()%_map->nbCaseW;
 	enemy->life = type->maxLife;
 	enemy->speed = type->normalSpeed;
-	enemy->type = type;
 	enemy->isPoisoned = false;
 
 	return enemy;

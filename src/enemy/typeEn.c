@@ -17,7 +17,8 @@ TypeEn* createTypeEn(int maxLife,
                      bool canBeSlowed,
                      bool canBePoisoned,
                      bool invisible,
-                     int armor) {
+                     int armor,
+                     char* ressource) {
 
 	TypeEn* typeEn = (TypeEn*)malloc( sizeof(TypeEn) );
 
@@ -28,6 +29,7 @@ TypeEn* createTypeEn(int maxLife,
 	typeEn->canBePoisoned = canBePoisoned;
 	typeEn->invisible = invisible;
 	typeEn->armor = armor;
+	typeEn->picture = ressource;
 
 	return typeEn;
 }

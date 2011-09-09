@@ -34,6 +34,7 @@ typedef struct {
 	bool canBePoisoned;
 	bool invisible;
 	int armor;
+	char* picture;
 } TypeEn;
 
 TypeEn* createTypeEn(int maxLife,
@@ -42,7 +43,8 @@ TypeEn* createTypeEn(int maxLife,
                      bool canBeSlowed,
                      bool canBePoisoned,
                      bool invisible,
-                     int armor);
+                     int armor,
+                     char* resources);
 
 Animation createAnimation(char *sprite_sheet_name);
 SDL_Rect* getRect(Animation *anim);

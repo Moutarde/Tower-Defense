@@ -35,7 +35,7 @@ typedef struct {
 
 
 
-Enemy* createEnemy(int x, int y, TypeEn* type, Animation animation);
+Enemy* createEnemy(int x, int y, TypeEn* type);
 void drawEnemy(Enemy* enemy);
 void moveEnemy(Enemy* enemy);
 Movement nextMovement(Enemy* enemy);
