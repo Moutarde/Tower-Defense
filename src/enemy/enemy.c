@@ -125,8 +125,7 @@ Movement nextMovement(Enemy* enemy){
    int y = enemy->y;
 
    Case currentCase = *getCase(x,y);
-/*   Case finalCase = getCase(5,4);*/
-   extern Case cell;       //
+   extern Case cell;       //debug (candy_cane)
    Case finalCase = cell; //debug (candy_cane)
    if(currentCase.xx == finalCase.xx && currentCase.yy == finalCase.yy){
       return STAY;
