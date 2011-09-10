@@ -23,7 +23,7 @@ Tower* createTower(int x, int y, TypeTo* type) {
 	tower->range = type->iniRange;
 	tower->attSpeed = type->iniAttSpeed;
 	tower->sellPrice = getPrice(type->price);
-
+   
 	return tower;
 }
 
@@ -33,4 +33,19 @@ int getPrice(int iniPrice) {
 
 void upgrade(Tower* t) {
 	t->level++;
+}
+
+/**
+ * \fn void drawTower(Tower tower)
+ * \brief draw a tower in the map
+ * \param tower a tower to drawEnemy
+ */
+ 
+void drawTower(Tower *tower){
+   SDL_Rect position;
+   Case *cell = getCase(tower->x,tower->y);
+   position.x = cell->x;
+   position.y = cell->y;
+   cell->hasTower = true;
+   SDL_BlitSurface(tower->type->image, NULL, _map->bg, &position);
 }

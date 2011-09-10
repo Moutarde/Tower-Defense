@@ -11,6 +11,7 @@
 
 #include "map/map.h"
 #include "enemy/enemy.h"
+#include "tower/tower.h"
 #include "utils/viewport.h"
 #include "event/event.h"
 #include <stdbool.h>
@@ -38,7 +39,8 @@ int main(int argc, char *argv[]) {
 	SDL_Surface* screen = NULL;
 	SDL_Event event;
 	bool isInPlay = true;
-   void* seed;
+//   void* seed;
+   int seed = 42;
    srand((int)seed);
 	int previousTime = 0, currentTime = 0;
 
@@ -79,6 +81,11 @@ int main(int argc, char *argv[]) {
    popEnemy(zombieList,zombie4);
    
 
+   //TOWER
+   TypeTo *tower = createTypeTo(0,0,0,0,false,false,false,false,NULL,getPath("resources/tower.png"));
+   Tower *tower1 = createTower(4,7,tower);
+
+
 	// Main loop
 	while(isInPlay) {
 		// Managing the events
@@ -110,6 +117,8 @@ int main(int argc, char *argv[]) {
 		// Blit enemies
       drawEnemyList(zombieList);
       drawEnemyList(catList);
+      //Blit TOWER
+      drawTower(tower1);
       
       // Move enemies
       moveEnemyList(zombieList);

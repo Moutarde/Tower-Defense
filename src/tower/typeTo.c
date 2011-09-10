@@ -11,21 +11,20 @@
 
 #include "typeTo.h"
 
-//Il y a un problème pour notre norme ici. ligne trop grande.
-TypeTo* createTypeTo(SDL_Surface* image,
-		     int iniDamages,
+TypeTo* createTypeTo(
+           int iniDamages,
 		     int iniRange,
 		     int iniAttSpeed,
 		     int price,
-	             bool isSplash,
+           bool isSplash,
 		     bool isSlower,
-	             bool canAttackFlying,
-	             bool canPoison,
-	 	     TypeBul typeBul) {
+           bool canAttackFlying,
+           bool canPoison,
+	 	     TypeBul *typeBul,
+	 	     char* image) {
 
 	TypeTo* typeTo = (TypeTo*)malloc( sizeof(TypeTo) );
 
-	typeTo->image = image;
 	typeTo->iniDamages = iniDamages;
 	typeTo->iniRange = iniRange;
 	typeTo->iniAttSpeed = iniAttSpeed;
@@ -35,6 +34,7 @@ TypeTo* createTypeTo(SDL_Surface* image,
 	typeTo->canAttackFlying = canAttackFlying;
 	typeTo->canPoison = canPoison;
 	typeTo->typeBul = typeBul;
+	typeTo->image = IMG_Load(image);
 
 	return typeTo;
 }

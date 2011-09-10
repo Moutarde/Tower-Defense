@@ -28,11 +28,11 @@ typedef struct {
 	bool isSlower;
 	bool canAttackFlying;
 	bool canPoison;
-	TypeBul typeBul;
+	TypeBul *typeBul;
 	SDL_Surface* image;
 } TypeTo;
 
-TypeTo* createTypeTo(SDL_Surface* image,
+TypeTo* createTypeTo(
 		     int iniDamages,
 		     int iniRange,
 		     int iniAttSpeed,
@@ -41,6 +41,7 @@ TypeTo* createTypeTo(SDL_Surface* image,
 		     bool isSlower,
 		     bool canAttackFlying,
 		     bool canPoison,
-		     TypeBul typeBul);
+		     TypeBul *typeBul,
+		     char* image);
 
 #endif

@@ -14,6 +14,7 @@
 
 #include <stdio.h>
 #include "typeTo.h"
+#include "../map/map.h"
 
 typedef struct {
 	int x;
@@ -25,9 +26,12 @@ typedef struct {
 	int range;
 	int attSpeed;
 	int sellPrice;
+	
 } Tower;
 
+extern Map *_map;
 Tower* createTower(int x, int y, TypeTo* type);
 int getPrice(int iniPrice);
+void drawTower(Tower *tower);
 
 #endif
