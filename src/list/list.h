@@ -21,10 +21,10 @@ typedef struct EnemyList{
 
 EnemyList* newEnemyList(Enemy* firstEnemy);
 void popEnemy(EnemyList *list, Enemy *enemy);
-void removeEnemy(EnemyList *list, Enemy *enemy);
 
 EnemyList* newEnemyList(Enemy* firstEnemy);
 void moveEnemyList(EnemyList *list);
 void drawEnemyList(EnemyList *list);
+void removeEnemyList(EnemyList *list, Enemy *enemy);
 
 #endif

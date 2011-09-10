@@ -45,25 +45,25 @@ void popEnemy(EnemyList *list, Enemy *enemy){
 }
 
 /**
- * \fn void removeEnemy(EnemyList *list, Enemy *enemy)
+ * \fn void removeFromEnemy(Enemy *enemy, EnemyList *list)
  * \brief Function which remove an enemy in a List.
  *
- * \param list A list of enemy.
  * \param enemy The enemy to remove from the list.
+ * \param list A list of enemy.
  */
 
-void removeEnemy(EnemyList *list, Enemy *enemy){
+void removeEnemyFromList(Enemy *enemy, EnemyList *list){
    EnemyList* previousList = list;
    while(list->enemy != enemy){     //search of item which contain the enemy 
       if(list){ 
-         free(enemy);         //if the enemy is not in the list, we delete it
+         removeEnemy(enemy);         //if the enemy is not in the list, we delete it
          return;
       }
       previousList = list;
       list = list->nextEnemy;
    }
    previousList->nextEnemy = list->nextEnemy;
-   free(list->enemy);
+   removeEnemy(enemy);
    free(list);
   return; 
 }

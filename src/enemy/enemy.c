@@ -133,3 +133,15 @@ Movement nextMovement(Enemy* enemy){
 
    return searchPath(currentCase,finalCase);
 }
+
+
+/**
+ * \fn void removeEnemy(Enemy enemy)
+ * \brief fonction to kill an enemy
+ * \param enemy the enemy to kills
+ */
+ 
+void removeEnemy(Enemy *enemy){
+   free(enemy);
+   enemy = NULL;
+}

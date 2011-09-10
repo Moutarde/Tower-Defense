@@ -39,6 +39,7 @@ Enemy* createEnemy(int x, int y, TypeEn* type);
 void drawEnemy(Enemy* enemy);
 void moveEnemy(Enemy* enemy);
 Movement nextMovement(Enemy* enemy);
+void removeEnemy(Enemy *enemy);
 
 #endif
 
