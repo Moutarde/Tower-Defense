@@ -19,16 +19,17 @@
 #include <stdbool.h>
 #include "typeBul.h"
 
-typedef struct {
-	int iniDamages;
-	int iniRange;
-	int iniAttSpeed;
+typedef struct TypeTo{
+	int damages;
+	int range;
+	int attSpeed;
 	int price;
 	bool isSplash;
 	bool isSlower;
 	bool canAttackFlying;
 	bool canPoison;
 	TypeBul *typeBul;
+	struct TypeTo *nextType;
 	SDL_Surface* image;
 } TypeTo;
 
@@ -42,6 +43,7 @@ TypeTo* createTypeTo(
 		     bool canAttackFlying,
 		     bool canPoison,
 		     TypeBul *typeBul,
+		     TypeTo *nextType,
 		     char* image);
 
 #endif

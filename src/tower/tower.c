@@ -16,15 +16,9 @@ Tower* createTower(int x, int y, TypeTo* type) {
 
 	tower->x = x;
 	tower->y = y;
-	tower->level = 1;
 	tower->kills = 0;
 	tower->type= type;
-	tower->damages = type->iniDamages;
-	tower->range = type->iniRange;
-	tower->attSpeed = type->iniAttSpeed;
-	tower->sellPrice = getSellPrice(tower);
-   
-	return tower;
+  return tower;
 }
 
 int getSellPrice(Tower *tower) {
@@ -32,7 +26,9 @@ int getSellPrice(Tower *tower) {
 }
 
 void upgrade(Tower* t) {
-	t->level++;
+   if(t->type->nextType){
+	   t->type = t->type->nextType;
+	}
 }
 
 /**

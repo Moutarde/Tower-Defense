@@ -12,28 +12,30 @@
 #include "typeTo.h"
 
 TypeTo* createTypeTo(
-           int iniDamages,
-		     int iniRange,
-		     int iniAttSpeed,
+           int damages,
+		     int range,
+		     int attSpeed,
 		     int price,
            bool isSplash,
 		     bool isSlower,
            bool canAttackFlying,
            bool canPoison,
 	 	     TypeBul *typeBul,
+	 	     TypeTo *nextType,
 	 	     char* image) {
 
 	TypeTo* typeTo = (TypeTo*)malloc( sizeof(TypeTo) );
 
-	typeTo->iniDamages = iniDamages;
-	typeTo->iniRange = iniRange;
-	typeTo->iniAttSpeed = iniAttSpeed;
+	typeTo->damages = damages;
+	typeTo->range = range;
+	typeTo->attSpeed = attSpeed;
 	typeTo->price = price;
 	typeTo->isSplash = isSplash;
 	typeTo->isSlower = isSlower;
 	typeTo->canAttackFlying = canAttackFlying;
 	typeTo->canPoison = canPoison;
 	typeTo->typeBul = typeBul;
+	typeTo->nextType = nextType;
 	typeTo->image = IMG_Load(image);
 
 	return typeTo;

@@ -82,7 +82,8 @@ int main(int argc, char *argv[]) {
    
 
    //TOWER
-   TypeTo *tower = createTypeTo(0,0,0,0,false,false,false,false,NULL,getPath("resources/tower.png"));
+   TypeTo *towerUP = createTypeTo(100,100,100,100,true,true,true,true,NULL,NULL,getPath("resources/towerUP.png"));
+   TypeTo *tower = createTypeTo(0,0,0,0,false,false,false,false,NULL,towerUP,getPath("resources/tower.png"));
    Tower *tower1 = createTower(4,7,tower);
 
 
@@ -118,6 +119,9 @@ int main(int argc, char *argv[]) {
       drawEnemyList(zombieList);
       drawEnemyList(catList);
       //Blit TOWER
+      if(event.key.keysym.sym == SDLK_u){
+      upgrade(tower1);
+      }
       drawTower(tower1);
       
       // Move enemies
