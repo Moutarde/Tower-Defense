@@ -22,13 +22,13 @@ Tower* createTower(int x, int y, TypeTo* type) {
 	tower->damages = type->iniDamages;
 	tower->range = type->iniRange;
 	tower->attSpeed = type->iniAttSpeed;
-	tower->sellPrice = getPrice(type->price);
+	tower->sellPrice = getSellPrice(tower);
    
 	return tower;
 }
 
-int getPrice(int iniPrice) {
-	return (70*iniPrice)/100;
+int getSellPrice(Tower *tower) {
+	return (70*tower->type->price)/100;
 }
 
 void upgrade(Tower* t) {

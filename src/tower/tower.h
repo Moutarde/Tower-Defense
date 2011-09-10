@@ -31,7 +31,7 @@ typedef struct {
 
 extern Map *_map;
 Tower* createTower(int x, int y, TypeTo* type);
-int getPrice(int iniPrice);
+int getSellPrice(Tower *tower);
 void drawTower(Tower *tower);
 
 #endif
