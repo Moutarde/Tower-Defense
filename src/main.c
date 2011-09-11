@@ -39,8 +39,7 @@ int main(int argc, char *argv[]) {
 	SDL_Surface* screen = NULL;
 	SDL_Event event;
 	bool isInPlay = true;
-//   void* seed;
-   int seed = 42;
+   void* seed;
    srand((int)seed);
 	int previousTime = 0, currentTime = 0;
 
@@ -85,7 +84,6 @@ int main(int argc, char *argv[]) {
    TypeTo *tower = createTypeTo(0,0,0,0,false,false,false,false,NULL,NULL,getPath("resources/tower.png"));
    upgradeTypeTo(tower,0.5,getPath("resources/towerUP.png"));
    Tower *tower1 = createTower(4,7,tower);
-
 
 	// Main loop
 	while(isInPlay) {

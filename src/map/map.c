@@ -141,13 +141,27 @@ void cleanMap(Map* map) {
 }
 
 /**
- * \fn Case* getCase(int x, int y)
+ * \fn Case* getCase(int xx, int yy)
  * \brief geta Case from a map
- * \param x the x position of a cell
- * \param y the y position of a cell
+ * \param xx the x position of a cell
+ * \param yy the y position of a cell
  * \return a cell's pointer 
  */
-Case* getCase(int x, int y){
-   return &(_map->matrice[x][y]);
+Case* getCase(int xx, int yy){
+   return &(_map->matrice[xx][yy]);
 }
 
+/**
+ * \fn Case* whiteCase(int x, int y)
+ * \brief get a Case from a pixel position
+ * 
+ * \param x X coordinate
+ * \param y Y coordinate
+ * \return a cell's pointer
+ */
+ 
+Case* whichCase(int x, int y){
+   x /= CSIZE;
+   y /= CSIZE;
+  return getCase(x,y); 
+}
