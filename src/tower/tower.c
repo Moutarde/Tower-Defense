@@ -12,12 +12,15 @@
 #include "tower.h"
 
 Tower* createTower(int x, int y, TypeTo* type) {
-	Tower* tower = (Tower*)malloc( sizeof(Tower) );
-
-	tower->x = x;
-	tower->y = y;
-	tower->kills = 0;
-	tower->type= type;
+   Case *cell = getCase(x,y);
+   if(cell->hasEnemy || cell->hasTower){
+      return NULL;
+   }
+   Tower* tower = (Tower*)malloc( sizeof(Tower) );
+   tower->x = x;
+   tower->y = y;
+   tower->kills = 0;
+   tower->type= type;
   return tower;
 }
 
