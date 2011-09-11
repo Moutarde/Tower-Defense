@@ -35,8 +35,33 @@ TypeTo* createTypeTo(
 	typeTo->canAttackFlying = canAttackFlying;
 	typeTo->canPoison = canPoison;
 	typeTo->typeBul = typeBul;
-	typeTo->nextType = nextType;
+	typeTo->nextType = NULL;
 	typeTo->image = IMG_Load(image);
 
 	return typeTo;
+}
+
+/**
+ * \fn void *upgradeTypeTo(Tower *tower, float percent,char *image)
+ * \brief create a new type of tower, with same property (slow, poison...) and a little bit more efficient
+ * \param tower the previous version of the tower
+ * \param percent the percent of upgrade
+ * \param image the new picture of the tower
+ */
+void upgradeTypeTo(TypeTo *tower, float percent,char* image){
+   percent += 1;
+   TypeTo *newType = createTypeTo(
+                     tower->damages * percent,
+	                  tower->range * percent,
+	                  tower->attSpeed * percent,
+	                  tower->price * percent,
+	                  tower->isSplash,
+	                  tower->isSlower,
+	                  tower->canAttackFlying,
+	                  tower->canPoison,
+	                  tower->typeBul,
+	                  tower->nextType,
+	                  image
+                    );
+   tower->nextType = newType;
 }

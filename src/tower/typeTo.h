@@ -14,7 +14,7 @@
 
 #include <stdio.h>
 
-#include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
 
 #include <stdbool.h>
 #include "typeBul.h"
@@ -33,6 +33,15 @@ typedef struct TypeTo{
 	SDL_Surface* image;
 } TypeTo;
 
+typedef struct {
+	int x;
+	int y;
+	TypeTo* type;
+	int kills;
+	
+} Tower;
+
+
 TypeTo* createTypeTo(
 		     int iniDamages,
 		     int iniRange,
@@ -45,5 +54,7 @@ TypeTo* createTypeTo(
 		     TypeBul *typeBul,
 		     TypeTo *nextType,
 		     char* image);
+
+void upgradeTypeTo(TypeTo *tower, float percent, char* image);
 
 #endif

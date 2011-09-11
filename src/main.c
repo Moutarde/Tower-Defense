@@ -82,8 +82,8 @@ int main(int argc, char *argv[]) {
    
 
    //TOWER
-   TypeTo *towerUP = createTypeTo(100,100,100,100,true,true,true,true,NULL,NULL,getPath("resources/towerUP.png"));
-   TypeTo *tower = createTypeTo(0,0,0,0,false,false,false,false,NULL,towerUP,getPath("resources/tower.png"));
+   TypeTo *tower = createTypeTo(0,0,0,0,false,false,false,false,NULL,NULL,getPath("resources/tower.png"));
+   upgradeTypeTo(tower,0.5,getPath("resources/towerUP.png"));
    Tower *tower1 = createTower(4,7,tower);
 
 
@@ -120,7 +120,7 @@ int main(int argc, char *argv[]) {
       drawEnemyList(catList);
       //Blit TOWER
       if(event.key.keysym.sym == SDLK_u){
-      upgrade(tower1);
+         upgrade(tower1);
       }
       drawTower(tower1);
       

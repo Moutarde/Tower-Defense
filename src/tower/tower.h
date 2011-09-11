@@ -16,14 +16,6 @@
 #include "typeTo.h"
 #include "../map/map.h"
 
-typedef struct {
-	int x;
-	int y;
-	TypeTo* type;
-	int kills;
-	
-} Tower;
-
 extern Map *_map;
 Tower* createTower(int x, int y, TypeTo* type);
 void upgrade(Tower* t);
