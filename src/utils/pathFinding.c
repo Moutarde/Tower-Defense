@@ -29,7 +29,7 @@ MovementList* searchPath(Case start, Case destination){
    There are two list, the openList contain a set of to process node;
  the closedList contain a set of already processed node
 */   
-   NodeList *openList = newList();
+   NodeList *openList = newList(NULL);
    openList = head(firstNode,openList);
 
    NodeList *closedList = NULL;
@@ -107,21 +107,6 @@ Node* getNode(Case cell){
 }
 
 /**
- * \fn NodeList newList()
- * \brief create a Node List
- * these list are used by the A star algorithm
- * to store path already reached
- * \return The newly created node List
- */
- 
-NodeList* newList(){
-   NodeList *list = (NodeList*)malloc(sizeof *list);
-   list->nextList = NULL;
-   list->node = NULL;
-  return list;    
-}
-
-/**
  * \fn NodeList* head(Node node, NodeList list)
  * \brief add a Node in front of a list
  * 
@@ -131,7 +116,7 @@ NodeList* newList(){
  */
  
 NodeList* head(Node *node, NodeList *list){
-   NodeList *firstItem = newList();
+   NodeList *firstItem = newList(NULL);
    firstItem->node = node;
    firstItem->nextList = list;
   return firstItem;
@@ -253,7 +238,7 @@ NodeList* push(Node *node, NodeList *list){
  */
  
 void tail(Node *node, NodeList *list){
-   NodeList *lastItem = newList();
+   NodeList *lastItem = newList(NULL);
    lastItem->node = node;
    list->nextList = lastItem;
 }

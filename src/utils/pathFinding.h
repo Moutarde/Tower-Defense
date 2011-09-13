@@ -30,7 +30,6 @@ typedef struct nodeList{
 
 MovementList* searchPath(Case start, Case destination);
 Node* getNode(Case cell);
-NodeList* newList();
 NodeList* head(Node *node, NodeList *list);
 Node* popHead(NodeList **list);
 bool theseTwoNodeAreEquals(Node *a, Node *b);

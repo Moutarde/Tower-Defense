@@ -14,6 +14,11 @@
 
 struct Enemy;
 
+typedef struct List{
+   void* item;
+   struct List* nextList;
+}List;
+
 typedef struct EnemyList{
    struct Enemy *enemy;
    struct EnemyList *nextEnemy;
@@ -24,11 +29,11 @@ typedef struct MovementList{
    struct MovementList *nextMovement;
 }MovementList;
 
-EnemyList* newEnemyList(Enemy* firstEnemy);
-void popEnemy(EnemyList *list, Enemy *enemy);
-void moveEnemyList(EnemyList *list);
+List* newList(void* item);
+void pushList(List *list, void* item);
+void moveEnemyList(List *list);
 void drawEnemyList(EnemyList *list);
-void removeEnemyList(EnemyList *list, Enemy *enemy);
+void removeEnemyFromList(Enemy *enemy, EnemyList *list);
 
 MovementList* newMovementList(Movement firstMovement);
 MovementList* headMovement(Movement movement, MovementList *list);

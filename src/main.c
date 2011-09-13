@@ -69,15 +69,15 @@ int main(int argc, char *argv[]) {
    Enemy *zombie4 = createEnemy(7,14,zombie);
 
    //Add enemy in the List
-   EnemyList *catList = newEnemyList(cat2);
-//   popEnemy(catList,cat2);
-/*   popEnemy(catList,cat3);*/
-/*   popEnemy(catList,cat1);*/
-/*   */
-/*   EnemyList *zombieList = newEnemyList(zombie1);*/
-/*   popEnemy(zombieList,zombie2);*/
-/*   popEnemy(zombieList,zombie3);*/
-/*   popEnemy(zombieList,zombie4);*/
+   EnemyList *catList = newList(cat4);
+   pushList((void*)catList,cat2);
+   pushList((void*)catList,cat3);
+   pushList((void*)catList,cat1);
+   
+   EnemyList *zombieList = newList(zombie1);
+   pushList((void*)zombieList,zombie2);
+   pushList((void*)zombieList,zombie3);
+   pushList((void*)zombieList,zombie4);
    
 //   removeEnemyFromList(cat4,catList);
 
