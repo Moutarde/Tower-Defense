@@ -13,6 +13,7 @@
 #include "../map/case.h"
 #include "../map/map.h"
 #include "../enemy/enemy.h"
+#include "../list/list.h"
 #include <stdlib.h>
 #include <stdbool.h>
 
@@ -27,7 +28,7 @@ typedef struct nodeList{
    struct nodeList *nextList;
 }NodeList;
 
-Movement searchPath(Case start, Case destination);
+MovementList* searchPath(Case start, Case destination);
 Node* getNode(Case cell);
 NodeList* newList();
 NodeList* head(Node *node, NodeList *list);
@@ -37,7 +38,8 @@ Node* amIInDaList(Node *node, NodeList *list);
 int heuristicCost(Node *node, Node *destination);
 NodeList* push(Node *node, NodeList *list);
 void tail(Node *node, NodeList *list);
-Movement pathReConstruction(Node *finalNode);
+MovementList* pathReConstruction(Node *finalNode);
 void freeList(NodeList *list);
+Movement nextMove(Case currentCase, Case nearCase);
 
 #endif

@@ -12,19 +12,26 @@
 #define LIST
 #include "../enemy/enemy.h"
 
+struct Enemy;
 
 typedef struct EnemyList{
-   Enemy *enemy;
-   struct EnemyList* nextEnemy;
-} EnemyList;
+   struct Enemy *enemy;
+   struct EnemyList *nextEnemy;
+}EnemyList;
 
+typedef struct MovementList{
+   Movement movement;
+   struct MovementList *nextMovement;
+}MovementList;
 
 EnemyList* newEnemyList(Enemy* firstEnemy);
 void popEnemy(EnemyList *list, Enemy *enemy);
-
-EnemyList* newEnemyList(Enemy* firstEnemy);
 void moveEnemyList(EnemyList *list);
 void drawEnemyList(EnemyList *list);
 void removeEnemyList(EnemyList *list, Enemy *enemy);
+
+MovementList* newMovementList(Movement firstMovement);
+MovementList* headMovement(Movement movement, MovementList *list);
+Movement getNextMovement(MovementList **list);
 
 #endif

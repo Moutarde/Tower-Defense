@@ -19,7 +19,7 @@
 
 Map *_map;
 char* _path;
-Case cell; // for debug (candy_cane)
+Case _cell; // for debug (candy_cane)
 
 
 void initPath(char* argv0){
@@ -69,16 +69,17 @@ int main(int argc, char *argv[]) {
    Enemy *zombie4 = createEnemy(7,14,zombie);
 
    //Add enemy in the List
-   EnemyList *catList = newEnemyList(cat4);
-   popEnemy(catList,cat2);
-   popEnemy(catList,cat3);
-   popEnemy(catList,cat1);
+   EnemyList *catList = newEnemyList(cat2);
+//   popEnemy(catList,cat2);
+/*   popEnemy(catList,cat3);*/
+/*   popEnemy(catList,cat1);*/
+/*   */
+/*   EnemyList *zombieList = newEnemyList(zombie1);*/
+/*   popEnemy(zombieList,zombie2);*/
+/*   popEnemy(zombieList,zombie3);*/
+/*   popEnemy(zombieList,zombie4);*/
    
-   EnemyList *zombieList = newEnemyList(zombie1);
-   popEnemy(zombieList,zombie2);
-   popEnemy(zombieList,zombie3);
-   popEnemy(zombieList,zombie4);
-   
+//   removeEnemyFromList(cat4,catList);
 
    //TOWER
    TypeTo *tower = createTypeTo(0,0,0,0,false,false,false,false,NULL,NULL,getPath("resources/tower.png"));
@@ -107,14 +108,14 @@ int main(int argc, char *argv[]) {
 			}
 		}
 	}
-	cell = *getCase(7,11);
-	position.x = cell.x;
-	position.y = cell.y;
+	_cell = *getCase(7,11);
+	position.x = _cell.x;
+	position.y = _cell.y;
    SDL_BlitSurface(IMG_Load(getPath("resources/candy_cane.png")),NULL,map->bg,&position);
 /////////////////////////////////////////////////////////////////////
 		
 		// Blit enemies
-      drawEnemyList(zombieList);
+//      drawEnemyList(zombieList);
       drawEnemyList(catList);
       //Blit TOWER
       if(event.key.keysym.sym == SDLK_u){
@@ -123,7 +124,7 @@ int main(int argc, char *argv[]) {
       drawTower(tower1);
       
       // Move enemies
-      moveEnemyList(zombieList);
+//      moveEnemyList(zombieList);
       moveEnemyList(catList);
       
 		// Blit map

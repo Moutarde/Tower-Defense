@@ -19,12 +19,12 @@
  * \return the path
  */
      
-Movement searchPath(Case start, Case destination){
+MovementList* searchPath(Case start, Case destination){
 //Initialisation
    Node *endNode = getNode(destination);
    Node *firstNode = getNode(start);
    firstNode->cumulateNodeCost=0;
-   Movement nextMove;   
+   MovementList *nextMoves;   
 /*
    There are two list, the openList contain a set of to process node;
  the closedList contain a set of already processed node
@@ -43,10 +43,10 @@ Movement searchPath(Case start, Case destination){
    while(openList->nextList){               
       Node *lowestHeuristic = popHead(&openList); //we test the most closer node (with the lowest heuristic cost)
       if(theseTwoNodeAreEquals(lowestHeuristic,endNode)){
-         nextMove = pathReConstruction(lowestHeuristic);        //if we have reached the final node, a path have been found
+         nextMoves = pathReConstruction(lowestHeuristic);        //if we have reached the final node, a path have been found
          freeList(openList);
          freeList(closedList);
-        return nextMove;
+        return nextMoves;
       }
 
       closedList = push(lowestHeuristic,closedList);            //this node have been computed
@@ -86,7 +86,7 @@ Movement searchPath(Case start, Case destination){
    }         
    freeList(openList);
    freeList(closedList);
-  return STAY;
+  return NULL;
 }
 
 /**
@@ -266,26 +266,36 @@ void tail(Node *node, NodeList *list){
  * \return The direction a enemy must go
  */
  
-Movement pathReConstruction(Node *finalNode){
-
+MovementList* pathReConstruction(Node *finalNode){
    Node* nextNode = finalNode;
+   MovementList *list = newMovementList(STAY);
    while(finalNode->previousNode){
       nextNode = finalNode;
       finalNode = finalNode->previousNode;
-   }
-   Case *currentCase = getCase(finalNode->x,finalNode->y);
-   Case *nearCase = getCase(nextNode->x,nextNode->y);
+      Case *currentCase = getCase(finalNode->x,finalNode->y);
+      Case *nearCase = getCase(nextNode->x,nextNode->y);
 
-   nearCase->hasEnemy++; 
-   currentCase->hasEnemy--; 
-   
-   switch(currentCase->xx - nearCase->xx){
+      list = headMovement(nextMove(*currentCase,*nearCase),list);
+   }
+  return list;
+}
+
+/**
+ * \fn Movement nextMove(Case currentCase, Case nearCase)
+ * \brief calculate a th Movement to go to nearCase from currentCase
+ * \param currentCase the first cell
+ * \param nearCase the second cell
+ * \return the Movement to go to second cell from first cell
+ */
+ 
+Movement nextMove(Case currentCase, Case nearCase){
+   switch(currentCase.xx - nearCase.xx){
       case 1:
          return LEFT;
       case -1:
          return RIGHT;
    }
-   switch(currentCase->yy - nearCase->yy){
+   switch(currentCase.yy - nearCase.yy){
       case 1:
          return UP;
       case -1:

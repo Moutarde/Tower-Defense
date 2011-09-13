@@ -70,7 +70,10 @@ Map* createMap(char* mapName) {
 	map->matrice[8][13].hasTower = true;
 	map->matrice[9][10].hasTower = true;
 	map->matrice[9][12].hasTower = true;
-
+	map->matrice[6][11].hasTower = true;
+   map->matrice[7][10].hasTower = true;
+   map->matrice[7][12].hasTower = true;
+   
 /*       map->matrice[7][10].hasTower = true;*/
 /*     map->matrice[6][11].hasTower = true;*/
 /*       map->matrice[8][11].hasTower = true;*/

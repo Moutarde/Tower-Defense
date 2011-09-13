@@ -64,7 +64,9 @@ void removeEnemyFromList(Enemy *enemy, EnemyList *list){
    }
    previousList->nextEnemy = list->nextEnemy;
    removeEnemy(enemy);
-   free(list);
+   if(previousList != list){
+      free(list);
+   }
   return; 
 }
 
@@ -100,5 +102,49 @@ void drawEnemyList(EnemyList *list){
       list = list->nextEnemy;
       drawEnemy(list->enemy);
    }
+}
+
+/**
+ * \fn MovementList* newMovementList(Movement* firstMovement)
+ * \brief create a new list and add it's first enemy
+ *
+ * \param firstMovement The first Movement of the list
+ * \return The first pointer of the list
+ */
+
+MovementList* newMovementList(Movement firstMovement){
+   MovementList *newList = (MovementList*)malloc(sizeof *newList);
+   newList->movement = firstMovement;
+   newList->nextMovement = NULL;
+  return newList; 
+}
+
+
+/**
+ * \fn void headMovement(Movement movement, MovementList *list)
+ * \brief add a movement in a list
+ * \param movement the movement to add
+ * \param list the list to add tower
+ */
+ 
+MovementList* headMovement(Movement movement, MovementList *list){
+   MovementList *firstMovementList = newMovementList(movement);
+   firstMovementList->nextMovement = list;
+  return firstMovementList;
+}
+
+/**
+ * \fn Movement getNextMovement(MovementList *list)
+ * \brief get a Movement from a MovementList
+ * \param list the List of movement
+ * \return the next movement
+ */
+ 
+Movement getNextMovement(MovementList **list){
+   MovementList *toFree = *list;
+   Movement nextMovement = (*list)->movement;
+   *list = (*list)->nextMovement;
+   free(toFree);
+  return nextMovement;
 }
 

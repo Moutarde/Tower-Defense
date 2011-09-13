@@ -37,7 +37,8 @@ Enemy* createEnemy(int x, int y, TypeEn* type) {
 	enemy->life = type->maxLife;
 	enemy->speed = type->normalSpeed;
 	enemy->isPoisoned = false;
-
+   enemy->list = NULL;
+   
 	return enemy;
 }
 
@@ -125,13 +126,17 @@ Movement nextMovement(Enemy* enemy){
    int y = enemy->y;
 
    Case currentCase = *getCase(x,y);
-   extern Case cell;       //debug (candy_cane)
-   Case finalCase = cell; //debug (candy_cane)
+   extern Case _cell;       //debug (candy_cane)
+   Case finalCase = _cell; //debug (candy_cane)
    if(currentCase.xx == finalCase.xx && currentCase.yy == finalCase.yy){
       return STAY;
    }
+   if(!enemy->list){
+      enemy->list = searchPath(currentCase,finalCase);
+      return STAY;
+   }
 
-   return searchPath(currentCase,finalCase);
+   return getNextMovement(&enemy->list);
 }
 
 
@@ -145,3 +150,4 @@ void removeEnemy(Enemy *enemy){
    free(enemy);
    enemy = NULL;
 }
+
