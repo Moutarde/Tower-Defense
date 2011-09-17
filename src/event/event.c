@@ -26,7 +26,7 @@ bool manageEvents(SDL_Event event, Viewport* viewport) {
 		// Quit game
 		case SDL_QUIT:
 			isInPlay = false;
-			break;
+	      break;
 		
 		// Key pressed
 		case SDL_KEYDOWN:
@@ -56,17 +56,22 @@ bool manageEvents(SDL_Event event, Viewport* viewport) {
 				default:
 					break;
 			}
-			break;
+		   break;
 
-                // Mouse left click
-                case SDL_MOUSEBUTTONDOWN:
-                    if(event.button.button == SDL_BUTTON_LEFT) {
-                        Case* caseClicked = whichCase(event.button.x, event.button.y);
-                        TypeTo* simpleTowerType = createTypeTo(0,0,0,0,false,false,false,false,NULL,NULL,getPath("resources/tower.png"));
-                        Tower* tower = createTower(caseClicked->xx, caseClicked->yy, simpleTowerType);
-                        drawTower(tower);
-                    }
-                        break;
+      // Mouse left click
+      case SDL_MOUSEBUTTONDOWN:
+         if(event.button.button == SDL_BUTTON_LEFT) {
+            Case* caseClicked = whichCase(event.button.x, event.button.y);
+            TypeTo* simpleTowerType = createTypeTo(0,0,0,0,false,false,false,false,NULL,NULL,getPath("resources/tower.png"));
+            Case *viewportOffset = whichCase(viewport->surface.x,viewport->surface.y);
+            int mapPositionX = caseClicked->xx + viewportOffset->xx;
+            int mapPositionY = caseClicked->yy + viewportOffset->yy;
+            Tower* tower = createTower(mapPositionX, mapPositionY, simpleTowerType);
+            if(tower){
+               drawTower(tower);
+            }
+         }
+         break;
 
 			
 		default:

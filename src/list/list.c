@@ -68,11 +68,11 @@ void moveEnemyList(List *list){
  * \param list a list of Enemy to move
  */
 
-void drawEnemyList(EnemyList *list){
-   drawEnemy(list->enemy);
-   while(list->nextEnemy){
-      list = list->nextEnemy;
-      drawEnemy(list->enemy);
+void drawEnemyList(List *list){
+   drawEnemy(list->item);
+   while(list->nextList){
+      list = list->nextList;
+      drawEnemy(list->item);
    }
 }
 
@@ -84,17 +84,17 @@ void drawEnemyList(EnemyList *list){
  * \param list A list of enemy.
  */
 
-void removeEnemyFromList(Enemy *enemy, EnemyList *list){
-   EnemyList* previousList = list;
-   while(list->enemy != enemy){     //search of item which contain the enemy 
+void removeEnemyFromList(Enemy *enemy, List *list){
+   List* previousList = list;
+   while(list->item != enemy){     //search of item which contain the enemy 
       if(list){ 
          removeEnemy(enemy);         //if the enemy is not in the list, we delete it
          return;
       }
       previousList = list;
-      list = list->nextEnemy;
+      list = list->nextList;
    }
-   previousList->nextEnemy = list->nextEnemy;
+   previousList->nextList = list->nextList;
    removeEnemy(enemy);
    if(previousList != list){
       free(list);

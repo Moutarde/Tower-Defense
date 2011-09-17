@@ -23,22 +23,22 @@ typedef struct node{
    struct node* previousNode;
 }Node;
 
-typedef struct nodeList{
-   Node *node;
-   struct nodeList *nextList;
-}NodeList;
+//typedef struct nodeList{
+//   Node *node;
+//   struct nodeList *nextList;
+//}NodeList;
 
 MovementList* searchPath(Case start, Case destination);
 Node* getNode(Case cell);
-NodeList* head(Node *node, NodeList *list);
-Node* popHead(NodeList **list);
+List* head(Node *node, List *list);
+Node* popHead(List **list);
 bool theseTwoNodeAreEquals(Node *a, Node *b);
-Node* amIInDaList(Node *node, NodeList *list);
+Node* amIInDaList(Node *node, List *list);
 int heuristicCost(Node *node, Node *destination);
-NodeList* push(Node *node, NodeList *list);
-void tail(Node *node, NodeList *list);
+List* push(Node *node, List *list);
+void tail(Node *node, List *list);
 MovementList* pathReConstruction(Node *finalNode);
-void freeList(NodeList *list);
+void freeList(List *list);
 Movement nextMove(Case currentCase, Case nearCase);
 
 #endif

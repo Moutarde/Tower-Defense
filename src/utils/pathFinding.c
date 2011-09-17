@@ -11,7 +11,7 @@
 #include "pathFinding.h"
 
 /**
- * \fn NodeList searchPath(Case start, Node destination)    
+ * \fn List searchPath(Case start, Node destination)    
  * \brief the A star algorithm implementation
  *
  * \param start the case where a enemy is
@@ -29,10 +29,10 @@ MovementList* searchPath(Case start, Case destination){
    There are two list, the openList contain a set of to process node;
  the closedList contain a set of already processed node
 */   
-   NodeList *openList = newList(NULL);
+   List *openList = newList(NULL);
    openList = head(firstNode,openList);
 
-   NodeList *closedList = NULL;
+   List *closedList = NULL;
 
 //*A Star*
 /*
@@ -107,7 +107,7 @@ Node* getNode(Case cell){
 }
 
 /**
- * \fn NodeList* head(Node node, NodeList list)
+ * \fn List* head(Node node, List list)
  * \brief add a Node in front of a list
  * 
  * \param node the Node to add
@@ -115,24 +115,24 @@ Node* getNode(Case cell){
  * \return the pointer of first item 
  */
  
-NodeList* head(Node *node, NodeList *list){
-   NodeList *firstItem = newList(NULL);
-   firstItem->node = node;
+List* head(Node *node, List *list){
+   List *firstItem = newList(NULL);
+   firstItem->item = node;
    firstItem->nextList = list;
   return firstItem;
 }
 
 /**
- * \fn Node* popHead(NodeList **list)
+ * \fn Node* popHead(List **list)
  * \brief get the first item of a list
  * 
  * \param list The list which item must be extracted
  * \return The extracted item
  */
  
-Node* popHead(NodeList **list){
-   NodeList *head = *list;
-   Node *headNode = (*list)->node;
+Node* popHead(List **list){
+   List *head = *list;
+   Node *headNode = (*list)->item;
    *list = (*list)->nextList;
    free(head);
   return headNode; 
@@ -149,24 +149,24 @@ bool theseTwoNodeAreEquals(Node *a, Node *b){
 }
 
 /**
- * \fn Node* amIInDaList(Node *node, NodeList *list)
- * \brief search in a NodeList a particular Node
+ * \fn Node* amIInDaList(Node *node, List *list)
+ * \brief search in a List a particular Node
  * 
  * \param node The node to search
  * \param list The list to search into
  * \return the Node if found, Null otherwise
  */
  
-Node* amIInDaList(Node *node, NodeList *list){
-   if(!list || !list->node){
+Node* amIInDaList(Node *node, List *list){
+   if(!list || !list->item){
       return NULL;
    }
-   if(theseTwoNodeAreEquals(node,list->node)){
-      return list->node;
+   if(theseTwoNodeAreEquals(node,list->item)){
+      return list->item;
    }
    while(list->nextList){
-      if(theseTwoNodeAreEquals(node,list->node)){
-         return list->node;
+      if(theseTwoNodeAreEquals(node,list->item)){
+         return list->item;
       }
       list = list->nextList;
    }
@@ -198,7 +198,7 @@ int heuristicCost(Node *node, Node *destination){
 
 
 /**
- * \fn NodeList* push(Node *node, NodeList *list)    
+ * \fn List* push(Node *node, List *list)    
  * \brief add a Node into a list (in the middle)
  * item are sorted by their heuristicCost
  * \param node The node to be added
@@ -206,19 +206,19 @@ int heuristicCost(Node *node, Node *destination){
  * \return the new (or old) first item of the list
  */
 
-NodeList* push(Node *node, NodeList *list){
-   NodeList *firstItem = list;
+List* push(Node *node, List *list){
+   List *firstItem = list;
    int cost = node->cumulateNodeCost;
-   NodeList *theOneBefore = list;
-   if(!list || !list->node || cost < list->node->cumulateNodeCost){
+   List *theOneBefore = list;
+   if(!list || !list->item || cost < ((Node*)(list->item))->cumulateNodeCost){
       return head(node,list);
    }
 // we search the right position to push (before the one wich have a more heuristic cost)
-   while(cost > list->node->cumulateNodeCost){
+   while(cost > ((Node*)(list->item))->cumulateNodeCost){
       theOneBefore = list;
       list = list->nextList;
 
-      if(!list || !list->node){
+      if(!list || !list->item){
          tail(node,theOneBefore);
          return firstItem;
       }
@@ -230,16 +230,16 @@ NodeList* push(Node *node, NodeList *list){
 }
 
 /**
- * \fn void tail(Node node, NodeList list)
+ * \fn void tail(Node node, List list)
  * \brief add a Node on bottom of a list
  * 
  * \param node the Node to add
  * \param list the last item of the list which the node will be added
  */
  
-void tail(Node *node, NodeList *list){
-   NodeList *lastItem = newList(NULL);
-   lastItem->node = node;
+void tail(Node *node, List *list){
+   List *lastItem = newList(NULL);
+   lastItem->item = node;
    list->nextList = lastItem;
 }
 
@@ -290,16 +290,16 @@ Movement nextMove(Case currentCase, Case nearCase){
 }
 
 /**
- * \fn void freeList(NodeList *list)
+ * \fn void freeList(List *list)
  * \brief clear a list
  * \param list a list to free
  */
  
-void freeList(NodeList *list){
-   if(list->node){
+void freeList(List *list){
+   if(list->item){
       if(list->nextList){
-         if(list->node != list->nextList->node){
-            free(list->node);
+         if(list->item != list->nextList->item){
+            free(list->item);
          }
          
          freeList(list->nextList);

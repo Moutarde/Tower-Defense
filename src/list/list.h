@@ -19,10 +19,10 @@ typedef struct List{
    struct List* nextList;
 }List;
 
-typedef struct EnemyList{
-   struct Enemy *enemy;
-   struct EnemyList *nextEnemy;
-}EnemyList;
+//typedef struct EnemyList{
+//   struct Enemy *enemy;
+//   struct EnemyList *nextEnemy;
+//}EnemyList;
 
 typedef struct MovementList{
    Movement movement;
@@ -32,8 +32,8 @@ typedef struct MovementList{
 List* newList(void* item);
 void pushList(List *list, void* item);
 void moveEnemyList(List *list);
-void drawEnemyList(EnemyList *list);
-void removeEnemyFromList(Enemy *enemy, EnemyList *list);
+void drawEnemyList(List *list);
+void removeEnemyFromList(Enemy *enemy, List *list);
 
 MovementList* newMovementList(Movement firstMovement);
 MovementList* headMovement(Movement movement, MovementList *list);
