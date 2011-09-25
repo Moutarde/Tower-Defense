@@ -16,6 +16,7 @@
 #include "../utils/viewport.h"
 #include "../tower/tower.h"
 
+
 bool manageEvents(SDL_Event event, Viewport* viewport);
 char* getPath(char* resource);
 #endif

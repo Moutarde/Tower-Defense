@@ -8,17 +8,18 @@
  If not, see  <http://www.gnu.org/licenses/>.
  */
 
+
 #include "event.h"
 
+
 /**
- * \fn bool manageEvents(SDL_Event event)
+ * \fn bool manageEvents(SDL_Event event, Viewport* viewport)
  * \brief Manage the events.
  *
  * \param event The event to manage.
  * \param viewport The viewport that can be moved.
  * \return False if the the game ends, true if not.
  */
-
 bool manageEvents(SDL_Event event, Viewport* viewport) {
 	bool isInPlay = true;
 	
@@ -26,8 +27,8 @@ bool manageEvents(SDL_Event event, Viewport* viewport) {
 		// Quit game
 		case SDL_QUIT:
 			isInPlay = false;
-	      break;
-		
+			break;
+			
 		// Key pressed
 		case SDL_KEYDOWN:
 			switch(event.key.keysym.sym) {
@@ -35,7 +36,7 @@ bool manageEvents(SDL_Event event, Viewport* viewport) {
 				case SDLK_ESCAPE:
 					isInPlay = false;
 					break;
-				
+					
 				// Move view
 				case SDLK_UP:
 					moveViewport(viewport, UP);
@@ -56,23 +57,22 @@ bool manageEvents(SDL_Event event, Viewport* viewport) {
 				default:
 					break;
 			}
-		   break;
-
-      // Mouse left click
-      case SDL_MOUSEBUTTONDOWN:
-         if(event.button.button == SDL_BUTTON_LEFT) {
-            Case* caseClicked = whichCase(event.button.x, event.button.y);
-            TypeTo* simpleTowerType = createTypeTo(0,0,0,0,false,false,false,false,NULL,NULL,getPath("resources/tower.png"));
-            Case *viewportOffset = whichCase(viewport->surface.x,viewport->surface.y);
-            int mapPositionX = caseClicked->xx + viewportOffset->xx;
-            int mapPositionY = caseClicked->yy + viewportOffset->yy;
-            Tower* tower = createTower(mapPositionX, mapPositionY, simpleTowerType);
-            if(tower){
-               drawTower(tower);
-            }
-         }
-         break;
-
+			break;
+			
+		// Mouse left click
+		case SDL_MOUSEBUTTONDOWN:
+			if(event.button.button == SDL_BUTTON_LEFT) {
+				Case* caseClicked = whichCase(event.button.x, event.button.y);
+				TypeTo* simpleTowerType = createTypeTo(0, 0, 0, 0, false, false, false, false, NULL, NULL, getPath("resources/tower.png"));
+				Case* viewportOffset = whichCase(viewport->surface.x, viewport->surface.y);
+				int mapPositionX = caseClicked->xx + viewportOffset->xx;
+				int mapPositionY = caseClicked->yy + viewportOffset->yy;
+				Tower* tower = createTower(mapPositionX, mapPositionY, simpleTowerType);
+				if(tower) {
+					drawTower(tower);
+				}
+			}
+			break;
 			
 		default:
 			break;

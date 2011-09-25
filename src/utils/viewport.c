@@ -10,9 +10,10 @@ If not, see <http://www.gnu.org/licenses/>.
 
 #include "viewport.h"
 
+
 /**
  * \fn Viewport* createViewport(SDL_Rect suface, Map* map)
- * \brief create a viewport.
+ * \brief Creates a viewport.
  *
  * \param suface The surface which is seen by the player.
  * \param map The entire map.
@@ -27,9 +28,7 @@ Viewport* createViewport(SDL_Rect surface, Map* map) {
 	return viewport;
 }
 
-
 void moveViewport(Viewport* viewport, short direction) {
-
 	switch(direction) {
 		case UP:
 			viewport->surface.y -= 5;
@@ -59,5 +58,4 @@ void moveViewport(Viewport* viewport, short direction) {
 			}
 		break;
 	}
-
 }

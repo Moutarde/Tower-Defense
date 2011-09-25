@@ -11,40 +11,41 @@
 
 #include "tower.h"
 
+
 Tower* createTower(int x, int y, TypeTo* type) {
-   Case *cell = getCase(x,y);
-   if(cell->hasEnemy || cell->hasTower){
-      return NULL;
-   }
-   Tower* tower = (Tower*)malloc( sizeof(Tower) );
-   tower->x = x;
-   tower->y = y;
-   tower->kills = 0;
-   tower->type= type;
-  return tower;
+	Case* cell = getCase(x,y);
+	if(cell->hasEnemy || cell->hasTower) {
+		return NULL;
+	}
+	Tower* tower = (Tower*)malloc( sizeof(Tower) );
+	tower->x = x;
+	tower->y = y;
+	tower->kills = 0;
+	tower->type = type;
+	return tower;
 }
 
-int getSellPrice(Tower *tower) {
-	return (70*tower->type->price)/100;
+int getSellPrice(Tower* tower) {
+	return (70 * tower->type->price) / 100;
 }
 
 void upgrade(Tower* t) {
-   if(t->type->nextType){
-	   t->type = t->type->nextType;
+	if(t->type->nextType) {
+		t->type = t->type->nextType;
 	}
 }
 
 /**
- * \fn void drawTower(Tower tower)
- * \brief draw a tower in the map
- * \param tower a tower to drawEnemy
+ * \fn void drawTower(Tower* tower)
+ * \brief Draws a tower in the map.
+ * 
+ * \param tower A tower to draw.
  */
- 
-void drawTower(Tower *tower){
-   SDL_Rect position;
-   Case *cell = getCase(tower->x,tower->y);
-   position.x = cell->x;
-   position.y = cell->y;
-   cell->hasTower = true;
-   SDL_BlitSurface(tower->type->image, NULL, _map->bg, &position);
+void drawTower(Tower* tower) {
+	SDL_Rect position;
+	Case* cell = getCase(tower->x, tower->y);
+	position.x = cell->x;
+	position.y = cell->y;
+	cell->hasTower = true;
+	SDL_BlitSurface(tower->type->image, NULL, _map->bg, &position);
 }

@@ -20,6 +20,7 @@
 
 #include "case.h"
 
+
 typedef struct {
 	int w;
 	int h;
@@ -30,7 +31,7 @@ typedef struct {
 	SDL_Surface* bg_img;
 } Map;
 
-extern Map *_map;
+extern Map* _map;
 Map* createMap(char* mapName);
 SDL_Surface* loadMap(char* mapName);
 void drawMap(Map* map, SDL_Rect* viewport, SDL_Surface* screen);
