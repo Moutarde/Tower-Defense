@@ -58,21 +58,21 @@ Map* createMap(char* mapName) {
    }	
    
    //some test wall
-	map->matrice[5][10].hasTower = true;
-	map->matrice[5][12].hasTower = true;
-	map->matrice[6][9].hasTower = true;
-	map->matrice[6][10].hasTower = true;
-	map->matrice[6][12].hasTower = true;
-	map->matrice[6][13].hasTower = true;
-	map->matrice[8][9].hasTower = true;
-	map->matrice[8][10].hasTower = true;
-	map->matrice[8][12].hasTower = true;
-	map->matrice[8][13].hasTower = true;
-	map->matrice[9][10].hasTower = true;
-	map->matrice[9][12].hasTower = true;
-	map->matrice[6][11].hasTower = true;
-   map->matrice[7][10].hasTower = true;
-   map->matrice[7][12].hasTower = true;
+/*	map->matrice[5][10].hasTower = true;*/
+/*	map->matrice[5][12].hasTower = true;*/
+/*	map->matrice[6][9].hasTower = true;*/
+/*	map->matrice[6][10].hasTower = true;*/
+/*	map->matrice[6][12].hasTower = true;*/
+/*	map->matrice[6][13].hasTower = true;*/
+/*	map->matrice[8][9].hasTower = true;*/
+/*	map->matrice[8][10].hasTower = true;*/
+/*	map->matrice[8][12].hasTower = true;*/
+/*	map->matrice[8][13].hasTower = true;*/
+/*	map->matrice[9][10].hasTower = true;*/
+/*	map->matrice[9][12].hasTower = true;*/
+/*	map->matrice[6][11].hasTower = true;*/
+/*   map->matrice[7][10].hasTower = true;*/
+/*   map->matrice[7][12].hasTower = true;*/
    
 /*       map->matrice[7][10].hasTower = true;*/
 /*     map->matrice[6][11].hasTower = true;*/

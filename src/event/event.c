@@ -19,7 +19,7 @@
  * \return False if the the game ends, true if not.
  */
 
-bool manageEvents(SDL_Event event, Viewport* viewport) {
+bool manageEvents(SDL_Event event, Viewport* viewport, Events *flags) {
 	bool isInPlay = true;
 	
 	switch(event.type) {
@@ -68,6 +68,7 @@ bool manageEvents(SDL_Event event, Viewport* viewport) {
             int mapPositionY = caseClicked->yy + viewportOffset->yy;
             Tower* tower = createTower(mapPositionX, mapPositionY, simpleTowerType);
             if(tower){
+               flags->enemy_Path_Calculation = true;
                drawTower(tower);
             }
          }
@@ -79,4 +80,18 @@ bool manageEvents(SDL_Event event, Viewport* viewport) {
 	}
 	
 	return isInPlay;
+}
+
+Events* createEventFlags(){
+   Events *flags = (Events*)malloc(sizeof *flags);
+   flags->enemy_Path_Calculation = false;
+  return flags;
+}
+
+void pathReCalculation(List *enemyList){
+   while(enemyList->nextList){
+      ((Enemy*)enemyList->item)->list = NULL;
+      enemyList = enemyList->nextList;
+   }
+   ((Enemy*)enemyList->item)->list = NULL;
 }

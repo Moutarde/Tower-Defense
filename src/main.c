@@ -42,6 +42,7 @@ int main(int argc, char *argv[]) {
    void* seed;
    srand((int)seed);
 	int previousTime = 0, currentTime = 0;
+   Events *flags = createEventFlags();
 
 	SDL_Init(SDL_INIT_VIDEO);
 	
@@ -84,31 +85,30 @@ int main(int argc, char *argv[]) {
    //TOWER
    TypeTo *tower = createTypeTo(0,0,0,0,false,false,false,false,NULL,NULL,getPath("resources/tower.png"));
    upgradeTypeTo(tower,0.5,getPath("resources/towerUP.png"));
-   Tower *tower1 = createTower(4,7,tower);
+//   Tower *tower1 = createTower(4,7,tower);
 
+	_cell = *getCase(20,11);
 	// Main loop
 	while(isInPlay) {
 		// Managing the events
 		SDL_PollEvent( &event );
-		isInPlay = manageEvents(event, viewport);
+		isInPlay = manageEvents(event, viewport, flags);
 
 		// Clean the objects on the map
 		cleanMap(map);
 ///////////////////////////// DEBUG WALL /////////////////////////////
    SDL_Rect position;
-
 	for(int i=0;i < _map->nbCaseW;i++){
 		for(int j=0;j < _map->nbCaseH;j++){
 		   Case cell = *getCase(i,j);
 		   position.x = cell.x;
 		   position.y = cell.y;
 			if(map->matrice[i][j].hasTower == true){
-            SDL_Surface *wall = IMG_Load(getPath("resources/enemy.gif"));
+            SDL_Surface *wall = IMG_Load(getPath("resources/brick.png"));
 			   SDL_BlitSurface(wall,NULL,map->bg,&position);
 			}
 		}
 	}
-	_cell = *getCase(7,11);
 	position.x = _cell.x;
 	position.y = _cell.y;
    SDL_BlitSurface(IMG_Load(getPath("resources/candy_cane.png")),NULL,map->bg,&position);
@@ -118,21 +118,23 @@ int main(int argc, char *argv[]) {
       drawEnemyList(zombieList);
       drawEnemyList(catList);
       //Blit TOWER
-      if(event.key.keysym.sym == SDLK_u){
-         upgrade(tower1);
-      }
-      drawTower(tower1);
+/*      if(event.key.keysym.sym == SDLK_u){*/
+/*         upgrade(tower1);*/
+/*      }*/
+/*      drawTower(tower1);*/
       
+
       // Move enemies
-//      moveEnemyList(zombieList);
+      if(flags->enemy_Path_Calculation){
+         pathReCalculation(catList);
+         pathReCalculation(zombieList);
+         flags->enemy_Path_Calculation = false;
+      }
+      moveEnemyList(zombieList);
       moveEnemyList(catList);
       
 		// Blit map
 		drawMap(map, &(viewport->surface), screen);
-//      SDL_Delay(100);
-
-
-
 		SDL_Flip(screen);
 		
 		// Managing frames

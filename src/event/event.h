@@ -11,11 +11,19 @@
 #ifndef EVENT
 #define EVENT
 
+#include "../list/list.h"
 #include <SDL/SDL.h>
 #include <stdbool.h>
 #include "../utils/viewport.h"
 #include "../tower/tower.h"
 
-bool manageEvents(SDL_Event event, Viewport* viewport);
+typedef struct{
+   bool enemy_Path_Calculation;
+}Events;
+
+bool manageEvents(SDL_Event event, Viewport* viewport, Events *flags);
 char* getPath(char* resource);
+Events* createEventFlags();
+void pathReCalculation(List *enemyList);
+
 #endif
