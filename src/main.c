@@ -56,12 +56,12 @@ int main(int argc, char *argv[]) {
 	Viewport* viewport = createViewport(surface, map);
 	
 	// Creation of the enemies
-	TypeEn* whiteCat = createTypeEn(100, 5, false, true, true, false, 1,getPath("resources/white_transparent_cat.png"));
-	TypeEn* blackCat = createTypeEn(100, 5, false, true, true, false, 1,getPath("resources/black_transparent_cat.png"));
-	Enemy* cat1 = createEnemy(1,1,whiteCat);
-	Enemy* cat2 = createEnemy(1,10,whiteCat);
-	Enemy* cat3 = createEnemy(5,5,blackCat);
-	Enemy* cat4 = createEnemy(21,4,blackCat);
+	TypeEn *whiteCat = createTypeEn(100, 5, false, true, true, false, 1,getPath("resources/white_transparent_cat.png"));
+	TypeEn *blackCat = createTypeEn(100, 5, false, true, true, false, 1,getPath("resources/black_transparent_cat.png"));
+	Enemy *cat1 = createEnemy(1,1,whiteCat);
+	Enemy *cat2 = createEnemy(1,10,whiteCat);
+	Enemy  *cat3 = createEnemy(5,5,blackCat);
+	Enemy *cat4 = createEnemy(21,4,blackCat);
 	
    TypeEn *zombie = createTypeEn(100,5,false,true,true,false,1,getPath("resources/zombie.png"));
    Enemy *zombie1 = createEnemy(4,4,zombie);
