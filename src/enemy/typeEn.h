@@ -14,17 +14,17 @@
 
 #include <stdio.h>
 #include <stdbool.h>
-
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
 
+
 typedef enum {UP, RIGHT, DOWN, LEFT, STAY}Movement;
 
-typedef struct{
-   Movement direction;
-   SDL_Rect animation_state[5];
-   SDL_Surface *currentFrame;
-}Animation;
+typedef struct {
+	Movement direction;
+	SDL_Rect animation_state[5];
+	SDL_Surface* currentFrame;
+} Animation;
 
 typedef struct {
 	int maxLife;
@@ -46,7 +46,7 @@ TypeEn* createTypeEn(int maxLife,
                      int armor,
                      char* resources);
 
-Animation createAnimation(char *sprite_sheet_name);
-SDL_Rect* getRect(Animation *anim);
-#endif
+Animation createAnimation(char* sprite_sheet_name);
+SDL_Rect* getRect(Animation* anim);
 
+#endif

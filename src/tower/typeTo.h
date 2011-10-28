@@ -13,13 +13,14 @@
 #define TYPETO
 
 #include <stdio.h>
+#include <stdbool.h>
 
 #include <SDL/SDL_image.h>
 
-#include <stdbool.h>
 #include "typeBul.h"
 
-typedef struct TypeTo{
+
+typedef struct TypeTo {
 	int damages;
 	int range;
 	int attSpeed;
@@ -28,8 +29,8 @@ typedef struct TypeTo{
 	bool isSlower;
 	bool canAttackFlying;
 	bool canPoison;
-	TypeBul *typeBul;
-	struct TypeTo *nextType;
+	TypeBul* typeBul;
+	struct TypeTo* nextType;
 	SDL_Surface* image;
 } TypeTo;
 
@@ -38,23 +39,21 @@ typedef struct {
 	int y;
 	TypeTo* type;
 	int kills;
-	
 } Tower;
 
 
-TypeTo* createTypeTo(
-		     int iniDamages,
-		     int iniRange,
-		     int iniAttSpeed,
-		     int price,
-		     bool isSplash,
-		     bool isSlower,
-		     bool canAttackFlying,
-		     bool canPoison,
-		     TypeBul *typeBul,
-		     TypeTo *nextType,
-		     char* image);
+TypeTo* createTypeTo(int iniDamages,
+                     int iniRange,
+                     int iniAttSpeed,
+                     int price,
+                     bool isSplash,
+                     bool isSlower,
+                     bool canAttackFlying,
+                     bool canPoison,
+                     TypeBul* typeBul,
+                     TypeTo* nextType,
+                     char* image);
 
-void upgradeTypeTo(TypeTo *tower, float percent, char* image);
+void upgradeTypeTo(TypeTo* tower, float percent, char* image);
 
 #endif
