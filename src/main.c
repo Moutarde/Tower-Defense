@@ -73,38 +73,12 @@ int main(int argc, char* argv[]) {
 	Viewport* viewport = createViewport(surface, map);
 	
 	// Creation of the enemies
-	TypeEn* whiteCat = createTypeEn(100, 5, false, true, true, false, 1, getPath("resources/white_transparent_cat.png"));
-	TypeEn* blackCat = createTypeEn(100, 5, false, true, true, false, 1, getPath("resources/black_transparent_cat.png"));
-	TypeEn* zombie = createTypeEn(100, 5, false, true, true, false, 1, getPath("resources/zombie.png"));
-	
-	Enemy* cat1 = createEnemy(1, 1, whiteCat);
-	Enemy* cat2 = createEnemy(1, 10, whiteCat);
-	
-	Enemy* cat3 = createEnemy(5, 5, blackCat);
-	Enemy* cat4 = createEnemy(21, 4, blackCat);
-	
-	Enemy* zombie1 = createEnemy(4, 4, zombie);
-	Enemy* zombie2 = createEnemy(9, 4, zombie);
-	Enemy* zombie3 = createEnemy(9, 9, zombie);
-	Enemy* zombie4 = createEnemy(7, 14, zombie);
-	
-	// Add enemy in the List
-	List* catList = newList(cat4);
-	pushList((void*)catList, cat2);
-	pushList((void*)catList, cat3);
-	pushList((void*)catList, cat1);
-	
-	List* zombieList = newList(zombie1);
-	pushList((void*)zombieList, zombie2);
-	pushList((void*)zombieList, zombie3);
-	pushList((void*)zombieList, zombie4);
-	
-	//   removeEnemyFromList(cat4,catList);
-	
-	//TOWER
-	TypeTo* tower = createTypeTo(0, 0, 0, 0, false, false, false, false, NULL, NULL, getPath("resources/tower.png"));
-	upgradeTypeTo(tower, 0.5, getPath("resources/towerUP.png"));
-	Tower* tower1 = createTower(4, 7, tower);
+	TypeEn *whiteCat = createTypeEn(100, 5, false, true, true, false, 1,getPath("resources/white_transparent_cat.png"));
+	TypeEn *blackCat = createTypeEn(100, 5, false, true, true, false, 1,getPath("resources/black_transparent_cat.png"));
+	Enemy *cat1 = createEnemy(1,1,whiteCat);
+	Enemy *cat2 = createEnemy(1,10,whiteCat);
+	Enemy  *cat3 = createEnemy(5,5,blackCat);
+	Enemy *cat4 = createEnemy(21,4,blackCat);
 	
    TypeEn *zombie = createTypeEn(100,5,false,true,true,false,1,getPath("resources/zombie.png"));
    Enemy *zombie1 = createEnemy(4,4,zombie);
