@@ -11,18 +11,18 @@
 
 #include "typeTo.h"
 
-TypeTo* createTypeTo(
-           int damages,
-		     int range,
-		     int attSpeed,
-		     int price,
-           bool isSplash,
-		     bool isSlower,
-           bool canAttackFlying,
-           bool canPoison,
-	 	     TypeBul *typeBul,
-	 	     TypeTo *nextType,
-	 	     char* image) {
+
+TypeTo* createTypeTo(int damages,
+                     int range,
+                     int attSpeed,
+                     int price,
+                     bool isSplash,
+                     bool isSlower,
+                     bool canAttackFlying,
+                     bool canPoison,
+                     TypeBul* typeBul,
+                     TypeTo* nextType,
+                     char* image) {
 
 	TypeTo* typeTo = (TypeTo*)malloc( sizeof(TypeTo) );
 
@@ -42,26 +42,25 @@ TypeTo* createTypeTo(
 }
 
 /**
- * \fn void *upgradeTypeTo(Tower *tower, float percent,char *image)
- * \brief create a new type of tower, with same property (slow, poison...) and a little bit more efficient
- * \param tower the previous version of the tower
- * \param percent the percent of upgrade
- * \param image the new picture of the tower
+ * \fn void upgradeTypeTo(TypeTo* tower, float percent, char* image)
+ * \brief Creates a new type of tower, with same property (slow, poison...) and a little bit more efficient.
+ * 
+ * \param tower The previous version of the tower.
+ * \param percent The percent of upgrade.
+ * \param image The new picture of the tower.
  */
-void upgradeTypeTo(TypeTo *tower, float percent,char* image){
-   percent += 1;
-   TypeTo *newType = createTypeTo(
-                     tower->damages * percent,
-	                  tower->range * percent,
-	                  tower->attSpeed * percent,
-	                  tower->price * percent,
-	                  tower->isSplash,
-	                  tower->isSlower,
-	                  tower->canAttackFlying,
-	                  tower->canPoison,
-	                  tower->typeBul,
-	                  tower->nextType,
-	                  image
-                    );
-   tower->nextType = newType;
+void upgradeTypeTo(TypeTo* tower, float percent, char* image) {
+	percent += 1;
+	TypeTo *newType = createTypeTo(tower->damages * percent,
+                                       tower->range * percent,
+                                       tower->attSpeed * percent,
+                                       tower->price * percent,
+                                       tower->isSplash,
+                                       tower->isSlower,
+                                       tower->canAttackFlying,
+                                       tower->canPoison,
+                                       tower->typeBul,
+                                       tower->nextType,
+                                       image);
+	tower->nextType = newType;
 }

@@ -10,33 +10,35 @@
 
 #ifndef LIST
 #define LIST
+
 #include "../enemy/enemy.h"
+
 
 struct Enemy;
 
-typedef struct List{
-   void* item;
-   struct List* nextList;
-}List;
+typedef struct List {
+	void* item;
+	struct List* nextList;
+} List;
 
-//typedef struct EnemyList{
-//   struct Enemy *enemy;
-//   struct EnemyList *nextEnemy;
-//}EnemyList;
+//typedef struct EnemyList {
+//	struct Enemy* enemy;
+//	struct EnemyList* nextEnemy;
+//} EnemyList;
 
-typedef struct MovementList{
-   Movement movement;
-   struct MovementList *nextMovement;
-}MovementList;
+typedef struct MovementList {
+	Movement movement;
+	struct MovementList* nextMovement;
+} MovementList;
 
 List* newList(void* item);
-void pushList(List *list, void* item);
-void moveEnemyList(List *list);
-void drawEnemyList(List *list);
-void removeEnemyFromList(Enemy *enemy, List *list);
+void pushList(List* list, void* item);
+void moveEnemyList(List* list);
+void drawEnemyList(List* list);
+void removeEnemyFromList(Enemy* enemy, List* list);
 
 MovementList* newMovementList(Movement firstMovement);
-MovementList* headMovement(Movement movement, MovementList *list);
-Movement getNextMovement(MovementList **list);
+MovementList* headMovement(Movement movement, MovementList* list);
+Movement getNextMovement(MovementList** list);
 
 #endif

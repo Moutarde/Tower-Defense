@@ -8,17 +8,18 @@
  If not, see  <http://www.gnu.org/licenses/>.
  */
 
+
 #include "event.h"
 
+
 /**
- * \fn bool manageEvents(SDL_Event event)
+ * \fn bool manageEvents(SDL_Event event, Viewport* viewport)
  * \brief Manage the events.
  *
  * \param event The event to manage.
  * \param viewport The viewport that can be moved.
  * \return False if the the game ends, true if not.
  */
-
 bool manageEvents(SDL_Event event, Viewport* viewport, Events *flags) {
 	bool isInPlay = true;
 	
@@ -26,8 +27,8 @@ bool manageEvents(SDL_Event event, Viewport* viewport, Events *flags) {
 		// Quit game
 		case SDL_QUIT:
 			isInPlay = false;
-	      break;
-		
+			break;
+			
 		// Key pressed
 		case SDL_KEYDOWN:
 			switch(event.key.keysym.sym) {
@@ -35,7 +36,7 @@ bool manageEvents(SDL_Event event, Viewport* viewport, Events *flags) {
 				case SDLK_ESCAPE:
 					isInPlay = false;
 					break;
-				
+					
 				// Move view
 				case SDLK_UP:
 					moveViewport(viewport, UP);
@@ -73,7 +74,6 @@ bool manageEvents(SDL_Event event, Viewport* viewport, Events *flags) {
             }
          }
          break;
-
 			
 		default:
 			break;

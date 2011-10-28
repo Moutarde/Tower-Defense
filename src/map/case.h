@@ -12,16 +12,16 @@
 #ifndef CASE_H
 #define CASE_H
 
+#define CSIZE 32;
+
 #include <stdio.h>
 #include <stdbool.h>
 
-#define CSIZE 32;
 
 /**
  * \struct Case case.h
- * \brief a case structure
+ * \brief A case structure.
  */
-
 typedef struct {
 	int x; int y;     //*!< pixel position of up-left corner
 	int xx; int yy;   //*!< position of the case in the grid

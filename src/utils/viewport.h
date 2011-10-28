@@ -18,7 +18,9 @@ If not, see <http://www.gnu.org/licenses/>.
 #define DOWN 3
 
 #include <SDL/SDL.h>
+
 #include "../map/map.h"
+
 
 typedef struct {
 	SDL_Rect surface;
@@ -29,4 +31,3 @@ Viewport* createViewport(SDL_Rect surface, Map* map);
 void moveViewport(Viewport* viewport, short direction);
 
 #endif
-
