@@ -102,7 +102,8 @@ int main(int argc, char* argv[]) {
    //TOWER
    TypeTo *tower = createTypeTo(0,0,0,0,false,false,false,false,NULL,NULL,getPath("resources/tower.png"));
    upgradeTypeTo(tower,0.5,getPath("resources/towerUP.png"));
-//   Tower *tower1 = createTower(4,7,tower);
+   flags->selectedTower = tower->nextType;
+   Tower *tower1 = createTower(7,7,tower);
 
 	_cell = *getCase(20,11);
 	// Main loop
@@ -120,7 +121,7 @@ int main(int argc, char* argv[]) {
 		   Case cell = *getCase(i,j);
 		   position.x = cell.x;
 		   position.y = cell.y;
-			if(map->matrice[i][j].hasTower == true){
+			if(map->matrice[i][j].hasTower == 2){
             SDL_Surface *wall = IMG_Load(getPath("resources/brick.png"));
 			   SDL_BlitSurface(wall,NULL,map->bg,&position);
 			}
@@ -138,8 +139,18 @@ int main(int argc, char* argv[]) {
 /*      if(event.key.keysym.sym == SDLK_u){*/
 /*         upgrade(tower1);*/
 /*      }*/
-/*      drawTower(tower1);*/
-      
+      drawTower(tower1);
+      switch(event.key.keysym.sym){
+         case SDLK_a:
+            flags->selectedTower = tower;
+          break;
+         case SDLK_b:
+            flags->selectedTower = tower->nextType;
+          break;
+         default:
+          break;
+      }
+/*      */
 
       // Move enemies
       if(flags->enemy_Path_Calculation){

@@ -26,7 +26,7 @@ typedef struct {
 	int x; int y;     //*!< pixel position of up-left corner
 	int xx; int yy;   //*!< position of the case in the grid
 	int size;         //*!< size of... something?... maybe...
-	bool hasTower;    //*!< if there are a Tower on the Case
+	int hasTower;    //*!< if there are a Tower on the Case
 	bool hasEnemy;    //*!< if there are an Enemy on the Case
 } Case;
 

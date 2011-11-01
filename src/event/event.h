@@ -19,6 +19,7 @@
 
 typedef struct{
    bool enemy_Path_Calculation;
+   TypeTo *selectedTower;   
 }Events;
 
 bool manageEvents(SDL_Event event, Viewport* viewport, Events *flags);
