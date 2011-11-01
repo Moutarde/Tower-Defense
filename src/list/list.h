@@ -37,6 +37,8 @@ void moveEnemyList(List* list);
 void drawEnemyList(List* list);
 void removeEnemyFromList(Enemy* enemy, List* list);
 
+void drawTowerList(List* list);
+
 MovementList* newMovementList(Movement firstMovement);
 MovementList* headMovement(Movement movement, MovementList* list);
 Movement getNextMovement(MovementList** list);

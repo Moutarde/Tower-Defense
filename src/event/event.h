@@ -20,6 +20,7 @@
 typedef struct{
    bool enemy_Path_Calculation;
    TypeTo *selectedTower;   
+   List *towerList;
 }Events;
 
 bool manageEvents(SDL_Event event, Viewport* viewport, Events *flags);

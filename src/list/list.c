@@ -101,6 +101,23 @@ void removeEnemyFromList(Enemy* enemy, List* list) {
 }
 
 /**
+ * \fn void drawTowerList(List* list)
+ * \brief Draws an List of tower.
+ * The function draws each tower of a list.
+ * 
+ * \see drawTower
+ * \param list A list of Tower to draw.
+ */
+void drawTowerList(List* list) {
+	drawTower(list->item);
+	while(list->nextList) {
+		list = list->nextList;
+		drawTower(list->item);
+	}
+}
+
+
+/**
  * \fn MovementList* newMovementList(Movement firstMovement)
  * \brief Creates a new list and adds it's first Movement.
  *

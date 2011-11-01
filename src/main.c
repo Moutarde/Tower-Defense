@@ -105,6 +105,11 @@ int main(int argc, char* argv[]) {
    flags->selectedTower = tower->nextType;
    Tower *tower1 = createTower(7,7,tower);
 
+   List *towerList = newList(tower1);
+   flags->towerList = towerList;
+   
+
+
 	_cell = *getCase(20,11);
 	// Main loop
 	while(isInPlay) {
@@ -139,7 +144,7 @@ int main(int argc, char* argv[]) {
 /*      if(event.key.keysym.sym == SDLK_u){*/
 /*         upgrade(tower1);*/
 /*      }*/
-      drawTower(tower1);
+      drawTowerList(towerList);
       switch(event.key.keysym.sym){
          case SDLK_a:
             flags->selectedTower = tower;

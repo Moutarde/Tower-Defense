@@ -67,9 +67,10 @@ bool manageEvents(SDL_Event event, Viewport* viewport, Events *flags) {
             Case *viewportOffset = whichCase(viewport->surface.x,viewport->surface.y);
             int mapPositionX = caseClicked->xx + viewportOffset->xx;
             int mapPositionY = caseClicked->yy + viewportOffset->yy;
-            Tower* tower = createTower(mapPositionX, mapPositionY, simpleTowerType);
+            Tower *tower = createTower(mapPositionX, mapPositionY, simpleTowerType);
             if(tower){
                flags->enemy_Path_Calculation = true;
+               pushList((void*)flags->towerList,tower);
                drawTower(tower);
             }
          }
