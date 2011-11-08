@@ -17,7 +17,7 @@
 #include "utils/viewport.h"
 #include "event/event.h"
 #include "list/list.h"
-
+#include "utils/menu.h"
 
 // Global variables
 
@@ -63,14 +63,15 @@ int main(int argc, char* argv[]) {
 
 	SDL_Init(SDL_INIT_VIDEO);
 	
-	screen = SDL_SetVideoMode(640, 480, 32, SDL_HWSURFACE);
+	screen = SDL_SetVideoMode(800, 600, 32, SDL_HWSURFACE);
 	SDL_WM_SetCaption("Tower Defense", NULL);
 	
 	Map* map = createMap(getPath("resources/Forest.png"));
 	_map = map;
 	
-	SDL_Rect surface = {0, 0, 640, 480};
+	SDL_Rect surface = {0, 0, 800, 600};
 	Viewport* viewport = createViewport(surface, map);
+//	surface->x = 800 - 80; surface->y = 0; surface->h = 80; surface->w = 600;
 	
 	// Creation of the enemies
 	TypeEn *whiteCat = createTypeEn(100, 5, false, true, true, false, 1,getPath("resources/white_transparent_cat.png"));
