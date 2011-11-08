@@ -9,6 +9,7 @@ tower/tower.c \
 tower/typeBul.c \
 tower/typeTo.c \
 utils/viewport.c \
+utils/menu.c \
 event/event.c \
 list/list.c \
 utils/pathFinding.c

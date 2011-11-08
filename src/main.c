@@ -68,10 +68,15 @@ int main(int argc, char* argv[]) {
 	
 	Map* map = createMap(getPath("resources/Forest.png"));
 	_map = map;
+
+	//just to have an picture
+	Map menu_bg;
+	menu_bg.bg = loadMap(getPath("resources/enemyFont.gif"));
 	
 	SDL_Rect surface = {0, 0, 800, 600};
 	Viewport* viewport = createViewport(surface, map);
-//	surface->x = 800 - 80; surface->y = 0; surface->h = 80; surface->w = 600;
+	surface.x = 800 - 80; surface.y = 0; surface.h = 80; surface.w = 600;
+	Menu *menu = createMenu(surface);
 	
 	// Creation of the enemies
 	TypeEn *whiteCat = createTypeEn(100, 5, false, true, true, false, 1,getPath("resources/white_transparent_cat.png"));
@@ -91,12 +96,12 @@ int main(int argc, char* argv[]) {
    List *catList = newList(cat4);
    pushList((void*)catList,cat2);
    pushList((void*)catList,cat3);
-   pushList((void*)catList,cat1);
+//   pushList((void*)catList,cat1);
    
    List *zombieList = newList(zombie1);
-   pushList((void*)zombieList,zombie2);
-   pushList((void*)zombieList,zombie3);
-   pushList((void*)zombieList,zombie4);
+/*   pushList((void*)zombieList,zombie2);*/
+/*   pushList((void*)zombieList,zombie3);*/
+/*   pushList((void*)zombieList,zombie4);*/
    
 //   removeEnemyFromList(cat4,catList);
 
@@ -138,6 +143,15 @@ int main(int argc, char* argv[]) {
    SDL_BlitSurface(IMG_Load(getPath("resources/candy_cane.png")),NULL,map->bg,&position);
 /////////////////////////////////////////////////////////////////////
 		
+      // Move enemies
+      if(flags->enemy_Path_Calculation){
+         pathReCalculation(catList);
+         pathReCalculation(zombieList);
+         flags->enemy_Path_Calculation = false;
+      }
+      moveEnemyList(zombieList);
+      moveEnemyList(catList);
+
 		// Blit enemies
       drawEnemyList(zombieList);
       drawEnemyList(catList);
@@ -158,17 +172,13 @@ int main(int argc, char* argv[]) {
       }
 /*      */
 
-      // Move enemies
-      if(flags->enemy_Path_Calculation){
-         pathReCalculation(catList);
-         pathReCalculation(zombieList);
-         flags->enemy_Path_Calculation = false;
-      }
-      moveEnemyList(zombieList);
-      moveEnemyList(catList);
       
 		// Blit map
 		drawMap(map, &(viewport->surface), screen);
+		// Blit menu
+		SDL_BlitSurface(menu_bg.bg, NULL, screen, &surface);
+//		SDL_BlitSurface(enemy->animation.currentFrame, getRect(&enemy->animation), _map->bg, &animOffset);
+
 		SDL_Flip(screen);
 		
 		// Managing frames
