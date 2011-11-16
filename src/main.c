@@ -27,27 +27,28 @@ Case _cell; // for debug (candy_cane)
 
 /**
  * \fn void initPath(char* argv0)
- * \brief 
+ * \brief Finds the executable path from the current working directory
  *
- * \param argv0 
+ * \param argv0 Invocation command of the executable
  * \return 
  */
 void initPath(char* argv0) {
 	int trimLength = strrchr(argv0, '/') + 1 - argv0;
 	_path = calloc(trimLength, 1);
-	strncat(_path, argv0, trimLength);
+	strncpy(_path, argv0, trimLength);
 }
 
 /**
  * \fn char* getPath(char* resource)
- * \brief 
+ * \brief Converts a resource path from executable-relative to a path relative to the current working directory
  *
- * \param resource 
- * \return 
+ * \param resource The resource path relative to the executable
+ * \return The resource path relative to the working directory
  */
 char* getPath(char* resource) {
-	char* fullPath = calloc(strlen(_path) + strlen(resource), 1);
-	return strcat(strcat(fullPath, _path), resource);
+	// Basically we just append the resource to the root _path
+	char* fullPath = calloc(strlen(_path) + strlen(resource) + 1, 1);
+	return strcat(strcpy(fullPath, _path), resource);
 }
 
 int main(int argc, char* argv[]) {
