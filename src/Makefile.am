@@ -12,7 +12,8 @@ utils/viewport.c \
 utils/menu.c \
 event/event.c \
 list/list.c \
-utils/pathFinding.c
+utils/pathFinding.c \
+utils/button.c
 
 
 AM_CFLAGS=-Wall -std=c99
