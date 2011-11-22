@@ -18,36 +18,39 @@
 #include "event/event.h"
 #include "list/list.h"
 #include "utils/menu.h"
+#include "utils/button.h"
 
 // Global variables
 
+SDL_Surface* _screen;
 Map* _map;
 char* _path;
 Case _cell; // for debug (candy_cane)
 
 /**
  * \fn void initPath(char* argv0)
- * \brief 
+ * \brief Finds the executable path from the current working directory
  *
- * \param argv0 
+ * \param argv0 Invocation command of the executable
  * \return 
  */
 void initPath(char* argv0) {
 	int trimLength = strrchr(argv0, '/') + 1 - argv0;
 	_path = calloc(trimLength, 1);
-	strncat(_path, argv0, trimLength);
+	strncpy(_path, argv0, trimLength);
 }
 
 /**
  * \fn char* getPath(char* resource)
- * \brief 
+ * \brief Converts a resource path from executable-relative to a path relative to the current working directory
  *
- * \param resource 
- * \return 
+ * \param resource The resource path relative to the executable
+ * \return The resource path relative to the working directory
  */
 char* getPath(char* resource) {
-	char* fullPath = calloc(strlen(_path) + strlen(resource), 1);
-	return strcat(strcat(fullPath, _path), resource);
+	// Basically we just append the resource to the root _path
+	char* fullPath = calloc(strlen(_path) + strlen(resource) + 1, 1);
+	return strcat(strcpy(fullPath, _path), resource);
 }
 
 int main(int argc, char* argv[]) {
@@ -64,19 +67,15 @@ int main(int argc, char* argv[]) {
 	SDL_Init(SDL_INIT_VIDEO);
 	
 	screen = SDL_SetVideoMode(800, 600, 32, SDL_HWSURFACE);
+	_screen = screen;
 	SDL_WM_SetCaption("Tower Defense", NULL);
 	
 	Map* map = createMap(getPath("resources/Forest.png"));
 	_map = map;
-
-	//just to have an picture
-	Map menu_bg;
-	menu_bg.bg = loadMap(getPath("resources/enemyFont.gif"));
 	
-	SDL_Rect surface = {0, 0, 800, 600};
+	SDL_Rect surface = {0, 0, 720, 600};
 	Viewport* viewport = createViewport(surface, map);
 	surface.x = 800 - 80; surface.y = 0; surface.h = 80; surface.w = 600;
-	Menu *menu = createMenu(surface);
 	
 	// Creation of the enemies
 	TypeEn *whiteCat = createTypeEn(100, 5, false, true, true, false, 1,getPath("resources/white_transparent_cat.png"));
@@ -114,6 +113,15 @@ int main(int argc, char* argv[]) {
    List *towerList = newList(tower1);
    flags->towerList = towerList;
    
+	// Create and Renders the right panel game menu
+	SDL_Rect surfaceMenu = {720, 0, 800, 600};
+	Menu* menu = menu_create(surfaceMenu);
+	menu_loadBackground(menu, "resources/enemyFont.gif");
+		// For testing only, we add a few random buttons
+		menu_addButton(menu, button_createBuildButton(tower));
+		menu_addButton(menu, button_createBuildButton(tower));
+		menu_addButton(menu, button_createBuildButton(tower));
+	menu_render(menu);
 
 
 	_cell = *getCase(20,11);
@@ -175,8 +183,7 @@ int main(int argc, char* argv[]) {
       
 		// Blit map
 		drawMap(map, &(viewport->surface), screen);
-		// Blit menu
-		SDL_BlitSurface(menu_bg.bg, NULL, screen, &surface);
+		
 //		SDL_BlitSurface(enemy->animation.currentFrame, getRect(&enemy->animation), _map->bg, &animOffset);
 
 		SDL_Flip(screen);
