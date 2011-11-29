@@ -65,6 +65,7 @@ int main(int argc, char* argv[]) {
    Events *flags = createEventFlags();
 
 	SDL_Init(SDL_INIT_VIDEO);
+	SDL_SetEventFilter(eventFilter);
 	
 	screen = SDL_SetVideoMode(800, 600, 32, SDL_HWSURFACE);
 	_screen = screen;
@@ -128,8 +129,7 @@ int main(int argc, char* argv[]) {
 	// Main loop
 	while(isInPlay) {
 		// Managing the events
-		SDL_PollEvent( &event );
-		isInPlay = manageEvents(event, viewport, flags);
+		isInPlay = manageEvents(viewport, flags);
 
 		// Clean the objects on the map
 		cleanMap(map);
@@ -168,6 +168,8 @@ int main(int argc, char* argv[]) {
 /*         upgrade(tower1);*/
 /*      }*/
       drawTowerList(towerList);
+	
+	/* This should be handled by event.c
       switch(event.key.keysym.sym){
          case SDLK_a:
             flags->selectedTower = tower;
@@ -177,7 +179,8 @@ int main(int argc, char* argv[]) {
           break;
          default:
           break;
-      }
+	
+      }*/
 /*      */
 
       

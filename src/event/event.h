@@ -23,7 +23,9 @@ typedef struct{
    List *towerList;
 }Events;
 
-bool manageEvents(SDL_Event event, Viewport* viewport, Events *flags);
+int eventFilter(SDL_Event* event);
+bool manageEvent(SDL_Event event, Viewport* viewport, Events *flags);
+bool manageEvents(Viewport* viewport, Events* flags);
 char* getPath(char* resource);
 Events* createEventFlags();
 void pathReCalculation(List *enemyList);
