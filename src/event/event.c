@@ -12,15 +12,26 @@
 #include "event.h"
 
 
+int eventFilter(SDL_Event* event) {
+	switch(event->type) {
+		case SDL_QUIT:
+		case SDL_KEYDOWN:
+		case SDL_MOUSEBUTTONDOWN:
+			return 1;
+		default:
+			return 0;
+	}
+}
+
 /**
- * \fn bool manageEvents(SDL_Event event, Viewport* viewport)
- * \brief Manage the events.
+ * \fn bool manageEvent(SDL_Event event, Viewport* viewport)
+ * \brief Manage an event.
  *
  * \param event The event to manage.
  * \param viewport The viewport that can be moved.
  * \return False if the the game ends, true if not.
  */
-bool manageEvents(SDL_Event event, Viewport* viewport, Events *flags) {
+bool manageEvent(SDL_Event event, Viewport* viewport, Events *flags) {
 	bool isInPlay = true;
 	
 	switch(event.type) {
@@ -82,6 +93,16 @@ bool manageEvents(SDL_Event event, Viewport* viewport, Events *flags) {
 	
 	return isInPlay;
 }
+
+bool manageEvents(Viewport* viewport, Events *flags) {
+	SDL_Event event;
+	// Process events until game exit, or there's none left
+	while(SDL_PollEvent(&event)) {
+		if(!manageEvent(event, viewport, flags)) return false;
+	}
+	return true;
+}
+
 
 Events* createEventFlags(){
    Events *flags = (Events*)malloc(sizeof *flags);
