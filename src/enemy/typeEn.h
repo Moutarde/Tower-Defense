@@ -18,24 +18,35 @@
 #include <SDL/SDL_image.h>
 
 
-typedef enum {UP, RIGHT, DOWN, LEFT, STAY}Movement;
+typedef enum {UP, RIGHT, DOWN, LEFT, STAY} Movement;
+
+/**
+ * \struct Animation typeEnemy.h
+ * \brief Current status of an animation
+ */
 
 typedef struct {
-	Movement direction;
-	SDL_Rect animation_state[5];
-	SDL_Surface* currentFrame;
+	Movement direction;				//!< Direction of enemy's sight
+	SDL_Rect animation_state[5];	//!< list of animation frame
+	SDL_Surface* currentFrame;		//!< Current frame in the sprite sheet
 } Animation;
 
+/**
+ * \struct TypeEn typeEnemy.h
+ * \brief Structure of enemy type
+ */
+ 
 typedef struct {
-	int maxLife;
-	int normalSpeed;
-	bool canFly;
-	bool canBeSlowed;
-	bool canBePoisoned;
-	bool invisible;
-	int armor;
-	char* picture;
+	int maxLife;			//!< Maximum life of an enemy
+	int normalSpeed;		//!< Basic speed of an enemy /*!< An enemy can be slowed if he's touched with appropriate tower (ice tower...) */
+	bool canFly;			//!< true if monster can fly over tower /*!< flying enemy can only be touched by specific tower */
+	bool canBeSlowed;		//!< true if normalSpeed can be decreased
+	bool canBePoisoned;	//!< true if the enemy can be poisoned
+	bool invisible;		//!< true if the enemy can be invisible
+	int armor;				//!< Current enemy defence
+	char* picture;			//!< Enemy sprite sheet
 } TypeEn;
+
 
 TypeEn* createTypeEn(int maxLife,
                      int normalSpeed,

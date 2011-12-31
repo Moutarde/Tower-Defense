@@ -11,6 +11,29 @@
 
 #include "typeEn.h"
 
+/**
+ * \fn TypeEn* createTypeEn(int maxLife,
+ *                    int normalSpeed,
+ *                    bool canFly,
+ *                    bool canBeSlowed,
+ *                    bool canBePoisoned,
+ *                    bool invisible,
+ *                    int armor,
+ *                    char* resources)
+ * \brief Creates a new type of enemy.
+ * A enemy type is initialized with whatever can differentiate 
+ * monster (like if it can fly or not)
+ * 
+ * \param maxLife Define the maximum life of an enemy
+ * \param normalSpeed Define the base speed of the enemy (if he is not slowed)
+ * \param canFly Define if an enemy can fly
+ * \param canBeSlowed Define if an enemy can be slowed
+ * \param canBePoisoned Define if an enemy can be poisoned
+ * \param invisible Define if an enemy can be seen
+ * \param armor Define the amount of damage which must be done before decreasing the life
+ * \param resources the enemy sprite sheet
+ * \return Pointer to animation tools.
+ */
 
 TypeEn* createTypeEn(int maxLife,
                      int normalSpeed,

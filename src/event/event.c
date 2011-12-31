@@ -103,6 +103,12 @@ bool manageEvents(Viewport* viewport, Events *flags) {
 	return true;
 }
 
+/**
+ * \fn createEventFlags()
+ * \brief Deficient by design?
+ *
+ * \return hiden global variable :- °
+ */
 
 Events* createEventFlags(){
    Events *flags = (Events*)malloc(sizeof *flags);
@@ -110,6 +116,12 @@ Events* createEventFlags(){
   return flags;
 }
 
+/**
+ * \fn void pathReCalculation(List *enemyList)
+ * \brief set the enemy in "waiting for path" state
+ * \param enemyList a list of enemy who have to change there path
+ */
+ 
 void pathReCalculation(List *enemyList){
    while(enemyList->nextList){
       ((Enemy*)enemyList->item)->list = NULL;
