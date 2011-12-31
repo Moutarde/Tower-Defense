@@ -17,10 +17,15 @@
 #include "../utils/viewport.h"
 #include "../tower/tower.h"
 
+/**
+ * \struct Events event.h
+ * \brief An List of event to manage.
+ */
+
 typedef struct{
-   bool enemy_Path_Calculation;
-   TypeTo *selectedTower;   
-   List *towerList;
+   bool enemy_Path_Calculation;	//!< 
+   TypeTo *selectedTower;   		//!< 
+   List *towerList;					//!< 
 }Events;
 
 int eventFilter(SDL_Event* event);
