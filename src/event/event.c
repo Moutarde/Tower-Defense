@@ -24,6 +24,15 @@ int eventFilter(SDL_Event* event) {
 }
 
 /**
+ * \fn EventList* newEventList()
+ * \brief Create a new event list
+ */
+ 
+EventList* newEventList(){
+	return (EventList*)malloc(sizeof EventList);
+}
+
+/**
  * \fn bool manageEvent(SDL_Event event, Viewport* viewport)
  * \brief Manage an event.
  *
@@ -31,13 +40,14 @@ int eventFilter(SDL_Event* event) {
  * \param viewport The viewport that can be moved.
  * \return False if the the game ends, true if not.
  */
-bool manageEvent(SDL_Event event, Viewport* viewport, Events *flags) {
+EventList manageEvent(SDL_Event event, Viewport* viewport, Events *flags) {
+	EventList *list = flags->eventList;
 	bool isInPlay = true;
 	
 	switch(event.type) {
 		// Quit game
 		case SDL_QUIT:
-			isInPlay = false;
+			list->quit = true;
 			break;
 			
 		// Key pressed
@@ -45,24 +55,28 @@ bool manageEvent(SDL_Event event, Viewport* viewport, Events *flags) {
 			switch(event.key.keysym.sym) {
 				// Quit game
 				case SDLK_ESCAPE:
-					isInPlay = false;
+					list->quit = true;
 					break;
 					
 				// Move view
 				case SDLK_UP:
-					moveViewport(viewport, UP);
+					list->arrow[UP] = true;
+					//moveViewport(viewport, UP);
 					break;
 					
 				case SDLK_DOWN:
-					moveViewport(viewport, DOWN);
+					list->arrow[DOWN] = true;
+					//moveViewport(viewport, DOWN);
 					break;
 					
 				case SDLK_LEFT:
-					moveViewport(viewport, LEFT);
+					list->arrow[LEFT] = true;
+					//moveViewport(viewport, LEFT);
 					break;
 					
 				case SDLK_RIGHT:
-					moveViewport(viewport, RIGHT);
+					list->arrow[RIGHT] = true;
+					//moveViewport(viewport, RIGHT);
 					break;
 					
 				default:
@@ -72,7 +86,8 @@ bool manageEvent(SDL_Event event, Viewport* viewport, Events *flags) {
 
       // Mouse left click
       case SDL_MOUSEBUTTONDOWN:
-         if(event.button.button == SDL_BUTTON_LEFT) {
+      	list->arrow[UP] = true;
+         /*if(event.button.button == SDL_BUTTON_LEFT) {
             Case* caseClicked = whichCase(event.button.x, event.button.y);
             TypeTo* simpleTowerType = flags->selectedTower;
             Case *viewportOffset = whichCase(viewport->surface.x,viewport->surface.y);
@@ -85,13 +100,13 @@ bool manageEvent(SDL_Event event, Viewport* viewport, Events *flags) {
                drawTower(tower);
             }
          }
-         break;
+         */break;
 			
 		default:
 			break;
 	}
 	
-	return isInPlay;
+	return list;
 }
 
 bool manageEvents(Viewport* viewport, Events *flags) {
@@ -113,6 +128,7 @@ bool manageEvents(Viewport* viewport, Events *flags) {
 Events* createEventFlags(){
    Events *flags = (Events*)malloc(sizeof *flags);
    flags->enemy_Path_Calculation = false;
+	flags->eventList = newEventList();
   return flags;
 }
 
