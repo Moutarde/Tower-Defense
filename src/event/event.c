@@ -40,13 +40,12 @@ EventList* newEventList(){
  * \param viewport The viewport that can be moved.
  * \return False if the the game ends, true if not.
  */
-EventList* manageEvent(SDL_Event event, Viewport* viewport, Events *flags){
-	EventList *list = flags->eventList;
-	
+EventList* manageEvent(SDL_Event event, Viewport* viewport, Events *flags, ActionList **actionList){
+	//enum actionlist.h
 	switch(event.type) {
 		// Quit game
 		case SDL_QUIT:
-			list->quit = true;
+			actionlist[QUIT]->boolean = true;
 			break;
 			
 		// Key pressed
@@ -54,29 +53,25 @@ EventList* manageEvent(SDL_Event event, Viewport* viewport, Events *flags){
 			switch(event.key.keysym.sym) {
 				// Quit game
 				case SDLK_ESCAPE:
-					list->quit = true;
+					actionlist[QUIT]->boolean = true;
 					break;
 					
 				// Move view
 				case SDLK_UP:
-					list->arrow[UP] = true;
-					//moveViewport(viewport, UP);
-					break;
+					actionlist[ARROW_UP]->boolean = true;
+				  break;
 					
 				case SDLK_DOWN:
-					list->arrow[DOWN] = true;
-					//moveViewport(viewport, DOWN);
-					break;
+					actionlist[ARROW_DOWN]->boolean = true;
+				  break;
 					
 				case SDLK_LEFT:
-					list->arrow[LEFT] = true;
-					//moveViewport(viewport, LEFT);
-					break;
+					actionlist[ARROW_LEFT]->boolean = true;
+				  break;
 					
 				case SDLK_RIGHT:
-					list->arrow[RIGHT] = true;
-					//moveViewport(viewport, RIGHT);
-					break;
+					actionlist[ARROW_RIGHT]->boolean = true;
+				  break;
 					
 				default:
 					break;
@@ -85,21 +80,10 @@ EventList* manageEvent(SDL_Event event, Viewport* viewport, Events *flags){
 
       // Mouse left click
       case SDL_MOUSEBUTTONDOWN:
-      	list->arrow[UP] = true;
-         /*if(event.button.button == SDL_BUTTON_LEFT) {
-            Case* caseClicked = whichCase(event.button.x, event.button.y);
-            TypeTo* simpleTowerType = flags->selectedTower;
-            Case *viewportOffset = whichCase(viewport->surface.x,viewport->surface.y);
-            int mapPositionX = caseClicked->xx + viewportOffset->xx;
-            int mapPositionY = caseClicked->yy + viewportOffset->yy;
-            Tower *tower = createTower(mapPositionX, mapPositionY, simpleTowerType);
-            if(tower){
-               flags->enemy_Path_Calculation = true;
-               pushList((void*)flags->towerList,tower);
-               drawTower(tower);
-            }
+         if(event.button.button == SDL_BUTTON_LEFT) {
+		   	actionlist[CASE_CLICKED]->boolean = whichCase(event.button.x, event.button.y);
          }
-         */break;
+         break;
 			
 		default:
 			break;

@@ -16,16 +16,19 @@
 #include <stdbool.h>
 #include "../utils/viewport.h"
 #include "../tower/tower.h"
+#include "../enemy/action.h"
+
 
 /**
  *	\struct EventList event.h
  * \brief List of all key pressed
  */
 typedef struct{
-	bool quit;			//!< Escape Key
-	bool arrow[4];		//!< Arrow keys
-	bool mouseclick;	//!< Mouse button
-}EventList;
+	Action quit		//!< Escape Key
+	Action arrow[4];		//!< Arrow keys
+	Action caseClicked;	//!< Mouse button
+}ActionList; //!\ liste chaîner
+
 
 /**
  * \struct Events event.h
