@@ -70,6 +70,7 @@ int main(int argc, char* argv[]) {
 	SDL_SetEventFilter(eventFilter);
 	
 	screen = SDL_SetVideoMode(800, 600, 32, SDL_HWSURFACE | SDL_ASYNCBLIT | SDL_DOUBLEBUF | SDL_NOFRAME);
+	SDL_WM_SetCaption("Tower Defense", NULL);
 	
 	Map* map = createMap(getPath("resources/Forest.png"));
 	_map = map;
