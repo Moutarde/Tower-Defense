@@ -12,10 +12,14 @@ If not, see <http://www.gnu.org/licenses/>.
 #ifndef VIEWPORT
 #define VIEWPORT
 
-#define RIGHT 0
+/*#define RIGHT 0
 #define LEFT 1
 #define UP 2
-#define DOWN 3
+#define DOWN 3*/
+#define UP 0
+#define RIGHT 1
+#define DOWN 2
+#define LEFT 3
 
 #include <SDL/SDL.h>
 
