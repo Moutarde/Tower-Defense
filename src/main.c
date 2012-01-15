@@ -26,6 +26,7 @@ SDL_Surface* _screen;
 Map* _map;
 char* _path;
 Case _cell; // for debug (candy_cane)
+int framecounter = 0;
 
 /**
  * \fn void initPath(char* argv0)
@@ -67,7 +68,7 @@ int main(int argc, char* argv[]) {
 	SDL_Init(SDL_INIT_VIDEO);
 	SDL_SetEventFilter(eventFilter);
 	
-	screen = SDL_SetVideoMode(800, 600, 32, SDL_HWSURFACE);
+	screen = SDL_SetVideoMode(800, 600, 32, SDL_HWSURFACE | SDL_ASYNCBLIT | SDL_DOUBLEBUF | SDL_NOFRAME);
 	_screen = screen;
 	SDL_WM_SetCaption("Tower Defense", NULL);
 	
@@ -190,12 +191,16 @@ int main(int argc, char* argv[]) {
 //		SDL_BlitSurface(enemy->animation.currentFrame, getRect(&enemy->animation), _map->bg, &animOffset);
 
 		SDL_Flip(screen);
-		
+	
 		// Managing frames
 		currentTime = SDL_GetTicks();
 		if (currentTime - previousTime <= 20) {
 			SDL_Delay(20 - (currentTime - previousTime));
 		}
+		
+		// DEBUG
+		printf("Frame %i, took %ims to render\n", framecounter++, currentTime - previousTime);		
+
 		previousTime = SDL_GetTicks();
 	}
 	SDL_Quit();
