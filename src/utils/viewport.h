@@ -25,9 +25,13 @@ If not, see <http://www.gnu.org/licenses/>.
 typedef struct {
 	SDL_Rect surface;
 	Map* map;
+	SDL_Surface* screen;
 } Viewport;
 
-Viewport* createViewport(SDL_Rect surface, Map* map);
+extern Viewport* _viewport;
+void drawViewport(Viewport* viewport);
+Viewport* createViewport(SDL_Surface* screen, SDL_Rect surface, Map* map);
 void moveViewport(Viewport* viewport, short direction);
+void blitToViewport(Viewport* viewport, SDL_Surface* src, SDL_Rect* src_rect, SDL_Rect* dest);
 
 #endif

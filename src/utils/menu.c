@@ -15,12 +15,14 @@ If not, see <http://www.gnu.org/licenses/>.
  * \fn Menu* menu_createMenu(SDL_Rect surface)
  * \brief Create the menu
  *
+ * \param screen The screen the menu will be drawn on
  * \param suface The surface which the menu will be.
  * \return The Menu pointer
  */
-Menu* menu_create(SDL_Rect surface){
+Menu* menu_create(SDL_Surface* screen, SDL_Rect surface){
 	// Allocate the menu information
 	Menu* menu = (Menu*)malloc(sizeof *menu);
+	menu->screen = screen;
 	menu->surface = surface;
 
 	// Allocate the menu's button list 
@@ -67,11 +69,10 @@ void menu_render(Menu* menu){
 	// The buttons are 32x32 images. So we'll space them with, say, 20 pixels each vertically.
 	// These settings could be either header defines, or attributes of Menu
 
-	extern SDL_Surface* _screen;
 	SDL_Rect target;
 
 	// Start by blitting the background image
-	if(menu->background) SDL_BlitSurface(menu->background, NULL, _screen, &menu->surface);
+	if(menu->background) SDL_BlitSurface(menu->background, NULL, menu->screen, &menu->surface);
 
 	// Loop for every button and blit it
 	for(int i=0; i < menu->buttonAmount; i++){
@@ -79,7 +80,7 @@ void menu_render(Menu* menu){
 		target.w = target.x + MENU_BUTTON_STANDARD_SIZE;
 		target.y = 100 + (MENU_BUTTON_DISPLAY_OFFSET + MENU_BUTTON_STANDARD_SIZE)*i;
 		target.h = target.y + MENU_BUTTON_STANDARD_SIZE;
-		SDL_BlitSurface(((menu->button)[i])->image, NULL, _screen, &target);
+		SDL_BlitSurface(((menu->button)[i])->image, NULL, menu->screen, &target);
 	}
 }
 
@@ -95,8 +96,7 @@ void menu_render(Menu* menu){
 void menu_loadBackground(Menu* menu, char* resource){
 	//FIXME This really shouldnt use something from the Map functions... 
 	menu->background = loadMap(getPath(resource));
-	extern SDL_Surface* _screen;
-	SDL_BlitSurface(menu->background, NULL, _screen, &menu->surface);
+	SDL_BlitSurface(menu->background, NULL, menu->screen, &menu->surface);
 }
 
 /**

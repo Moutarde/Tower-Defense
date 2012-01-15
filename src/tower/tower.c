@@ -10,6 +10,7 @@
 
 
 #include "tower.h"
+#include "../utils/viewport.h"
 
 
 Tower* createTower(int x, int y, TypeTo* type) {
@@ -49,5 +50,5 @@ void drawTower(Tower* tower) {
 	position.x = cell->x;
 	position.y = cell->y;
 	cell->hasTower = true;
-	SDL_BlitSurface(tower->type->image, NULL, _map->bg, &position);
+	blitToViewport(_viewport, tower->type->image, NULL, &position);
 }

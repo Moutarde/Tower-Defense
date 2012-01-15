@@ -13,6 +13,7 @@
 
 #include "enemy.h"
 #include "../utils/pathFinding.h"
+#include "../utils/viewport.h"
 
 
 /**
@@ -71,7 +72,7 @@ void drawEnemy(Enemy* enemy) {
 	animOffset.x += animOffset.w;
 	animOffset.y += animOffset.h;
 	
-	SDL_BlitSurface(enemy->animation.currentFrame, getRect(&enemy->animation), _map->bg, &animOffset);
+	blitToViewport(_viewport, enemy->animation.currentFrame, getRect(&enemy->animation), &animOffset);
 }
 
 /**

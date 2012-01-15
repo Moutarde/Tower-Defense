@@ -22,7 +22,6 @@
 Map* createMap(char* mapName) {
 	Map* map = (Map*)malloc( sizeof(Map) );
 	map->bg = loadMap(mapName);
-	map->bg_img = loadMap(mapName);
 	map->w = map->bg->w;
 	map->h = map->bg->h;
 	map->nbCaseW = map->w/CSIZE;
@@ -120,27 +119,6 @@ SDL_Surface* loadMap(char* mapName){
 	return background;
 }
 
-/**
- * \fn void drawMap(Map* map, SDL_Rect* viewport, SDL_Surface* screen)
- * \brief Draws a map on the screen.
- *
- * \param map Map to draw.
- * \param viewport Viewport.
- * \param screen Where to draw.
- */
-void drawMap(Map* map, SDL_Rect* viewport, SDL_Surface* screen) {
-	SDL_BlitSurface(map->bg, viewport, screen, NULL);
-}
-
-/**
- * \fn void cleanMap(Map* map)
- * \brief Cleans the map.
- *
- * \param map Map to clean.
- */
-void cleanMap(Map* map) {
-	SDL_BlitSurface(map->bg_img, NULL, map->bg, NULL);
-}
 
 /**
  * \fn Case* getCase(int xx, int yy)

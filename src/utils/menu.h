@@ -12,14 +12,6 @@ If not, see <http://www.gnu.org/licenses/>.
 #ifndef MENU
 #define MENU
 
-//Could use some enum here instead
-//enum directions {RIGHT, LEFT, UP, DOWN};
-//Huh.... All these defines are used in enemy.c, but not in the menu.
-#define RIGHT 0
-#define LEFT 1
-#define UP 2
-#define DOWN 3
-
 #define MENU_BUTTON_STANDARD_SIZE 32
 #define MENU_BUTTON_DISPLAY_OFFSET 20
 
@@ -34,6 +26,7 @@ If not, see <http://www.gnu.org/licenses/>.
  */
 
 typedef struct {
+	SDL_Surface* screen;		// Where to draw the menu
 	SDL_Rect surface; 			//!< the surface of the menu
 	SDL_Surface* background;	//!< background image of the menu
 
@@ -43,7 +36,7 @@ typedef struct {
 	void *minimap;   			//!< the minimap
 } Menu;
 
-Menu* menu_create(SDL_Rect surface);
+Menu* menu_create(SDL_Surface* screen, SDL_Rect surface);
 void menu_render(Menu* menu);
 void menu_addButton(Menu* menu, Button* newButton);
 void menu_free(Menu* menu);
