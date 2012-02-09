@@ -77,9 +77,9 @@ void menu_render(Menu* menu){
 	// Loop for every button and blit it
 	for(int i=0; i < menu->buttonAmount; i++){
 		target.x = 720 + (80-MENU_BUTTON_STANDARD_SIZE)/2;
-		target.w = target.x + MENU_BUTTON_STANDARD_SIZE;
+		target.w = MENU_BUTTON_STANDARD_SIZE;
 		target.y = 100 + (MENU_BUTTON_DISPLAY_OFFSET + MENU_BUTTON_STANDARD_SIZE)*i;
-		target.h = target.y + MENU_BUTTON_STANDARD_SIZE;
+		target.h = MENU_BUTTON_STANDARD_SIZE;
 		SDL_BlitSurface(((menu->button)[i])->image, NULL, menu->screen, &target);
 	}
 }
