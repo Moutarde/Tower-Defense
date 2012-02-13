@@ -27,7 +27,12 @@ If not, see <http://www.gnu.org/licenses/>.
 
 
 typedef struct {
-	SDL_Rect surface;
+	// Screen surface is where the viewport is displayed
+	SDL_Rect screensurface;
+
+	// Map surface is what part of the map the viewport displays
+	SDL_Rect mapsurface;
+
 	Map* map;
 	SDL_Surface* screen;
 } Viewport;

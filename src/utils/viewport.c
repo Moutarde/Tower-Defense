@@ -7,9 +7,7 @@ GNU General Public License along with this program.
 If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #include "viewport.h"
-
 
 /**
  * \fn Viewport* createViewport(SDL_Rect suface, Map* map)
@@ -22,7 +20,15 @@ If not, see <http://www.gnu.org/licenses/>.
 Viewport* createViewport(SDL_Surface* screen, SDL_Rect surface, Map* map) {
 	Viewport* viewport = (Viewport*)malloc( sizeof(Viewport) );
 	
-	viewport->surface = surface;
+	// Initializes the displayed map surface to 0,0 and with specified size
+	viewport->mapsurface.x = 0;
+	viewport->mapsurface.y = 0;
+	viewport->mapsurface.w = surface.w;
+	viewport->mapsurface.h = surface.h;
+
+	// Initialize the viewport's screen position to given surface
+	viewport->screensurface = surface;
+
 	viewport->map = map;
 	viewport->screen = screen;
 	
@@ -36,25 +42,26 @@ Viewport* createViewport(SDL_Surface* screen, SDL_Rect surface, Map* map) {
  * \param viewport Viewport to draw on the screen
  */
 void drawViewport(Viewport* viewport) {
-	SDL_BlitSurface(viewport->map->bg, &(viewport->surface), viewport->screen, NULL);
+	SDL_BlitSurface(viewport->map->bg, &(viewport->mapsurface), viewport->screen, &(viewport->screensurface));
 }
 
 /**
  * \fn void blitToViewport(Viewport *viewport, SDL_Surface* src, SDL_Rect src_rect, SDL_Rect dest)
  * \brief Blit the specified image to destination, on the viewport
  *
- * \param viewport The viewport on which to draw
- * \param src Source ressource
- * \param src_rect Source area to blit
- * \param absdest Absolute map position to blit on, not taking into account viewport position
+ * \param viewport The viewport element to draw on
+ * \param src_sprite Surface to draw
+ * \param relsrc Rectangle of the source sprite to draw
+ * \param reldest Map relative rectangle where to draw the sprite
  */
- void blitToViewport(Viewport *viewport, SDL_Surface* src, SDL_Rect* src_rect, SDL_Rect* dest) {
- 	// FIXME Need to take into account viewport's position
- 	// FIXME Also should prevent stuff from drawing outside of the viewport
- 	// NOTE Since SDL_BlitSurface change the dest rectangle anyway, we can change values in it
- 	
- 	SDL_BlitSurface(src, src_rect, viewport->screen, dest);
- }
+ void blitToViewport(Viewport *viewport, SDL_Surface* src_sprite, SDL_Rect* relsrc, SDL_Rect* reldest) {
+	// FIXME For optimization, the SetClipRect should be only done once per frame.
+	SDL_SetClipRect(viewport->screen, &viewport->screensurface);
+
+	reldest->x -= viewport->mapsurface.x;
+	reldest->y -= viewport->mapsurface.y;
+	SDL_BlitSurface(src_sprite, relsrc, viewport->screen, reldest);
+}
 
 
 /**
@@ -67,30 +74,30 @@ void drawViewport(Viewport* viewport) {
 void moveViewport(Viewport* viewport, short direction) {
 	switch(direction) {
 		case UP:
-			viewport->surface.y -= 5;
-			if (viewport->surface.y < 0) {
-				viewport->surface.y = 0;
+			viewport->mapsurface.y -= 5;
+			if (viewport->mapsurface.y < 0) {
+				viewport->mapsurface.y = 0;
 			}
 		break;
 
 		case DOWN:
-			viewport->surface.y += 5;
-			if (viewport->surface.y > viewport->map->h - viewport->surface.h) {
-				viewport->surface.y = viewport->map->h - viewport->surface.h;
+			viewport->mapsurface.y += 5;
+			if (viewport->mapsurface.y > viewport->map->h - viewport->mapsurface.h) {
+				viewport->mapsurface.y = viewport->map->h - viewport->mapsurface.h;
 			}
 		break;
 
 		case LEFT:
-			viewport->surface.x -= 5;
-			if (viewport->surface.x < 0) {
-				viewport->surface.x = 0;
+			viewport->mapsurface.x -= 5;
+			if (viewport->mapsurface.x < 0) {
+				viewport->mapsurface.x = 0;
 			}
 		break;
 
 		case RIGHT:
-			viewport->surface.x += 5;
-			if (viewport->surface.x > viewport->map->w - viewport->surface.w) {
-				viewport->surface.x = viewport->map->w - viewport->surface.w;
+			viewport->mapsurface.x += 5;
+			if (viewport->mapsurface.x > viewport->map->w - viewport->mapsurface.w) {
+				viewport->mapsurface.x = viewport->map->w - viewport->mapsurface.w;
 			}
 		break;
 	}
