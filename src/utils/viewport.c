@@ -27,10 +27,16 @@ Viewport* createViewport(SDL_Surface* screen, SDL_Rect surface, Map* map) {
 	viewport->mapsurface.h = surface.h;
 
 	// Initialize the viewport's screen position to given surface
+	// NOTE: Doesnt actually work (the offset is not taking into consideration yet, it'll always be drawn in 0,0)
 	viewport->screensurface = surface;
 
 	viewport->map = map;
 	viewport->screen = screen;
+
+	// FIXME This should realloc. Or something like that.
+	viewport->revertrects = malloc(sizeof(SDL_Rect) * 200);
+	viewport->revertcount = 0;
+	viewport->completeredraw = 1;
 	
 	return viewport;
 }
@@ -41,8 +47,35 @@ Viewport* createViewport(SDL_Surface* screen, SDL_Rect surface, Map* map) {
  *
  * \param viewport Viewport to draw on the screen
  */
-void drawViewport(Viewport* viewport) {
-	SDL_BlitSurface(viewport->map->bg, &(viewport->mapsurface), viewport->screen, &(viewport->screensurface));
+void redrawViewport(Viewport* viewport) {
+	// FIXME Need a system to manage SetClipRect without slowing down the game (one call per drawing sequence)
+	SDL_SetClipRect(viewport->screen, &viewport->screensurface);
+
+	SDL_BlitSurface(viewport->map->bg, &(viewport->mapsurface), viewport->screen, NULL);
+}
+
+
+/**
+ * 
+ */
+void updateViewport(Viewport *viewport) {
+	int i;
+	SDL_Rect target;
+		
+	if(viewport->completeredraw) {
+		redrawViewport(viewport);
+		viewport->completeredraw = 0;	
+	} else {
+		for(i = 0; i < viewport->revertcount; i++) {
+			target = viewport->revertrects[i];
+			target.x -= viewport->mapsurface.x;
+			target.y -= viewport->mapsurface.y;	
+
+			SDL_BlitSurface(viewport->map->bg, &(viewport->revertrects[i]), viewport->screen, &target);
+		}
+	}
+
+	viewport->revertcount = 0;
 }
 
 /**
@@ -55,12 +88,23 @@ void drawViewport(Viewport* viewport) {
  * \param reldest Map relative rectangle where to draw the sprite
  */
  void blitToViewport(Viewport *viewport, SDL_Surface* src_sprite, SDL_Rect* relsrc, SDL_Rect* reldest) {
-	// FIXME For optimization, the SetClipRect should be only done once per frame.
-	SDL_SetClipRect(viewport->screen, &viewport->screensurface);
-
+	// Shift the destination from map relative coordinates to screen displayed ones	
 	reldest->x -= viewport->mapsurface.x;
 	reldest->y -= viewport->mapsurface.y;
+	
+	// Blit the image onto specified position
 	SDL_BlitSurface(src_sprite, relsrc, viewport->screen, reldest);
+
+	// If we actually blitted something
+	if(!reldest->w || !reldest->h) return;
+
+	// Add the blitted element to the list of stuff to de-blit later
+	viewport->revertrects[viewport->revertcount] = *reldest;
+	// Don't forget to make it a map relative value again!
+	viewport->revertrects[viewport->revertcount].x += viewport->mapsurface.x;
+	viewport->revertrects[viewport->revertcount].y += viewport->mapsurface.y;
+
+	viewport->revertcount++;
 }
 
 
@@ -78,6 +122,7 @@ void moveViewport(Viewport* viewport, short direction) {
 			if (viewport->mapsurface.y < 0) {
 				viewport->mapsurface.y = 0;
 			}
+			viewport->completeredraw = 1;
 		break;
 
 		case DOWN:
@@ -85,6 +130,7 @@ void moveViewport(Viewport* viewport, short direction) {
 			if (viewport->mapsurface.y > viewport->map->h - viewport->mapsurface.h) {
 				viewport->mapsurface.y = viewport->map->h - viewport->mapsurface.h;
 			}
+			viewport->completeredraw = 1;
 		break;
 
 		case LEFT:
@@ -92,6 +138,7 @@ void moveViewport(Viewport* viewport, short direction) {
 			if (viewport->mapsurface.x < 0) {
 				viewport->mapsurface.x = 0;
 			}
+			viewport->completeredraw = 1;
 		break;
 
 		case RIGHT:
@@ -99,6 +146,7 @@ void moveViewport(Viewport* viewport, short direction) {
 			if (viewport->mapsurface.x > viewport->map->w - viewport->mapsurface.w) {
 				viewport->mapsurface.x = viewport->map->w - viewport->mapsurface.w;
 			}
+			viewport->completeredraw = 1;
 		break;
 	}
 }

@@ -75,7 +75,7 @@ bool manageEvent(SDL_Event event, Viewport* viewport, Events *flags) {
          if(event.button.button == SDL_BUTTON_LEFT) {
             Case* caseClicked = whichCase(event.button.x, event.button.y);
             TypeTo* simpleTowerType = flags->selectedTower;
-            Case *viewportOffset = whichCase(viewport->surface.x,viewport->surface.y);
+            Case *viewportOffset = whichCase(viewport->mapsurface.x,viewport->mapsurface.y);
             int mapPositionX = caseClicked->xx + viewportOffset->xx;
             int mapPositionY = caseClicked->yy + viewportOffset->yy;
             Tower *tower = createTower(mapPositionX, mapPositionY, simpleTowerType);

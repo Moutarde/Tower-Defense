@@ -35,6 +35,13 @@ typedef struct {
 
 	Map* map;
 	SDL_Surface* screen;
+
+	// Info to revert the displayed sprites
+	SDL_Rect* revertrects;
+	int revertcount;
+	
+	// Indicates the viewport's background should be redrawn completely on next frame
+	int completeredraw;
 } Viewport;
 
 extern Viewport* _viewport;
@@ -42,5 +49,6 @@ void drawViewport(Viewport* viewport);
 Viewport* createViewport(SDL_Surface* screen, SDL_Rect surface, Map* map);
 void moveViewport(Viewport* viewport, short direction);
 void blitToViewport(Viewport* viewport, SDL_Surface* src, SDL_Rect* src_rect, SDL_Rect* dest);
+void cleanViewport(Viewport *viewport);
 
 #endif

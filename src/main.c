@@ -135,11 +135,8 @@ int main(int argc, char* argv[]) {
 		// Managing the events
 		isInPlay = manageEvents(viewport, flags);
 
-		int before = SDL_GetTicks();
 		// Redraws the map (viewport contents) before blitting stuff on it
-		drawViewport(viewport);
-		int after = SDL_GetTicks();
-		int mapReDraw = after-before;
+		updateViewport(viewport);
 		
 		
 ///////////////////////////// DEBUG WALL /////////////////////////////
@@ -203,7 +200,7 @@ int main(int argc, char* argv[]) {
 		}
 		
 		// DEBUG
-		printf("Frame %i : %ims - BREAKDOWN: Map Redraw = %i - Rest = %i\n", framecounter++, currentTime - previousTime, mapReDraw, SDL_GetTicks() - after);		
+		printf("Frame %i : %ims\n", framecounter++, currentTime - previousTime);		
 
 		previousTime = SDL_GetTicks();
 	}
