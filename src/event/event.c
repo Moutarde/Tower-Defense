@@ -11,7 +11,6 @@
 
 #include "event.h"
 
-
 int eventFilter(SDL_Event* event) {
 	switch(event->type) {
 		case SDL_QUIT:
@@ -24,15 +23,6 @@ int eventFilter(SDL_Event* event) {
 }
 
 /**
- * \fn EventList* newEventList()
- * \brief Create a new event list
- */
- 
-EventList* newEventList(){
-	return (EventList*)malloc(sizeof(EventList));
-}
-
-/**
  * \fn bool manageEvent(SDL_Event event, Viewport* viewport)
  * \brief Manage an event.
  *
@@ -40,12 +30,11 @@ EventList* newEventList(){
  * \param viewport The viewport that can be moved.
  * \return False if the the game ends, true if not.
  */
-EventList* manageEvent(SDL_Event event, Viewport* viewport, Events *flags, ActionList **actionList){
-	//enum actionlist.h
+void manageEvent(SDL_Event event, Viewport* viewport, Events *flags, Action *actionList){
 	switch(event.type) {
 		// Quit game
 		case SDL_QUIT:
-			actionlist[QUIT]->boolean = true;
+			actionList[QUIT].boolean = (void*)1;
 			break;
 			
 		// Key pressed
@@ -53,24 +42,24 @@ EventList* manageEvent(SDL_Event event, Viewport* viewport, Events *flags, Actio
 			switch(event.key.keysym.sym) {
 				// Quit game
 				case SDLK_ESCAPE:
-					actionlist[QUIT]->boolean = true;
+					actionList[QUIT].boolean = (void*)1;
 					break;
 					
 				// Move view
 				case SDLK_UP:
-					actionlist[ARROW_UP]->boolean = true;
+					actionList[ARROW_UP].boolean = (void*)1;
 				  break;
 					
 				case SDLK_DOWN:
-					actionlist[ARROW_DOWN]->boolean = true;
+					actionList[ARROW_DOWN].boolean = (void*)1;
 				  break;
 					
 				case SDLK_LEFT:
-					actionlist[ARROW_LEFT]->boolean = true;
+					actionList[ARROW_LEFT].boolean = (void*)1;
 				  break;
 					
 				case SDLK_RIGHT:
-					actionlist[ARROW_RIGHT]->boolean = true;
+					actionList[ARROW_RIGHT].boolean = (void*)1;
 				  break;
 					
 				default:
@@ -81,24 +70,19 @@ EventList* manageEvent(SDL_Event event, Viewport* viewport, Events *flags, Actio
       // Mouse left click
       case SDL_MOUSEBUTTONDOWN:
          if(event.button.button == SDL_BUTTON_LEFT) {
-		   	actionlist[CASE_CLICKED]->boolean = whichCase(event.button.x, event.button.y);
+		   	actionList[CASE_CLICKED].boolean = whichCase(event.button.x, event.button.y);
          }
          break;
 			
 		default:
 			break;
 	}
-	
-	return list;
 }
-
-bool manageEvents(Viewport* viewport, Events *flags) {
+void manageEvents(Viewport* viewport, Events *flags, Action *actionList) {
 	SDL_Event event;
 	// Process events until game exit, or there's none left
-	while(SDL_PollEvent(&event)) {
-		if(!manageEvent(event, viewport, flags)) return false;
-	}
-	return true;
+	SDL_PollEvent(&event);
+	manageEvent(event, viewport, flags, actionList);
 }
 
 /**
@@ -111,7 +95,6 @@ bool manageEvents(Viewport* viewport, Events *flags) {
 Events* createEventFlags(){
    Events *flags = (Events*)malloc(sizeof *flags);
    flags->enemy_Path_Calculation = false;
-	flags->eventList = newEventList();
   return flags;
 }
 

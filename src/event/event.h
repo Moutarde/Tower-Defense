@@ -17,35 +17,12 @@
 #include "../utils/viewport.h"
 #include "../tower/tower.h"
 #include "../enemy/action.h"
-
-
-/**
- *	\struct EventList event.h
- * \brief List of all key pressed
- */
-typedef struct{
-	Action quit		//!< Escape Key
-	Action arrow[4];		//!< Arrow keys
-	Action caseClicked;	//!< Mouse button
-}ActionList; //!\ liste chaîner
-
-
-/**
- * \struct Events event.h
- * \brief An List of event to manage.
- */
-
-typedef struct{
-   bool enemy_Path_Calculation;	//!< 
-   TypeTo *selectedTower;   		//!< 
-   List *towerList;					//!< 
-	EventList *eventList;			//!<
-}Events;
+#include "../utils/flag.h"
 
 
 int eventFilter(SDL_Event* event);
-EventList* manageEvent(SDL_Event event, Viewport* viewport, Events *flags);
-bool manageEvents(Viewport* viewport, Events* flags);
+void manageEvent(SDL_Event event, Viewport* viewport, Events *flags, Action *actionList);
+void manageEvents(Viewport* viewport, Events* flags, Action *actionList);
 char* getPath(char* resource);
 Events* createEventFlags();
 void pathReCalculation(List *enemyList);

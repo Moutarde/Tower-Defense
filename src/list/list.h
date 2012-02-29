@@ -12,7 +12,7 @@
 #define LIST
 
 #include "../enemy/enemy.h"
-
+#include "../tower/tower.h"
 
 struct Enemy;
 

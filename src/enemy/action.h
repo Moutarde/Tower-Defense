@@ -11,17 +11,13 @@
 
 #ifndef ACTION_H
 #define ACTION_H
+#include "../utils/flag.h"
+#include "../utils/viewport.h"
+#include "../tower/tower.h"
+#include "../list/list.h"
 
-typedef void (*fAction)(Viewport *viewport, Events *flags);
-typedef enum {
-	QUIT,
-	ARROW_UP,
-	ARROW_RIGHT,
-	ARROW_DOWN,
-	ARROW_LEFT,
-	CASE_CLICKED,
-	LENGTH
-}ActionType;
+typedef void (*f_action)(Viewport *viewport, Events *flags, void* data);
+enum {QUIT,ARROW_UP,ARROW_RIGHT,ARROW_DOWN,ARROW_LEFT,CASE_CLICKED,ACTION_LENGTH};
 
 /**
  * \struct Action action.h
@@ -30,7 +26,7 @@ typedef enum {
 
 typedef struct{
    void* boolean;			//!< if an action must be performed
-   fAction action;		//!< the associated action to the event
+   f_action action;		//!< the associated action to the event
 }Action;
 
 void viewportMoveUP(Viewport *viewport, Events *flags, void* unused);
@@ -38,6 +34,7 @@ void viewportMoveDOWN(Viewport *viewport, Events *flags, void* unused);
 void viewportMoveLEFT(Viewport *viewport, Events *flags, void* unused);
 void viewportMoveRIGHT(Viewport *viewport, Events *flags, void* unused);
 void addTower(Viewport *viewport, Events *flags, void* _caseClicked);
+Action* initAction(void);
 
 #endif
 

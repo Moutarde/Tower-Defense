@@ -19,6 +19,7 @@
 #include "list/list.h"
 #include "utils/menu.h"
 #include "utils/button.h"
+#include "enemy/action.h"
 
 // Global variables
 
@@ -58,11 +59,10 @@ int main(int argc, char* argv[]) {
 	initPath(argv[0]);
 	SDL_Surface* screen = NULL;
 	SDL_Event event;
-	bool isInPlay = true;
-	void* seed;
+	int *seed;
 	srand((int)seed);
 	int previousTime = 0, currentTime = 0;
-   Events *flags = createEventFlags();
+	Events *flags = createEventFlags();
 
 	SDL_Init(SDL_INIT_VIDEO);
 	SDL_SetEventFilter(eventFilter);
@@ -70,6 +70,7 @@ int main(int argc, char* argv[]) {
 	screen = SDL_SetVideoMode(800, 600, 32, SDL_HWSURFACE);
 	_screen = screen;
 	SDL_WM_SetCaption("Tower Defense", NULL);
+	Action *actionList = initAction();
 	
 	Map* map = createMap(getPath("resources/Forest.png"));
 	_map = map;
@@ -119,17 +120,22 @@ int main(int argc, char* argv[]) {
 	Menu* menu = menu_create(surfaceMenu);
 	menu_loadBackground(menu, "resources/enemyFont.gif");
 		// For testing only, we add a few random buttons
-		menu_addButton(menu, button_createBuildButton(tower));
-		menu_addButton(menu, button_createBuildButton(tower));
-		menu_addButton(menu, button_createBuildButton(tower));
+	menu_addButton(menu, button_createBuildButton(tower));
+	menu_addButton(menu, button_createBuildButton(tower));
+	menu_addButton(menu, button_createBuildButton(tower));
 	menu_render(menu);
 
 
 	_cell = *getCase(20,11);
 	// Main loop
-	while(isInPlay) {
+	while(actionList[QUIT].boolean == NULL){
 		// Managing the events
-		isInPlay = manageEvents(viewport, flags);
+		manageEvents(viewport, flags,actionList);
+		for(int i=1;i<ACTION_LENGTH;i++){
+			if(actionList[i].boolean){
+				(*actionList[i].action)(viewport,flags,actionList[i].boolean);
+			}
+		}
 
 		// Clean the objects on the map
 		cleanMap(map);
@@ -198,7 +204,10 @@ int main(int argc, char* argv[]) {
 		}
 		previousTime = SDL_GetTicks();
 	}
+//	free(actionList);
 	SDL_Quit();
 	
 	return EXIT_SUCCESS;
 }
+
+
