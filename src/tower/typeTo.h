@@ -34,13 +34,6 @@ typedef struct TypeTo {
 	SDL_Surface* image;
 } TypeTo;
 
-typedef struct {
-	int x;
-	int y;
-	TypeTo* type;
-	int kills;
-} Tower;
-
 
 TypeTo* createTypeTo(int iniDamages,
                      int iniRange,
