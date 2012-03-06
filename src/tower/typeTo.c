@@ -12,55 +12,32 @@
 #include "typeTo.h"
 
 
-TypeTo* createTypeTo(int damages,
-                     int range,
-                     int attSpeed,
-                     int price,
-                     bool isSplash,
-                     bool isSlower,
-                     bool canAttackFlying,
-                     bool canPoison,
-                     TypeBul* typeBul,
-                     TypeTo* nextType,
-                     char* image) {
+TypeTo* createTypeTo(int damageMin,
+					unsigned int damageRand,
+					int range,
+					unsigned int attSpeed,
+					int price,
+					unsigned int splashRadius,
+					float slowFactor,
+					bool canAttackFlying,
+					TypeBul* typeBul,
+					TypeTo* upgradeType,
+					char* image) {
 
 	TypeTo* typeTo = (TypeTo*)malloc( sizeof(TypeTo) );
 
-	typeTo->damages = damages;
+	typeTo->damageMin = damageMin;
+	typeTo->damageRand = damageRand;
 	typeTo->range = range;
 	typeTo->attSpeed = attSpeed;
 	typeTo->price = price;
-	typeTo->isSplash = isSplash;
-	typeTo->isSlower = isSlower;
+	typeTo->splashRadius = splashRadius;
+	typeTo->slowFactor = slowFactor;
 	typeTo->canAttackFlying = canAttackFlying;
-	typeTo->canPoison = canPoison;
+	
 	typeTo->typeBul = typeBul;
-	typeTo->nextType = NULL;
+	typeTo->upgradeType = NULL;
 	typeTo->image = IMG_Load(image);
 
 	return typeTo;
-}
-
-/**
- * \fn void upgradeTypeTo(TypeTo* tower, float percent, char* image)
- * \brief Creates a new type of tower, with same property (slow, poison...) and a little bit more efficient.
- * 
- * \param tower The previous version of the tower.
- * \param percent The percent of upgrade.
- * \param image The new picture of the tower.
- */
-void upgradeTypeTo(TypeTo* tower, float percent, char* image) {
-	percent += 1;
-	TypeTo *newType = createTypeTo(tower->damages * percent,
-                                       tower->range * percent,
-                                       tower->attSpeed * percent,
-                                       tower->price * percent,
-                                       tower->isSplash,
-                                       tower->isSlower,
-                                       tower->canAttackFlying,
-                                       tower->canPoison,
-                                       tower->typeBul,
-                                       tower->nextType,
-                                       image);
-	tower->nextType = newType;
 }

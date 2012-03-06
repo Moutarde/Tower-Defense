@@ -21,6 +21,9 @@ typedef struct {
 	int y;
 	TypeTo* type;
 	int kills;
+	float damageMod;
+	float speedMod;
+	int refireCounter;
 } Tower;
 
 extern Map* _map;

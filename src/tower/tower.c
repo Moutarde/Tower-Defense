@@ -14,27 +14,36 @@
 
 
 Tower* createTower(int x, int y, TypeTo* type) {
+	/* Deficient by design : the tower functions shouldn't need to know of the map state */
    Case *cell = getCase(x,y);
    if(cell->hasEnemy || cell->hasTower){
       return NULL;
-   }
+   }/* */
+   
    Tower* tower = (Tower*)malloc( sizeof(Tower) );
+   
    tower->x = x;
    tower->y = y;
-   tower->kills = 0;
    tower->type= type;
    
+   tower->damageMod = 1.0;
+   tower->speedMod = 1.0;
+   tower->refireCounter = 0;
+   tower->kills = 0;
    
   return tower;
 }
 
 int getSellPrice(Tower* tower) {
+	// FIXME The return value should not be hardcoded
+	// Note: Should this function even be here? This might be related to game mode/state
 	return (70 * tower->type->price) / 100;
 }
 
 void upgrade(Tower* t) {
-	if(t->type->nextType) {
-		t->type = t->type->nextType;
+	// FIXME Upgrading means redrawing the tower
+	if(t->type->upgradeType) {
+		t->type = t->type->upgradeType;
 	}
 }
 
@@ -49,6 +58,9 @@ void drawTower(Tower* tower) {
 	Case* cell = getCase(tower->x, tower->y);
 	position.x = cell->x;
 	position.y = cell->y;
+	
+	// Deficient by design: again, this means the tower has to know of map state
+	// Also, the tower is there regardless of being drawn
 	cell->hasTower = true;
 	blitToViewport(_viewport, tower->type->image, NULL, &position);
 }

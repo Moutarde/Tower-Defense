@@ -21,32 +21,31 @@
 
 
 typedef struct TypeTo {
-	int damages;
+	int damageMin;
+	int damageRand;
 	int range;
 	int attSpeed;
 	int price;
-	bool isSplash;
-	bool isSlower;
+	int splashRadius;
+	float slowFactor;
 	bool canAttackFlying;
-	bool canPoison;
 	TypeBul* typeBul;
-	struct TypeTo* nextType;
+	// FIXME Only one upgrade type per tower?! BORING!
+	struct TypeTo* upgradeType;
 	SDL_Surface* image;
 } TypeTo;
 
 
-TypeTo* createTypeTo(int iniDamages,
-                     int iniRange,
-                     int iniAttSpeed,
-                     int price,
-                     bool isSplash,
-                     bool isSlower,
-                     bool canAttackFlying,
-                     bool canPoison,
-                     TypeBul* typeBul,
-                     TypeTo* nextType,
-                     char* image);
-
-void upgradeTypeTo(TypeTo* tower, float percent, char* image);
+TypeTo* createTypeTo(int damageMin,
+					unsigned int damageRand,
+					int range,						/* In pixels ? */
+					unsigned int attSpeed,					/* In miliseconds ? */
+					int price,
+					unsigned int splashRadius,		/* Same unit than range */
+					float slowFactor,
+					bool canAttackFlying,
+					TypeBul* typeBul,
+					TypeTo* upgradeType,
+					char* image);					/* Path, maybe revert directly to SDL_Surface pointer */
 
 #endif

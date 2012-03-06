@@ -110,22 +110,21 @@ int main(int argc, char* argv[]) {
 //   removeEnemyFromList(cat4,catList);
 
    //TOWER
-   TypeTo *tower = createTypeTo(0,0,0,0,false,false,false,false,NULL,NULL,getPath("resources/tower.png"));
-   upgradeTypeTo(tower,0.5,getPath("resources/towerUP.png"));
-   flags->selectedTower = tower->nextType;
-   Tower *tower1 = createTower(7,7,tower);
+   TypeTo *towertype = createTypeTo(10,10,200,1000,100,0,1,NULL,NULL,NULL,getPath("ressources/tower.png"));
+   flags->selectedTower = towertype;
+   Tower *tower1 = createTower(7,7,towertype);
 
    List *towerList = newList(tower1);
    flags->towerList = towerList;
    
 	// Create and Renders the right panel game menu
-	SDL_Rect surfaceMenu = {720, 0, 800, 600};
+	SDL_Rect surfaceMenu = {720, 0, 80, 600};
 	Menu* menu = menu_create(screen, surfaceMenu);
 	menu_loadBackground(menu, "resources/enemyFont.gif");
 		// For testing only, we add a few random buttons
-		menu_addButton(menu, button_createBuildButton(tower));
-		menu_addButton(menu, button_createBuildButton(tower));
-		menu_addButton(menu, button_createBuildButton(tower));
+		menu_addButton(menu, button_createBuildButton(towertype));
+		menu_addButton(menu, button_createBuildButton(towertype));
+		menu_addButton(menu, button_createBuildButton(towertype));
 	menu_render(menu);
 
 
