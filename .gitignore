@@ -2,3 +2,16 @@
 *.o
 .dirstamp
 .deps
+Doxyfile
+Doxyfile.in
+Makefile
+Makefile.in
+aclocal.m4
+autom4te.cache
+config.h
+config.in
+config.log
+config.status
+configure
+stamp-h1
+src/towerdefense
