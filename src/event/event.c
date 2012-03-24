@@ -15,6 +15,7 @@ int eventFilter(SDL_Event* event) {
 	switch(event->type) {
 		case SDL_QUIT:
 		case SDL_KEYDOWN:
+		case SDL_KEYUP:
 		case SDL_MOUSEBUTTONDOWN:
 			return 1;
 		default:
@@ -66,6 +67,26 @@ void manageEvent(SDL_Event event, Viewport* viewport, Events *flags, Action *act
 					break;
 			}
 		   break;
+		// Key released
+		case SDL_KEYUP:
+			switch(event.key.keysym.sym) {
+					
+					// Stop Moving view
+					case SDLK_UP:
+						actionList[ARROW_UP].boolean = NULL;
+					  break;
+					case SDLK_DOWN:
+						actionList[ARROW_DOWN].boolean = NULL;
+					  break;
+					case SDLK_LEFT:
+						actionList[ARROW_LEFT].boolean = NULL;
+					  break;
+					case SDLK_RIGHT:
+						actionList[ARROW_RIGHT].boolean = NULL;
+					  break;
+					default:
+					  break;
+		  }
 
       // Mouse left click
       case SDL_MOUSEBUTTONDOWN:

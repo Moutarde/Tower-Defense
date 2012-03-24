@@ -133,7 +133,10 @@ int main(int argc, char* argv[]) {
 		manageEvents(viewport, flags,actionList);
 		for(int i=1;i<ACTION_LENGTH;i++){
 			if(actionList[i].boolean){
-				(*actionList[i].action)(viewport,flags,actionList[i].boolean);
+				int repeat = (*actionList[i].action)(viewport,flags,actionList[i].boolean);
+				if(!repeat){
+					actionList[i].boolean = NULL;
+				}
 			}
 		}
 

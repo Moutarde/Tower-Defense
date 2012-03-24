@@ -12,14 +12,16 @@
 
 
 /**
- * \fn char* viewportMoveUP(Viewport *viewport, Events *flags, void* unused)
+ * \fn int viewportMoveUP(Viewport *viewport, Events *flags, void* unused)
  * \brief Move viewport to the up
  *
  * \param viewport the viewport to move
+ * \retun 1 to tell that this must be repeated
  */
 
-void viewportMoveUP(Viewport *viewport, Events *flags, void* unused){
+int viewportMoveUP(Viewport *viewport, Events *flags, void* unused){
 	moveViewport(viewport, UP);
+  return 1;
 }
 
 /**
@@ -29,19 +31,21 @@ void viewportMoveUP(Viewport *viewport, Events *flags, void* unused){
  * \param viewport the viewport to move
  */
 
-void viewportMoveDOWN(Viewport *viewport, Events *flags, void* unused){
+int viewportMoveDOWN(Viewport *viewport, Events *flags, void* unused){
 	moveViewport(viewport, DOWN);
+  return 1;
 }
 
 /**
- * \fn char* viewportMoveLEFT(Viewport *viewport, Events *flags, void* unused)
+ * \fn char* viewportMoveLEFT(Viewport *viewport, Events *flags, int* unused)
  * \brief Move viewport to the left
  *
  * \param viewport the viewport to move
  */
 
-void viewportMoveLEFT(Viewport *viewport, Events *flags, void* unused){
+int viewportMoveLEFT(Viewport *viewport, Events *flags, void* unused){
 	moveViewport(viewport, LEFT);
+  return 1;
 }
 
 /**
@@ -51,8 +55,9 @@ void viewportMoveLEFT(Viewport *viewport, Events *flags, void* unused){
  * \param viewport the viewport to move
  */
  
-void viewportMoveRIGHT(Viewport *viewport, Events *flags, void* unused){
+int viewportMoveRIGHT(Viewport *viewport, Events *flags, void* unused){
 	moveViewport(viewport, RIGHT);
+  return 1;
 }
 
 /**
@@ -63,7 +68,7 @@ void viewportMoveRIGHT(Viewport *viewport, Events *flags, void* unused){
  * \param _caseClicked the position of the mouse
  */
 
-void addTower(Viewport *viewport, Events *flags, void* caseClicked_){
+int addTower(Viewport *viewport, Events *flags, void* caseClicked_){
 	Case *caseClicked = caseClicked_;
 	TypeTo* simpleTowerType = flags->selectedTower;
 	Case *viewportOffset = whichCase(viewport->surface.x,viewport->surface.y);
@@ -75,6 +80,7 @@ void addTower(Viewport *viewport, Events *flags, void* caseClicked_){
 	   pushList((void*)flags->towerList,tower);
 	   drawTower(tower);
 	}
+  return 0;
 }
 
 /**
