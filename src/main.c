@@ -110,7 +110,7 @@ int main(int argc, char* argv[]) {
 //   removeEnemyFromList(cat4,catList);
 
    //TOWER
-   TypeTo *towertype = createTypeTo(10,10,200,1000,100,0,1,NULL,NULL,NULL,getPath("ressources/tower.png"));
+   TypeTo *towertype = createTypeTo(10,10,200,1000,100,0,1,NULL,NULL,NULL,getPath("resources/tower.png"));
    flags->selectedTower = towertype;
    Tower *tower1 = createTower(7,7,towertype);
 
