@@ -25,23 +25,22 @@ If not, see <http://www.gnu.org/licenses/>.
 
 #include "../map/map.h"
 
-
+/**
+ *	\struct Viewport
+ * \brief The displayed screen
+ */
 typedef struct {
-	// Screen surface is where the viewport is displayed
-	SDL_Rect screensurface;
+	SDL_Rect screensurface;	//!< Screen surface is where the viewport is displayed
 
-	// Map surface is what part of the map the viewport displays
-	SDL_Rect mapsurface;
+	SDL_Rect mapsurface;		//!< Map surface is what part of the map the viewport displays
 
 	Map* map;
 	SDL_Surface* screen;
 
-	// Info to revert the displayed sprites
 	SDL_Rect* revertrects;
-	int revertcount;
+	int revertcount;			//!< Info to revert the displayed sprites
 	
-	// Indicates the viewport's background should be redrawn completely on next frame
-	int completeredraw;
+	int completeredraw;		//!< Indicates the viewport's background should be redrawn completely on next frame
 } Viewport;
 
 extern Viewport* _viewport;
