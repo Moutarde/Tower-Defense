@@ -71,7 +71,7 @@ int viewportMoveRIGHT(Viewport *viewport, Events *flags, void* unused){
 int addTower(Viewport *viewport, Events *flags, void* caseClicked_){
 	Case *caseClicked = caseClicked_;
 	TypeTo* simpleTowerType = flags->selectedTower;
-	Case *viewportOffset = whichCase(viewport->screensurface.x,viewport->screensurface.y);
+	Case *viewportOffset = whichCase(viewport->mapsurface.x,viewport->mapsurface.y);
 	int mapPositionX = caseClicked->xx + viewportOffset->xx;
 	int mapPositionY = caseClicked->yy + viewportOffset->yy;
 	Tower *tower = createTower(mapPositionX, mapPositionY, simpleTowerType);
