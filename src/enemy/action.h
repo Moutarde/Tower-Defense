@@ -34,7 +34,7 @@ int viewportMoveDOWN(Viewport *viewport, Events *flags, void* unused);
 int viewportMoveLEFT(Viewport *viewport, Events *flags, void* unused);
 int viewportMoveRIGHT(Viewport *viewport, Events *flags, void* unused);
 int addTower(Viewport *viewport, Events *flags, void* _caseClicked);
-Action* initAction(void);
+Action* initAction();
 
 #endif
 
