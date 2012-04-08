@@ -28,14 +28,11 @@ typedef struct {
 	int nbCaseH;
 	Case** matrice;
 	SDL_Surface* bg;
-	SDL_Surface* bg_img;
 } Map;
 
 extern Map* _map;
 Map* createMap(char* mapName);
 SDL_Surface* loadMap(char* mapName);
-void drawMap(Map* map, SDL_Rect* viewport, SDL_Surface* screen);
-void cleanMap(Map* map);
 Case* getCase(int xx, int yy);
 Case* whichCase(int x, int y);
 

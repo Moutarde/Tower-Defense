@@ -99,6 +99,7 @@ void manageEvent(SDL_Event event, Viewport* viewport, Events *flags, Action *act
 			break;
 	}
 }
+
 void manageEvents(Viewport* viewport, Events *flags, Action *actionList) {
 	SDL_Event event;
 	// Process events until game exit, or there's none left

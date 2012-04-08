@@ -12,10 +12,14 @@ If not, see <http://www.gnu.org/licenses/>.
 #ifndef VIEWPORT
 #define VIEWPORT
 
-#define RIGHT 0
+/*#define RIGHT 0
 #define LEFT 1
 #define UP 2
-#define DOWN 3
+#define DOWN 3*/
+#define UP 0
+#define RIGHT 1
+#define DOWN 2
+#define LEFT 3
 
 #include <SDL/SDL.h>
 
@@ -23,11 +27,28 @@ If not, see <http://www.gnu.org/licenses/>.
 
 
 typedef struct {
-	SDL_Rect surface;
+	// Screen surface is where the viewport is displayed
+	SDL_Rect screensurface;
+
+	// Map surface is what part of the map the viewport displays
+	SDL_Rect mapsurface;
+
 	Map* map;
+	SDL_Surface* screen;
+
+	// Info to revert the displayed sprites
+	SDL_Rect* revertrects;
+	int revertcount;
+	
+	// Indicates the viewport's background should be redrawn completely on next frame
+	int completeredraw;
 } Viewport;
 
-Viewport* createViewport(SDL_Rect surface, Map* map);
+extern Viewport* _viewport;
+void drawViewport(Viewport* viewport);
+Viewport* createViewport(SDL_Surface* screen, SDL_Rect surface, Map* map);
 void moveViewport(Viewport* viewport, short direction);
+void blitToViewport(Viewport* viewport, SDL_Surface* src, SDL_Rect* src_rect, SDL_Rect* dest);
+void cleanViewport(Viewport *viewport);
 
 #endif

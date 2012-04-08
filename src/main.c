@@ -23,10 +23,11 @@
 
 // Global variables
 
-SDL_Surface* _screen;
+Viewport* _viewport;
 Map* _map;
 char* _path;
 Case _cell; // for debug (candy_cane)
+int framecounter = 0;
 
 /**
  * \fn void initPath(char* argv0)
@@ -41,6 +42,7 @@ void initPath(char* argv0) {
 	strncpy(_path, argv0, trimLength);
 }
 
+// FIXME This function is used for file loading in other files too..
 /**
  * \fn char* getPath(char* resource)
  * \brief Converts a resource path from executable-relative to a path relative to the current working directory
@@ -67,8 +69,7 @@ int main(int argc, char* argv[]) {
 	SDL_Init(SDL_INIT_VIDEO);
 	SDL_SetEventFilter(eventFilter);
 	
-	screen = SDL_SetVideoMode(800, 600, 32, SDL_HWSURFACE);
-	_screen = screen;
+	screen = SDL_SetVideoMode(800, 600, 32, SDL_HWSURFACE | SDL_ASYNCBLIT | SDL_DOUBLEBUF | SDL_NOFRAME);
 	SDL_WM_SetCaption("Tower Defense", NULL);
 	Action *actionList = initAction();
 	
@@ -76,7 +77,10 @@ int main(int argc, char* argv[]) {
 	_map = map;
 	
 	SDL_Rect surface = {0, 0, 720, 600};
-	Viewport* viewport = createViewport(surface, map);
+	Viewport* viewport = createViewport(screen, surface, map);
+	_viewport = viewport;
+	
+	// FIXME uh? what's this thing?
 	surface.x = 800 - 80; surface.y = 0; surface.h = 80; surface.w = 600;
 	
 	// Creation of the enemies
@@ -117,7 +121,7 @@ int main(int argc, char* argv[]) {
    
 	// Create and Renders the right panel game menu
 	SDL_Rect surfaceMenu = {720, 0, 800, 600};
-	Menu* menu = menu_create(surfaceMenu);
+	Menu* menu = menu_create(screen, surfaceMenu);
 	menu_loadBackground(menu, "resources/enemyFont.gif");
 		// For testing only, we add a few random buttons
 	menu_addButton(menu, button_createBuildButton(tower));
@@ -140,8 +144,10 @@ int main(int argc, char* argv[]) {
 			}
 		}
 
-		// Clean the objects on the map
-		cleanMap(map);
+		// Redraws the map (viewport contents) before blitting stuff on it
+		updateViewport(viewport);
+		
+		
 ///////////////////////////// DEBUG WALL /////////////////////////////
    SDL_Rect position;
 	for(int i=0;i < _map->nbCaseW;i++){
@@ -151,13 +157,13 @@ int main(int argc, char* argv[]) {
 		   position.y = cell.y;
 			if(map->matrice[i][j].hasTower == 2){
             SDL_Surface *wall = IMG_Load(getPath("resources/brick.png"));
-			   SDL_BlitSurface(wall,NULL,map->bg,&position);
+			   blitToViewport(viewport, wall, NULL, &position);
 			}
 		}
 	}
 	position.x = _cell.x;
 	position.y = _cell.y;
-   SDL_BlitSurface(IMG_Load(getPath("resources/candy_cane.png")),NULL,map->bg,&position);
+    blitToViewport(viewport, IMG_Load(getPath("resources/candy_cane.png")), NULL, &position);
 /////////////////////////////////////////////////////////////////////
 		
       // Move enemies
@@ -193,18 +199,18 @@ int main(int argc, char* argv[]) {
 /*      */
 
       
-		// Blit map
-		drawMap(map, &(viewport->surface), screen);
-		
-//		SDL_BlitSurface(enemy->animation.currentFrame, getRect(&enemy->animation), _map->bg, &animOffset);
-
+		// Ask SDL to swap framebuffers to update the displayed screen
 		SDL_Flip(screen);
-		
+	
 		// Managing frames
 		currentTime = SDL_GetTicks();
 		if (currentTime - previousTime <= 20) {
 			SDL_Delay(20 - (currentTime - previousTime));
 		}
+		
+		// DEBUG
+		printf("Frame %i : %ims\n", framecounter++, currentTime - previousTime);		
+
 		previousTime = SDL_GetTicks();
 	}
 //	free(actionList);
