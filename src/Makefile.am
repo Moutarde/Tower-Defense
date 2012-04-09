@@ -3,6 +3,7 @@ bin_PROGRAMS = towerdefense
 towerdefense_SOURCES = main.c \
 enemy/enemy.c \
 enemy/typeEn.c \
+enemy/action.c \
 map/map.c \
 tower/bullet.c \
 tower/tower.c \
@@ -13,7 +14,7 @@ utils/menu.c \
 event/event.c \
 list/list.c \
 utils/pathFinding.c \
-utils/button.c
+utils/button.c 
 
 
 AM_CFLAGS=-Wall -std=c99

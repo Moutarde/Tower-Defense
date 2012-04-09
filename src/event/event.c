@@ -11,11 +11,11 @@
 
 #include "event.h"
 
-
 int eventFilter(SDL_Event* event) {
 	switch(event->type) {
 		case SDL_QUIT:
 		case SDL_KEYDOWN:
+		case SDL_KEYUP:
 		case SDL_MOUSEBUTTONDOWN:
 			return 1;
 		default:
@@ -31,13 +31,11 @@ int eventFilter(SDL_Event* event) {
  * \param viewport The viewport that can be moved.
  * \return False if the the game ends, true if not.
  */
-bool manageEvent(SDL_Event event, Viewport* viewport, Events *flags) {
-	bool isInPlay = true;
-	
+void manageEvent(SDL_Event event, Viewport* viewport, Events *flags, Action *actionList){
 	switch(event.type) {
 		// Quit game
 		case SDL_QUIT:
-			isInPlay = false;
+			actionList[QUIT].boolean = (void*)1;
 			break;
 			
 		// Key pressed
@@ -45,62 +43,68 @@ bool manageEvent(SDL_Event event, Viewport* viewport, Events *flags) {
 			switch(event.key.keysym.sym) {
 				// Quit game
 				case SDLK_ESCAPE:
-					isInPlay = false;
+					actionList[QUIT].boolean = (void*)1;
 					break;
 					
 				// Move view
 				case SDLK_UP:
-					moveViewport(viewport, UP);
-					break;
+					actionList[ARROW_UP].boolean = (void*)1;
+				  break;
 					
 				case SDLK_DOWN:
-					moveViewport(viewport, DOWN);
-					break;
+					actionList[ARROW_DOWN].boolean = (void*)1;
+				  break;
 					
 				case SDLK_LEFT:
-					moveViewport(viewport, LEFT);
-					break;
+					actionList[ARROW_LEFT].boolean = (void*)1;
+				  break;
 					
 				case SDLK_RIGHT:
-					moveViewport(viewport, RIGHT);
-					break;
+					actionList[ARROW_RIGHT].boolean = (void*)1;
+				  break;
 					
 				default:
 					break;
 			}
 		   break;
+		// Key released
+		case SDL_KEYUP:
+			switch(event.key.keysym.sym) {
+					
+					// Stop Moving view
+					case SDLK_UP:
+						actionList[ARROW_UP].boolean = NULL;
+					  break;
+					case SDLK_DOWN:
+						actionList[ARROW_DOWN].boolean = NULL;
+					  break;
+					case SDLK_LEFT:
+						actionList[ARROW_LEFT].boolean = NULL;
+					  break;
+					case SDLK_RIGHT:
+						actionList[ARROW_RIGHT].boolean = NULL;
+					  break;
+					default:
+					  break;
+		  }
 
       // Mouse left click
       case SDL_MOUSEBUTTONDOWN:
          if(event.button.button == SDL_BUTTON_LEFT) {
-            Case* caseClicked = whichCase(event.button.x, event.button.y);
-            TypeTo* simpleTowerType = flags->selectedTower;
-            Case *viewportOffset = whichCase(viewport->mapsurface.x,viewport->mapsurface.y);
-            int mapPositionX = caseClicked->xx + viewportOffset->xx;
-            int mapPositionY = caseClicked->yy + viewportOffset->yy;
-            Tower *tower = createTower(mapPositionX, mapPositionY, simpleTowerType);
-            if(tower){
-               flags->enemy_Path_Calculation = true;
-               pushList((void*)flags->towerList,tower);
-               drawTower(tower);
-            }
+		   	actionList[CASE_CLICKED].boolean = whichCase(event.button.x, event.button.y);
          }
          break;
 			
 		default:
 			break;
 	}
-	
-	return isInPlay;
 }
 
-bool manageEvents(Viewport* viewport, Events *flags) {
+void manageEvents(Viewport* viewport, Events *flags, Action *actionList) {
 	SDL_Event event;
 	// Process events until game exit, or there's none left
-	while(SDL_PollEvent(&event)) {
-		if(!manageEvent(event, viewport, flags)) return false;
-	}
-	return true;
+	SDL_PollEvent(&event);
+	manageEvent(event, viewport, flags, actionList);
 }
 
 /**

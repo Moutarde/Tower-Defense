@@ -19,6 +19,7 @@
 #include "list/list.h"
 #include "utils/menu.h"
 #include "utils/button.h"
+#include "enemy/action.h"
 
 // Global variables
 
@@ -60,17 +61,17 @@ int main(int argc, char* argv[]) {
 	initPath(argv[0]);
 	SDL_Surface* screen = NULL;
 	SDL_Event event;
-	bool isInPlay = true;
-	void* seed;
+	int *seed;
 	srand((int)seed);
 	int previousTime = 0, currentTime = 0;
-   Events *flags = createEventFlags();
+	Events *flags = createEventFlags();
 
 	SDL_Init(SDL_INIT_VIDEO);
 	SDL_SetEventFilter(eventFilter);
 	
 	screen = SDL_SetVideoMode(800, 600, 32, SDL_HWSURFACE | SDL_ASYNCBLIT | SDL_DOUBLEBUF | SDL_NOFRAME);
 	SDL_WM_SetCaption("Tower Defense", NULL);
+	Action *actionList = initAction();
 	
 	Map* map = createMap(getPath("resources/Forest.png"));
 	_map = map;
@@ -110,29 +111,38 @@ int main(int argc, char* argv[]) {
 //   removeEnemyFromList(cat4,catList);
 
    //TOWER
-   TypeTo *towertype = createTypeTo(10,10,200,1000,100,0,1,NULL,NULL,NULL,getPath("resources/tower.png"));
-   flags->selectedTower = towertype;
-   Tower *tower1 = createTower(7,7,towertype);
+   TypeTo *tower = createTypeTo(0,0,0,0,false,false,false,false,NULL,NULL,getPath("resources/tower.png"));
+   upgradeTypeTo(tower,0.5,getPath("resources/towerUP.png"));
+   flags->selectedTower = tower->nextType;
+   Tower *tower1 = createTower(7,7,tower);
 
    List *towerList = newList(tower1);
    flags->towerList = towerList;
    
 	// Create and Renders the right panel game menu
-	SDL_Rect surfaceMenu = {720, 0, 80, 600};
+	SDL_Rect surfaceMenu = {720, 0, 800, 600};
 	Menu* menu = menu_create(screen, surfaceMenu);
 	menu_loadBackground(menu, "resources/enemyFont.gif");
 		// For testing only, we add a few random buttons
-		menu_addButton(menu, button_createBuildButton(towertype));
-		menu_addButton(menu, button_createBuildButton(towertype));
-		menu_addButton(menu, button_createBuildButton(towertype));
+	menu_addButton(menu, button_createBuildButton(tower));
+	menu_addButton(menu, button_createBuildButton(tower));
+	menu_addButton(menu, button_createBuildButton(tower));
 	menu_render(menu);
 
 
 	_cell = *getCase(20,11);
 	// Main loop
-	while(isInPlay) {
+	while(actionList[QUIT].boolean == NULL){
 		// Managing the events
-		isInPlay = manageEvents(viewport, flags);
+		manageEvents(viewport, flags,actionList);
+		for(int i=1;i<ACTION_LENGTH;i++){
+			if(actionList[i].boolean){
+				int repeat = (*actionList[i].action)(viewport,flags,actionList[i].boolean);
+				if(!repeat){
+					actionList[i].boolean = NULL;
+				}
+			}
+		}
 
 		// Redraws the map (viewport contents) before blitting stuff on it
 		updateViewport(viewport);
@@ -203,6 +213,7 @@ int main(int argc, char* argv[]) {
 
 		previousTime = SDL_GetTicks();
 	}
+//	free(actionList);
 	SDL_Quit();
 	
 	return EXIT_SUCCESS;

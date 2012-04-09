@@ -1,3 +1,3 @@
 AM_CFLAGS = -std=c99
-CFLAGS= -0s
+CFLAGS= -O0
 SUBDIRS = src 
