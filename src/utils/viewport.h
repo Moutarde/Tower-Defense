@@ -49,5 +49,6 @@ Viewport* createViewport(SDL_Surface* screen, SDL_Rect surface, Map* map);
 void moveViewport(Viewport* viewport, short direction);
 void blitToViewport(Viewport* viewport, SDL_Surface* src, SDL_Rect* src_rect, SDL_Rect* dest);
 void cleanViewport(Viewport *viewport);
+void updateViewport(Viewport *viewport);
 
 #endif
