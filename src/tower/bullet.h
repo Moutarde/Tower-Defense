@@ -8,21 +8,22 @@
  If not, see  <http://www.gnu.org/licenses/>.
 */
 
-
-#ifndef BULLET
-#define BULLET
-
-#include <stdio.h>
+#ifndef __Bullet_H__
+#define __Bullet_H__
 
 #include "typeBul.h"
+#include "tower.h"
 
+#include "../enemy/enemy.h"
+#include "../map/case.h"
 
-typedef struct {
-	int x;
-	int y;
-	TypeBul* type;
-} Bullet;
+typedef struct{
+	Case *position;		//!< Bullet
+	Enemy *target;
+	TypeBul *type;
+}Bullet;
 
-Bullet* createBullet(int x, int y, TypeBul* type);
+Bullet* createBullet(TypeBul *type, Tower *tower);
 
-#endif
+#endif /* __Bullet_H__ */
+

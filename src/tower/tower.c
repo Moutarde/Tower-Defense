@@ -52,3 +52,44 @@ void drawTower(Tower* tower) {
 	cell->hasTower = true;
 	blitToViewport(_viewport, tower->type->image, NULL, &position);
 }
+
+/**
+ * \fn Case searchEnemy(Tower *tower)
+ * \brief search an enemy around the tower
+ * \param tower the tower which search the enemy
+ * \return the first cell which have an enemy and the tower position if there aren't any enemy in the range
+ */
+
+Case* searchEnemy(Tower *tower){
+	int x = tower->x;
+	int y = tower->y;
+	int range = tower->type->range;
+	Case *enemyPosition;
+	for(int i=-range;i<=range;i++){
+		for(int j=-range;j<=range;j++){
+			if(isInCircle(i,j,range*2,x,y)){
+				enemyPosition = whichCase(i, j);
+				if(enemyPosition->hasEnemy){
+					return enemyPosition;
+				}
+			}
+		}
+	}
+	return whichCase(tower->x,tower->y);
+}
+
+/**
+ * \fn int isInCircle(int x, int y, int range, int a, int b)
+ * \brief Calcul if (x,y) is in the cercle C(a,b)
+ * \param x x position of the point
+ * \param y y position of the point
+ * \param a x position of the circle
+ * \param b y position of the circle
+ * \param range length of the circle
+ * \return true if the point is on or in the circle
+ */
+ 
+int isInCircle(int x, int y, int range, int a, int b){
+  return (x - a)*(x - a) + (y - b)*(y - b)< (range * range);
+}
+

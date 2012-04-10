@@ -8,16 +8,12 @@
  If not, see  <http://www.gnu.org/licenses/>.
 */
 
-
 #include "bullet.h"
 
-
-Bullet* createBullet(int x, int y, TypeBul* type){
-	Bullet* bullet = (Bullet*)malloc( sizeof(Bullet) );
-
-	bullet->x = x;
-	bullet->y = y;
+Bullet* createBullet(TypeBul *type, Tower *tower){
+	Bullet *bullet = malloc(sizeof (Bullet));
 	bullet->type = type;
-
-	return bullet;
+	bullet->position = searchEnemy(tower);
+  return bullet;
 }
+

@@ -34,7 +34,7 @@ typedef struct TypeTo {
 	SDL_Surface* image;
 } TypeTo;
 
-typedef struct {
+typedef struct{
 	int x;
 	int y;
 	TypeTo* type;
