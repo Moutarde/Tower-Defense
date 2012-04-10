@@ -19,9 +19,9 @@
 #include "../utils/viewport.h"
 
 typedef struct{
-	Case *position;		//!< Bullet
-	Enemy *target;
-	TypeBul *type;
+	Case *position;	//!< Bullet
+	Enemy *target;		//!< the enemy targeted by the bullet //TODO (not implemented yet)
+	TypeBul *type;		//!< the type of bullet
 }Bullet;
 
 Bullet* createBullet(Tower *tower);

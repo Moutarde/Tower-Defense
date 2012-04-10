@@ -9,6 +9,12 @@
 */
 
 #include "bullet.h"
+/**
+ * \fn Bullet* createBullet(Tower *tower)
+ * \brief create a new bullet
+ * a new bullet which doesn't have 
+ * \param tower the tower the bullet belong to
+ */
 
 Bullet* createBullet(Tower *tower){
 	Bullet *bullet = malloc(sizeof (Bullet));
@@ -31,4 +37,15 @@ void drawBullet(Bullet *bullet){
 	blitToViewport(_viewport, bullet->type->image, NULL, &position);
 }
 
-
+/**
+ * \fn void animateBullet(Bullet *bullet)
+ * \brief move the bullet to an enemy and draw it
+ *	Depreciated, recode your own function!
+ * \param bullet the bullet to animate
+ */
+ 
+void animateBullet(Bullet *bullet){
+	if(!(bullet->position->xx == bullet->position->x && bullet->position->yy == bullet->position->y)){
+		drawBullet(bullet);
+	}
+}
