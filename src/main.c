@@ -214,7 +214,7 @@ int main(int argc, char* argv[]) {
 
 		previousTime = SDL_GetTicks();
 	}
-//	free(actionList);
+	free(actionList);
 	SDL_Quit();
 	
 	return EXIT_SUCCESS;
