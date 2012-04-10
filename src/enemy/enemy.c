@@ -9,12 +9,9 @@
 */
 
 
-#include <stdlib.h>
-
 #include "enemy.h"
 #include "../utils/pathFinding.h"
 #include "../utils/viewport.h"
-
 
 /**
  * \fn Enemy* createEnemy(int x, int y, TypeEn* type)

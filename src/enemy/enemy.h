@@ -14,7 +14,7 @@
 
 #include <stdio.h>
 #include <stdbool.h>
-
+#include <stdlib.h>
 #include "typeEn.h"
 #include "../map/map.h"
 

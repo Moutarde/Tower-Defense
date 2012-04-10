@@ -10,10 +10,25 @@
 
 #include "bullet.h"
 
-Bullet* createBullet(TypeBul *type, Tower *tower){
+Bullet* createBullet(Tower *tower){
 	Bullet *bullet = malloc(sizeof (Bullet));
-	bullet->type = type;
+	bullet->type = tower->type->typeBul;
 	bullet->position = searchEnemy(tower);
   return bullet;
 }
+
+/**
+ * \fn void drawBullet(Bullet *bullet)
+ * \brief draw a bullet
+ *
+ * \param bullet a bullet to draw
+ */
+ 
+void drawBullet(Bullet *bullet){
+	SDL_Rect position;
+	position.x = bullet->position->x;
+	position.y = bullet->position->y;
+	blitToViewport(_viewport, bullet->type->image, NULL, &position);
+}
+
 

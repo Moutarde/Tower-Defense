@@ -12,7 +12,6 @@
 #include "tower.h"
 #include "../utils/viewport.h"
 
-
 Tower* createTower(int x, int y, TypeTo* type) {
    Case *cell = getCase(x,y);
    if(cell->hasEnemy || cell->hasTower){

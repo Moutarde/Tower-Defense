@@ -16,7 +16,6 @@
 #include "typeTo.h"
 #include "../map/map.h"
 
-
 extern Map* _map;
 Tower* createTower(int x, int y, TypeTo* type);
 void upgrade(Tower* t);

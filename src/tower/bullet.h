@@ -16,6 +16,7 @@
 
 #include "../enemy/enemy.h"
 #include "../map/case.h"
+#include "../utils/viewport.h"
 
 typedef struct{
 	Case *position;		//!< Bullet
@@ -23,7 +24,8 @@ typedef struct{
 	TypeBul *type;
 }Bullet;
 
-Bullet* createBullet(TypeBul *type, Tower *tower);
+Bullet* createBullet(Tower *tower);
+void drawBullet(Bullet *bullet);
 
 #endif /* __Bullet_H__ */
 
