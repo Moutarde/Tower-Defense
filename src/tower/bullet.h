@@ -26,6 +26,7 @@ typedef struct{
 
 Bullet* createBullet(Tower *tower);
 void drawBullet(Bullet *bullet);
+void animateBullet(Bullet *bullet);
 
 #endif /* __Bullet_H__ */
 

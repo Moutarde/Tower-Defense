@@ -64,8 +64,6 @@ Case* searchEnemy(Tower *tower){
 	int y = tower->y;
 	int range = tower->type->range;
 	Case *enemyPosition;
-	enemyPosition->xx = tower->x;
-	enemyPosition->yy = tower->y;
 	for(int i=-range;i<=range;i++){
 		for(int j=-range;j<=range;j++){
 			if(isInCircle(i,j,range*2,x,y)){
@@ -76,7 +74,8 @@ Case* searchEnemy(Tower *tower){
 			}
 		}
 	}
-	return whichCase(tower->x,tower->y);
+	enemyPosition = whichCase(tower->x,tower->y);
+	return enemyPosition;
 }
 
 /**

@@ -20,6 +20,8 @@
 #include "utils/menu.h"
 #include "utils/button.h"
 #include "enemy/action.h"
+#include "tower/bullet.h"
+
 
 // Global variables
 
@@ -111,8 +113,8 @@ int main(int argc, char* argv[]) {
 //   removeEnemyFromList(cat4,catList);
 
    //TOWER
-   TypeBul *bullet = createTypeBul(getPath("ressource/bullet.png"), 1);
-   TypeTo *tower = createTypeTo(0,0,0,0,false,false,false,false,bullet,NULL,getPath("resources/tower.png"));
+   TypeBul *bullet = createTypeBul(getPath("resources/bullet.png"), 1);
+   TypeTo *tower = createTypeTo(0,5,0,0,false,false,false,false,bullet,NULL,getPath("resources/tower.png"));
    upgradeTypeTo(tower,0.5,getPath("resources/towerUP.png"));
    flags->selectedTower = tower->nextType;
    Tower *tower1 = createTower(7,7,tower);
@@ -183,6 +185,8 @@ int main(int argc, char* argv[]) {
 /*      if(event.key.keysym.sym == SDLK_u){*/
 /*         upgrade(tower1);*/
 /*      }*/
+		Bullet *bullet1 = createBullet(tower1);
+		animateBullet(bullet1);
       drawTowerList(towerList);
 	
 	/* This should be handled by event.c

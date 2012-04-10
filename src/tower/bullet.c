@@ -32,8 +32,8 @@ Bullet* createBullet(Tower *tower){
  
 void drawBullet(Bullet *bullet){
 	SDL_Rect position;
-	position.x = bullet->position->x;
-	position.y = bullet->position->y;
+	position.x = 280; //=xx
+	position.y = 280; //=yy
 	blitToViewport(_viewport, bullet->type->image, NULL, &position);
 }
 
@@ -45,7 +45,7 @@ void drawBullet(Bullet *bullet){
  */
  
 void animateBullet(Bullet *bullet){
-	if(!(bullet->position->xx == bullet->position->x && bullet->position->yy == bullet->position->y)){
+/*	if(!(bullet->position->xx == bullet->position->x && bullet->position->yy == bullet->position->y)){*/
 		drawBullet(bullet);
-	}
+/*	}*/
 }
